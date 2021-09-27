@@ -16,7 +16,8 @@ set(WARNING_FLAG
 )
 
 set(SRCS
-        main.cpp
+        Game.cpp
+        EventSystem.cpp
 )
 
 list(TRANSFORM SRCS PREPEND ${SRC_DIR})
