@@ -4,13 +4,6 @@
 int main(int argc, char const *argv[])
 {
     Game::Game::getInstance().start();
-    // while (mainClass._window.isOpen()) {
-    //     mainClass._window.clear(sf::Color(rand(), rand(), rand()));
-    //     mainClass.eventPoll();
-    //     mainClass._window.display();
-    //     mainClass._window.clear();
-    // }
-
     return 0;
 }
 
@@ -61,6 +54,10 @@ void Game::onInit()
 {
     this->_window = std::make_unique<sf::RenderWindow>(
         this->_videoMode, this->_windowTitle, this->_windowStyle);
+
+    this->_parallax.setRenderWindow(this->_window.get());
+    this->_parallax.clear();
+    this->_parallax.initFromFile("../core/json/backConfig.json", "background");
 }
 
 void Game::onBeforeUpdate()
@@ -70,6 +67,7 @@ void Game::onBeforeUpdate()
 
 void Game::onAfterUpdate()
 {
+    this->_parallax.display();
     this->_window->display();
 }
 

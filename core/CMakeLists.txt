@@ -6,7 +6,6 @@ set(SRC_DIR src/)
 
 include_directories(
         ./src
-
 )
 
 set(WARNING_FLAG
@@ -18,6 +17,12 @@ set(WARNING_FLAG
 set(SRCS
         Game.cpp
         EventSystem.cpp
+        Parallax/AParallax.cpp
+        Parallax/layerBackground.cpp
+        Parallax/ParallaxManager.cpp
+        Parallax/ParallaxLayer.cpp
+        Parallax/ParallaxObj.cpp
+        tools/random.cpp
 )
 
 list(TRANSFORM SRCS PREPEND ${SRC_DIR})

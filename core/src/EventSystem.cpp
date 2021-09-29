@@ -66,6 +66,14 @@ void EventSystem::handleKeyReleasedEvents(const sf::Event &evt)
     if (evt.key.code == sf::Keyboard::Escape) {
         Game::getInstance().getWindow()->close();
         Game::getInstance().stop();
+    } else if (evt.key.code == sf::Keyboard::Enter) {
+        parallax::Parallax &parallaxSys = Game::getInstance().getParallax();
+        if (parallaxSys.getConfigName() == "background")
+            parallaxSys.initFromFile(
+                "../core/json/backConfig.json", "background2");
+        else
+            parallaxSys.initFromFile(
+                "../core/json/backConfig.json", "background");
     }
 }
 } // namespace Game

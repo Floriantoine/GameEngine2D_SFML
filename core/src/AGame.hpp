@@ -6,20 +6,27 @@
 class AGame {
   private:
     bool isRunning{false};
-    double framerateLimit_{60};
+    double _framerateLimit{60};
     Game::EventSystem _eventSys;
 
   protected:
+    parallax::Parallax _parallax;
     AGame()
     {
     }
     virtual ~AGame() = default;
 
   public:
+    parallax::Parallax &getParallax()
+    {
+        return this->_parallax;
+    }
+
     /**
      * Paces the game loop to match [getFrequency] updates per second
      *
-     * This method is called in the main loop, and must wait until the next tick
+     * This method is called in the main loop, and must wait until the next
+     * tick
      */
     virtual void wait() = 0;
 
@@ -40,7 +47,7 @@ class AGame {
      */
     double getFramerateLimit() const
     {
-        return this->framerateLimit_;
+        return this->_framerateLimit;
     }
 
     /**
@@ -58,7 +65,7 @@ class AGame {
     }
 
     /**
-     * Start the game
+     * Init and Start Game Loop
      */
     void start()
     {
@@ -79,9 +86,8 @@ class AGame {
     }
 
     /**
-     * Stop the game execution
+     * Stop Game Loop
      *
-     * The game will fully stop on next tick
      */
     void stop()
     {
@@ -92,19 +98,22 @@ class AGame {
     /**
      * Set game update rate
      *
-     * @param limit maximum number of updates per second
+     * @param limit, new framerate Limit
      */
     void setFramerateLimit(double limit)
     {
-        this->framerateLimit_ = limit;
+        this->_framerateLimit = limit;
     }
 
   private:
     /**
-     * Updates the game
+     * Updates Game
+     *
+     * @param elapsed, number of milliseconds elapsed since last Game Update
      */
     void update(long elapsed)
     {
+        this->_parallax.update();
         this->_eventSys.update(elapsed);
     }
 
@@ -114,24 +123,29 @@ class AGame {
     virtual void onInit()
     {
     }
+
     /**
      * Method called when the game starts
      */
     virtual void onStart()
     {
     }
+
     /**
      * Method called before each game update
      */
     virtual void onBeforeUpdate()
     {
     }
+
     /**
      * Method called after each game update
      */
     virtual void onAfterUpdate()
     {
+        this->_parallax.display();
     }
+
     /**
      * Method called when the game ends
      */

@@ -1,0 +1,51 @@
+{
+    "background": [
+        {
+            "path": "../core/resources/parallax-space-backgound.png",
+            "type": "BACKGROUND"
+        },
+        {
+            "path": "../core/resources/parallax-space-stars.png",
+            "type": "BACKGROUND"
+        },
+        {
+            "path": "../core/resources/parallax-space-stars.png",
+            "type": "LAYER"
+        },
+        {
+            "path": "../core/resources/spaceShip.png",
+            "type": "OBJ",
+            "inverted": true
+        },
+        {
+            "path": "../core/resources/spaceShip.png",
+            "type": "OBJ"
+        },
+        {
+            "path": "../core/resources/parallax-space-far-planets.png",
+            "type": "LAYER"
+        },
+        {
+            "path": "../core/resources/parallax-space-stars.png",
+            "type": "LAYER"
+        },
+        {
+            "path": "../core/resources/parallax-space-far-planets.png",
+            "type": "LAYER"
+        },
+        {
+            "path": "../core/resources/parallax-space-stars.png",
+            "type": "LAYER"
+        }
+    ],
+    "background2": [
+        {
+            "path": "../core/resources/hunter/sky.png",
+            "type": "BACKGROUND"
+        },
+        {
+            "path": "../core/resources/hunter/deco.png",
+            "type": "BACKGROUND"
+        }
+    ]
+}
