@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "./Parallax/ParallaxManager.hpp"
+#include "./Parallax/ParallaxSystem.hpp"
 #include "./Singleton.hpp"
 #include <./AGame.hpp>
 #include <SFML/Graphics.hpp>

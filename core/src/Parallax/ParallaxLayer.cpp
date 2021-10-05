@@ -1,16 +1,22 @@
 #include "./ParallaxLayer.hpp"
+#include "./ParallaxSystem.hpp"
 #include <SFML/System/Vector2.hpp>
 
 namespace parallax {
 
-void ParallaxLayer::update()
+void ParallaxLayer::update(long elapsed)
 {
+    this->_totalLifeTime += elapsed;
+    long step = _totalLifeTime / this->getParallaxManagerRef()->getRate();
+    if (step)
+        _totalLifeTime %= this->getParallaxManagerRef()->getRate();
+
     if (_layerId == 1)
         return;
     if (!_inverted)
-        _pos.x -= 1 * _layerId;
+        this->_pos.x -= step * this->_layerId;
     else
-        _pos.x += 1 * _layerId;
+        this->_pos.x += step * this->_layerId;
     if (_pos.x < (int)(-_layerSize.x)) {
         _pos.x = 0;
     }
@@ -35,9 +41,9 @@ void ParallaxLayer::display()
     }
 }
 
-ParallaxLayer::ParallaxLayer(
-    std::string spritePath, int layerId, sf::RenderWindow *win, bool inverted)
-    : AParallax(spritePath, layerId, win, inverted)
+ParallaxLayer::ParallaxLayer(ParallaxSystem *paraS, std::string spritePath,
+    int layerId, sf::RenderWindow *win, nlohmann::json options)
+    : AParallax(paraS, spritePath, layerId, win, options)
 {
     sf::Vector2i winSize = {1920, 1080};
 

@@ -8,10 +8,10 @@ namespace parallax {
 
 class ParallaxLayer : public AParallax {
   public:
-    void update() override;
+    void update(long elapsed) override;
     void display() override;
-    ParallaxLayer(std::string spritePath, int layerId, sf::RenderWindow *win,
-        bool inverted);
+    ParallaxLayer(ParallaxSystem *paraS, std::string spritePath, int layerId,
+        sf::RenderWindow *win, nlohmann::json options);
     ~ParallaxLayer() = default;
 };
 

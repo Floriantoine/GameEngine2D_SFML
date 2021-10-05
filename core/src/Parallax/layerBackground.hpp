@@ -8,8 +8,8 @@ namespace parallax {
 
 class LayerBackground : public AParallax {
   public:
-    LayerBackground(std::string spritePath, int layerId, sf::RenderWindow *win,
-        bool inverted);
+    LayerBackground(ParallaxSystem *paraS, std::string spritePath, int layerId,
+        sf::RenderWindow *win, nlohmann::json options);
     ~LayerBackground() = default;
 };
 

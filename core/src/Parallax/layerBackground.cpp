@@ -3,9 +3,9 @@
 
 namespace parallax {
 
-LayerBackground::LayerBackground(
-    std::string spritePath, int layerId, sf::RenderWindow *win, bool inverted)
-    : AParallax(spritePath, layerId, win, inverted)
+LayerBackground::LayerBackground(ParallaxSystem *paraS, std::string spritePath,
+    int layerId, sf::RenderWindow *win, nlohmann::json options)
+    : AParallax(paraS, spritePath, layerId, win, options)
 {
 }
 

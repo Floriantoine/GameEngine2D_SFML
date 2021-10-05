@@ -10,14 +10,14 @@ class AGame {
     Game::EventSystem _eventSys;
 
   protected:
-    parallax::Parallax _parallax;
+    parallax::ParallaxSystem _parallax;
     AGame()
     {
     }
     virtual ~AGame() = default;
 
   public:
-    parallax::Parallax &getParallax()
+    parallax::ParallaxSystem &getParallax()
     {
         return this->_parallax;
     }
@@ -113,7 +113,7 @@ class AGame {
      */
     void update(long elapsed)
     {
-        this->_parallax.update();
+        this->_parallax.update(elapsed);
         this->_eventSys.update(elapsed);
     }
 

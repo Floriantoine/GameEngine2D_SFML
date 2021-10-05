@@ -19,7 +19,7 @@ set(SRCS
         EventSystem.cpp
         Parallax/AParallax.cpp
         Parallax/layerBackground.cpp
-        Parallax/ParallaxManager.cpp
+        Parallax/ParallaxSystem.cpp
         Parallax/ParallaxLayer.cpp
         Parallax/ParallaxObj.cpp
         tools/random.cpp

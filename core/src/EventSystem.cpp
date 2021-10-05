@@ -57,6 +57,29 @@ void EventSystem::handleKeyPressedEvents(const sf::Event &evt)
 {
     if (evt.type != sf::Event::EventType::KeyPressed)
         return;
+    if (evt.key.code == sf::Keyboard::Left) {
+        parallax::ParallaxSystem &parallaxSys =
+            Game::getInstance().getParallax();
+        parallaxSys.setRate(parallaxSys.getRate() - 1);
+    }
+    if (evt.key.code == sf::Keyboard::Right) {
+        parallax::ParallaxSystem &parallaxSys =
+            Game::getInstance().getParallax();
+        parallaxSys.setRate(parallaxSys.getRate() + 1);
+    }
+    if (evt.key.code == sf::Keyboard::Enter) {
+        parallax::ParallaxSystem &parallaxSys =
+            Game::getInstance().getParallax();
+        if (parallaxSys.getConfigName() == "background")
+            parallaxSys.initFromFile(
+                "../core/json/backConfig.json", "background2");
+        else if (parallaxSys.getConfigName() == "background2")
+            parallaxSys.initFromFile(
+                "../core/json/backConfig.json", "background3");
+        else
+            parallaxSys.initFromFile(
+                "../core/json/backConfig.json", "background");
+    }
 }
 
 void EventSystem::handleKeyReleasedEvents(const sf::Event &evt)
@@ -66,14 +89,6 @@ void EventSystem::handleKeyReleasedEvents(const sf::Event &evt)
     if (evt.key.code == sf::Keyboard::Escape) {
         Game::getInstance().getWindow()->close();
         Game::getInstance().stop();
-    } else if (evt.key.code == sf::Keyboard::Enter) {
-        parallax::Parallax &parallaxSys = Game::getInstance().getParallax();
-        if (parallaxSys.getConfigName() == "background")
-            parallaxSys.initFromFile(
-                "../core/json/backConfig.json", "background2");
-        else
-            parallaxSys.initFromFile(
-                "../core/json/backConfig.json", "background");
     }
 }
 } // namespace Game

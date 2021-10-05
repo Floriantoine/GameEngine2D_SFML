@@ -9,17 +9,29 @@
             "type": "BACKGROUND"
         },
         {
+            "path": "../core/resources/parallax-space-big-planet.png",
+            "type": "OBJ"
+        },
+        {
             "path": "../core/resources/parallax-space-stars.png",
             "type": "LAYER"
         },
         {
             "path": "../core/resources/spaceShip.png",
             "type": "OBJ",
-            "inverted": true
+            "options": {
+                "inverted": true,
+                "amplitude": 20,
+                "xStep": 3
+            }
         },
         {
             "path": "../core/resources/spaceShip.png",
-            "type": "OBJ"
+            "type": "OBJ",
+            "options": {
+                "amplitude": 22,
+                "xStep": 3
+            }
         },
         {
             "path": "../core/resources/parallax-space-far-planets.png",
@@ -46,6 +58,24 @@
         {
             "path": "../core/resources/hunter/deco.png",
             "type": "BACKGROUND"
+        }
+    ],
+    "background3": [
+        {
+            "path": "../core/resources/hunter/sky.png",
+            "type": "BACKGROUND"
+        },
+        {
+            "path": "../core/resources/hunter/deco.png",
+            "type": "BACKGROUND"
+        },
+        {
+            "path": "../core/resources/hunter/cloud1.png",
+            "type": "OBJ",
+            "options": {
+                "amplitude": 22,
+                "xStep": 3
+            }
         }
     ]
 }

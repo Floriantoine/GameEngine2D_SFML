@@ -1,19 +1,21 @@
 
-#include "./ParallaxManager.hpp"
+#include "./ParallaxSystem.hpp"
 #include "../tools/jsonTools.hpp"
 
 namespace parallax {
 
 namespace {
 template <typename T_object>
-std::unique_ptr<IParallax> createObject(
-    std::string spritePath, int layerId, sf::RenderWindow *win, bool inverted)
+std::unique_ptr<IParallax> createObject(ParallaxSystem *paraS,
+    std::string spritePath, int layerId, sf::RenderWindow *win,
+    nlohmann::json options)
 {
-    return std::make_unique<T_object>(spritePath, layerId, win, inverted);
+    return std::make_unique<T_object>(paraS, spritePath, layerId, win, options);
 }
 
-using entity_ctor = std::unique_ptr<IParallax> (*)(
-    std::string spritePath, int layerId, sf::RenderWindow *win, bool inverted);
+using entity_ctor = std::unique_ptr<IParallax> (*)(ParallaxSystem *paraS,
+    std::string spritePath, int layerId, sf::RenderWindow *win,
+    nlohmann::json options);
 
 std::vector<std::pair<IParallax::ParallaxType, entity_ctor>> const
     entity_creators = {
@@ -22,7 +24,7 @@ std::vector<std::pair<IParallax::ParallaxType, entity_ctor>> const
         {IParallax::ParallaxType::OBJ, createObject<ParallaxObj>}};
 } // namespace
 
-void Parallax::clear()
+void ParallaxSystem::clear()
 {
     this->_configName = "";
     this->_filepath = "";
@@ -34,45 +36,45 @@ void Parallax::clear()
  * @param filepath, path to background json config
  * @param configName, name Obj in config file
  **/
-void Parallax::initFromFile(std::string filePath, std::string configName)
+void ParallaxSystem::initFromFile(std::string filePath, std::string configName)
 {
     nlohmann::json json = json::loadJson(filePath);
 
-    if (json == nlohmann::json::value_t::discarded) {
+    if (json == nlohmann::json::value_t::discarded || json.is_discarded()) {
         std::cout << "Json Config Error" << std::endl;
+        return;
     } else {
         this->clear();
         this->_filepath = filePath;
         this->_configName = configName;
         for (auto x: json[configName]) {
             std::string path = x["path"];
-            bool inverted = x["inverted"] == true ? true : false;
 
             auto type = parallax::IParallax::ParallaxType::BACKGROUND;
             if (x["type"] == "LAYER")
                 type = parallax::IParallax::ParallaxType::LAYER;
             if (x["type"] == "OBJ")
                 type = parallax::IParallax::ParallaxType::OBJ;
-            this->addLayer(path, type, inverted);
+            this->addLayer(path, type, x["options"]);
         }
     }
 }
 
-void Parallax::update()
+void ParallaxSystem::update(long elapsed)
 {
     for (size_t i = 0; i < _layers.size(); i++) {
-        _layers[i].get()->update();
+        _layers[i].get()->update(elapsed);
     }
 }
 
-void Parallax::display()
+void ParallaxSystem::display()
 {
     for (size_t i = 0; i < _layers.size(); i++)
         _layers[i].get()->display();
 }
 
-void Parallax::addLayer(
-    std::string spritePath, IParallax::ParallaxType type, bool inverted)
+void ParallaxSystem::addLayer(std::string spritePath,
+    IParallax::ParallaxType type, nlohmann::json options)
 {
     auto iter = std::find_if(entity_creators.begin(), entity_creators.end(),
         [&](auto const &entity_creator) {
@@ -80,21 +82,21 @@ void Parallax::addLayer(
         });
 
     if (iter != entity_creators.end()) {
-        _layers.push_back(
-            iter->second(spritePath, _layers.size() + 1, _window, inverted));
+        _layers.push_back(iter->second(
+            this, spritePath, _layers.size() + 1, _window, options));
     }
 }
 
-void Parallax::setRenderWindow(sf::RenderWindow *window)
+void ParallaxSystem::setRenderWindow(sf::RenderWindow *window)
 {
     this->_window = window;
 }
 
-Parallax::Parallax()
+ParallaxSystem::ParallaxSystem()
 {
 }
 
-Parallax::~Parallax()
+ParallaxSystem::~ParallaxSystem()
 {
 }
 
