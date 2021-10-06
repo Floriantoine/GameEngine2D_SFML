@@ -29,4 +29,7 @@ list(TRANSFORM SRCS PREPEND ${SRC_DIR})
 
 add_executable(r-type_client ${SRCS})
 
-target_link_libraries(r-type_client PRIVATE ${CONAN_LIBS})
+target_link_libraries(r-type_client PRIVATE
+  nlohmann_json::nlohmann_json
+  sfml-graphics
+)
