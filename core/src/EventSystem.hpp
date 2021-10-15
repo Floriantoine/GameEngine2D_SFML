@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "./observer/ObserverManager.hpp"
 #include "./observer/Subject.hpp"
 #include <SFML/Window/Event.hpp>
 
@@ -22,10 +23,7 @@ class EventSystem {
     void handleKeyPressedEvents(const sf::Event &evt);
     void handleKeyReleasedEvents(const sf::Event &evt);
     Subject *_subject;
-    EventSystem()
-    {
-        _subject = new Subject;
-    }
+    EventSystem(ObserverManager &observerManager);
 };
 
 } // namespace Game

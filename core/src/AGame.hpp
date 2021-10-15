@@ -1,6 +1,7 @@
 #pragma once
 
 #include "./observer/Observer.hpp"
+#include "./observer/ObserverManager.hpp"
 #include <./EventSystem.hpp>
 #include <chrono>
 
@@ -8,14 +9,16 @@ class AGame {
   private:
     bool isRunning{false};
     double _framerateLimit{60};
+    ObserverManager _observerManager;
     Game::EventSystem _eventSys;
     Observer *_observer;
 
   protected:
     parallax::ParallaxSystem _parallax;
-    AGame() : _eventSys()
+    AGame() : _observerManager(), _eventSys(_observerManager)
     {
-        _observer = new Observer(*_eventSys._subject);
+        _observer = new Observer();
+        _observerManager.addObserver(_observer, EventType::KEY_PRESSED);
     }
     virtual ~AGame() = default;
 
@@ -23,6 +26,11 @@ class AGame {
     parallax::ParallaxSystem &getParallax()
     {
         return this->_parallax;
+    }
+
+    ObserverManager &getObserverManager()
+    {
+        return _observerManager;
     }
 
     /**

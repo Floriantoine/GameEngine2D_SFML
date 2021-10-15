@@ -87,6 +87,12 @@ void EventSystem::handleKeyPressedEvents(const sf::Event &evt)
     }
 }
 
+EventSystem::EventSystem(ObserverManager &observerManager)
+{
+    _subject = new Subject;
+    observerManager.addSubject(_subject, EventType::KEY_PRESSED);
+}
+
 void EventSystem::handleKeyReleasedEvents(const sf::Event &evt)
 {
     if (evt.type != sf::Event::EventType::KeyReleased)
