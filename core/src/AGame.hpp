@@ -1,5 +1,6 @@
 #pragma once
 
+#include "./observer/Observer.hpp"
 #include <./EventSystem.hpp>
 #include <chrono>
 
@@ -8,11 +9,13 @@ class AGame {
     bool isRunning{false};
     double _framerateLimit{60};
     Game::EventSystem _eventSys;
+    Observer *_observer;
 
   protected:
     parallax::ParallaxSystem _parallax;
-    AGame()
+    AGame() : _eventSys()
     {
+        _observer = new Observer(*_eventSys._subject);
     }
     virtual ~AGame() = default;
 

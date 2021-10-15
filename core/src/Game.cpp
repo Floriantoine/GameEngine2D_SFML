@@ -1,5 +1,6 @@
 #include <Game.hpp>
 #include <stdio.h>
+int Observer::static_number_ = 0;
 
 int main(int argc, char const *argv[])
 {

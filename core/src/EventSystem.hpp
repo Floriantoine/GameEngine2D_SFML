@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "./observer/Subject.hpp"
 #include <SFML/Window/Event.hpp>
 
 namespace Game {
@@ -20,6 +21,11 @@ class EventSystem {
     void handleMouseButtonReleasedEvents(const sf::Event &evt);
     void handleKeyPressedEvents(const sf::Event &evt);
     void handleKeyReleasedEvents(const sf::Event &evt);
+    Subject *_subject;
+    EventSystem()
+    {
+        _subject = new Subject;
+    }
 };
 
 } // namespace Game
