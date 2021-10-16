@@ -31,7 +31,7 @@ void EventSystem::handleCloseEvent(const sf::Event &evt)
 {
     if (evt.type != sf::Event::EventType::Closed)
         return;
-    this->_subject->CreateMessage("Close Event");
+    this->_subject->CreateMessage(EventType::CLOSE_EVT, "Close Event");
 
     Game::getInstance().getWindow()->close();
     Game::getInstance().stop();
@@ -47,7 +47,7 @@ void EventSystem::handleMouseButtonPressedEvents(const sf::Event &evt)
 {
     if (evt.type != sf::Event::EventType::MouseButtonPressed)
         return;
-    this->_subject->CreateMessage("Mousse btn!");
+    this->_subject->CreateMessage(EventType::MOUSE_CLICK, "Mousse btn!");
 }
 
 void EventSystem::handleMouseButtonReleasedEvents(const sf::Event &evt)
@@ -60,7 +60,7 @@ void EventSystem::handleKeyPressedEvents(const sf::Event &evt)
 {
     if (evt.type != sf::Event::EventType::KeyPressed)
         return;
-    this->_subject->CreateMessage("Key Pressed");
+    this->_subject->CreateMessage(EventType::KEY_PRESSED, "Key Pressed");
 
     if (evt.key.code == sf::Keyboard::Left) {
         parallax::ParallaxSystem &parallaxSys =

@@ -20,21 +20,23 @@ class Subject : public ISubject {
     {
         list_observer_.remove(observer);
     }
-    void Notify() override
+
+    void Notify(EventType event) override
     {
         std::list<IObserver *>::iterator iterator = list_observer_.begin();
         HowManyObserver();
         while (iterator != list_observer_.end()) {
-            (*iterator)->Update(message_);
+            (*iterator)->Update(event, message_);
             ++iterator;
         }
     }
 
-    void CreateMessage(std::string message = "Empty")
+    void CreateMessage(EventType event, std::string message = "Empty")
     {
         this->message_ = message;
-        Notify();
+        Notify(event);
     }
+
     void HowManyObserver()
     {
         std::cout << "There are " << list_observer_.size()
@@ -50,7 +52,7 @@ class Subject : public ISubject {
     void SomeBusinessLogic()
     {
         this->message_ = "change message message";
-        Notify();
+        // Notify();
         std::cout << "I'm about to do some thing important\n";
     }
 

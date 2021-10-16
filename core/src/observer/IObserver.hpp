@@ -4,8 +4,10 @@
 #include <list>
 #include <string>
 
+#include "EventType.hpp"
+
 class IObserver {
   public:
     virtual ~IObserver(){};
-    virtual void Update(const std::string &message_from_subject) = 0;
+    virtual void Update(EventType eventType, const std::string &msg) = 0;
 };
