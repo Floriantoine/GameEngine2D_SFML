@@ -9,5 +9,5 @@
 class IObserver {
   public:
     virtual ~IObserver(){};
-    virtual void Update(EventType eventType, const std::string &msg) = 0;
+    virtual void handle(Event const &event) = 0;
 };

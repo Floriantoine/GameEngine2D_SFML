@@ -6,19 +6,18 @@
 #include <chrono>
 
 class AGame {
-  private:
+  protected:
+    Game::EventSystem _eventSys;
     bool isRunning{false};
     double _framerateLimit{60};
+    Observer _observer;
     ObserverManager _observerManager;
-    Game::EventSystem _eventSys;
-    Observer *_observer;
-
-  protected:
     parallax::ParallaxSystem _parallax;
-    AGame() : _observerManager(), _eventSys(_observerManager)
+
+    AGame()
+        : _observerManager(), _eventSys(_observerManager),
+          _parallax(_observerManager)
     {
-        _observer = new Observer();
-        _observerManager.addObserver(_observer, EventType::KEY_PRESSED);
     }
     virtual ~AGame() = default;
 

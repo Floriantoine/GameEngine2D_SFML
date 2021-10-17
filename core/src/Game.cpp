@@ -74,6 +74,13 @@ void Game::onAfterUpdate()
 
 Game::Game()
 {
+    auto obs = Observer{
+        [&](MouseClick const &mouse) {
+            std::cout << "mouuuuuuuse click: " << std::endl;
+                },
+    };
+    _observer = obs;
+    _observerManager.addObserver(&_observer);
 }
 
 Game::~Game()

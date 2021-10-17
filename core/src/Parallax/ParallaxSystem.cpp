@@ -1,5 +1,6 @@
 
 #include "./ParallaxSystem.hpp"
+#include "../Game.hpp"
 #include "../tools/jsonTools.hpp"
 
 namespace parallax {
@@ -92,8 +93,27 @@ void ParallaxSystem::setRenderWindow(sf::RenderWindow *window)
     this->_window = window;
 }
 
-ParallaxSystem::ParallaxSystem()
+void ParallaxSystem::eventClickCallback()
 {
+    if (this->getConfigName() == "background")
+        this->initFromFile("../core/json/backConfig.json", "background2");
+    else if (this->getConfigName() == "background2")
+        this->initFromFile("../core/json/backConfig.json", "background3");
+    else
+        this->initFromFile("../core/json/backConfig.json", "background");
+}
+
+ParallaxSystem::ParallaxSystem(ObserverManager &observerManager)
+{
+    auto obs = Observer{
+        [&](KeyPressed const &key) {
+            std::cout << "Key pressed: " << key.key << '\n';
+            if (key.key == sf::Keyboard::Enter)
+                this->eventClickCallback();
+        },
+    };
+    _observer = obs;
+    observerManager.addObserver(&_observer);
 }
 
 ParallaxSystem::~ParallaxSystem()

@@ -9,38 +9,34 @@
 
 class ObserverManager : public IObserver {
   private:
-    std::vector<std::pair<Observer *, EventType>> _observers;
-    std::vector<std::pair<Subject *, EventType>> _subjects;
+    std::vector<Observer *> _observers;
+    std::vector<Subject *> _subjects;
     std::string message_from_subject_;
 
   public:
     ObserverManager(Subject *subject) = delete;
 
-    void Update(EventType eventType, const std::string &msg) override
+    void handle(Event const &event) override
     {
-        message_from_subject_ = msg;
-        std::cout << "message: " << msg << std::endl;
+        std::vector<Observer *>::iterator iterator = _observers.begin();
 
-        for (const auto &ob: _observers) {
-            if (ob.second == eventType) {
-                ob.first->Update(eventType, msg);
-            }
+        while (iterator != _observers.end()) {
+            (*iterator)->handle(event);
+            ++iterator;
         }
     }
 
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
 
-    void addObserver(Observer *observer, EventType type)
+    void addObserver(Observer *observer)
     {
-        this->_observers.push_back(
-            std::pair<Observer *, EventType>(observer, type));
+        this->_observers.push_back(observer);
     };
 
-    void addSubject(Subject *subject, EventType type)
+    void addSubject(Subject *subject)
     {
-        this->_subjects.push_back(
-            std::pair<Subject *, EventType>(subject, type));
+        this->_subjects.push_back(subject);
 
         subject->Attach(this);
     }

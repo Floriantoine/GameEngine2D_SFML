@@ -9,13 +9,12 @@
 #include <json/value.h>
 #include <memory>
 
+#include "../observer/ObserverManager.hpp"
 #include "./IParallax.hpp"
 #include "./ParallaxLayer.hpp"
 #include "./ParallaxObj.hpp"
 #include "./layerBackground.hpp"
 #include "nlohmann/json.hpp"
-
-// #include <resource.hpp>
 
 namespace parallax {
 
@@ -26,6 +25,7 @@ class ParallaxSystem {
     std::string _filepath;
     std::string _configName;
     int _rate = 16;
+    Observer _observer;
 
   public:
     enum class ParallaxType : int
@@ -57,7 +57,9 @@ class ParallaxSystem {
     {
         return this->_configName;
     };
-    ParallaxSystem();
+    void eventClickCallback();
+
+    ParallaxSystem(ObserverManager &observerManager);
     ~ParallaxSystem();
 };
 

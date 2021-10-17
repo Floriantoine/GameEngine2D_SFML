@@ -31,7 +31,7 @@ void EventSystem::handleCloseEvent(const sf::Event &evt)
 {
     if (evt.type != sf::Event::EventType::Closed)
         return;
-    this->_subject->CreateMessage(EventType::CLOSE_EVT, "Close Event");
+    // this->_subject->CreateMessage(EventType::CLOSE_EVT, "Close Event");
 
     Game::getInstance().getWindow()->close();
     Game::getInstance().stop();
@@ -47,7 +47,8 @@ void EventSystem::handleMouseButtonPressedEvents(const sf::Event &evt)
 {
     if (evt.type != sf::Event::EventType::MouseButtonPressed)
         return;
-    this->_subject->CreateMessage(EventType::MOUSE_CLICK, "Mousse btn!");
+    this->_subject->CreateMessage(
+        MouseClick{evt.mouseButton.x, evt.mouseButton.y});
 }
 
 void EventSystem::handleMouseButtonReleasedEvents(const sf::Event &evt)
@@ -60,7 +61,9 @@ void EventSystem::handleKeyPressedEvents(const sf::Event &evt)
 {
     if (evt.type != sf::Event::EventType::KeyPressed)
         return;
-    this->_subject->CreateMessage(EventType::KEY_PRESSED, "Key Pressed");
+
+    // this->_subject->CreateMessage(EventType::KEY_PRESSED, "Key Pressed");
+    this->_subject->CreateMessage(KeyPressed{evt.key.code});
 
     if (evt.key.code == sf::Keyboard::Left) {
         parallax::ParallaxSystem &parallaxSys =
@@ -72,25 +75,12 @@ void EventSystem::handleKeyPressedEvents(const sf::Event &evt)
             Game::getInstance().getParallax();
         parallaxSys.setRate(parallaxSys.getRate() + 1);
     }
-    if (evt.key.code == sf::Keyboard::Enter) {
-        parallax::ParallaxSystem &parallaxSys =
-            Game::getInstance().getParallax();
-        if (parallaxSys.getConfigName() == "background")
-            parallaxSys.initFromFile(
-                "../core/json/backConfig.json", "background2");
-        else if (parallaxSys.getConfigName() == "background2")
-            parallaxSys.initFromFile(
-                "../core/json/backConfig.json", "background3");
-        else
-            parallaxSys.initFromFile(
-                "../core/json/backConfig.json", "background");
-    }
 }
 
 EventSystem::EventSystem(ObserverManager &observerManager)
 {
     _subject = new Subject;
-    observerManager.addSubject(_subject, EventType::KEY_PRESSED);
+    observerManager.addSubject(_subject);
 }
 
 void EventSystem::handleKeyReleasedEvents(const sf::Event &evt)

@@ -1,8 +1,19 @@
 #pragma once
 
-enum class EventType : int
+#include <variant>
+struct MouseClick
 {
-    KEY_PRESSED,
-    MOUSE_CLICK,
-    CLOSE_EVT,
+    int x;
+    int y;
 };
+
+struct KeyPressed
+{
+    int key;
+};
+
+struct RandomEvent
+{
+};
+
+using Event = std::variant<MouseClick, KeyPressed, RandomEvent>;
