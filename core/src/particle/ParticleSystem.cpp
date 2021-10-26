@@ -12,6 +12,7 @@ ParticleSystem::ParticleSystem(ObserverManager &observerManager)
 {
     auto obs = new Observer{
         [&](MouseMove const &mouse) {
+            this->_mouseVector = {_mousePos.x - mouse.x, _mousePos.y - mouse.y};
             _mousePos = sf::Vector2f(mouse.x, mouse.y);
         },
     };

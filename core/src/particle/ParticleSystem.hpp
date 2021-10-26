@@ -28,6 +28,7 @@ class ParticleSystem {
     std::vector<int> haveCollide;
     std::vector<int> dontHaveCollide;
     sf::Vector2f _mousePos = {200, 200};
+    sf::Vector2f _mouseVector = {7, 7};
 
   public:
     ParticleSystem(ObserverManager &observerManager);
@@ -45,9 +46,12 @@ class ParticleSystem {
         _particleInf[index]._clock.restart();
         _particleInf[index].mass = tools::generate_random_number(1, 30);
 
-        int speed = tools::generate_random_number(5, 10);
+        int speedX = tools::generate_random_number(
+            _mouseVector.x - 3, _mouseVector.x + 3);
+        int speedY = tools::generate_random_number(
+            _mouseVector.y - 3, _mouseVector.y + 3);
         cur_S[2 * index] =
-            _particleInf[index].mass * sf::Vector2f(speed, speed - 10);
+            _particleInf[index].mass * sf::Vector2f(-speedX, -speedY);
         cur_S[2 * index + 1] = _vertexArray[index].position;
     }
 
