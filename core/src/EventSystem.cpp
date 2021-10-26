@@ -41,6 +41,7 @@ void EventSystem::handleMouseMove(const sf::Event &evt)
 {
     if (evt.type != sf::Event::EventType::MouseMoved)
         return;
+    this->_subject->CreateMessage(MouseMove{evt.mouseMove.x, evt.mouseMove.y});
 }
 
 void EventSystem::handleMouseButtonPressedEvents(const sf::Event &evt)

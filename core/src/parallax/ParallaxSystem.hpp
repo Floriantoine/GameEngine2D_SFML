@@ -10,11 +10,11 @@
 #include <memory>
 
 #include "../observer/ObserverManager.hpp"
+#include "../tools/jsonTools.hpp"
 #include "./IParallax.hpp"
 #include "./ParallaxLayer.hpp"
 #include "./ParallaxObj.hpp"
 #include "./layerBackground.hpp"
-#include "nlohmann/json.hpp"
 
 namespace parallax {
 
@@ -40,6 +40,7 @@ class ParallaxSystem {
     void addLayer(std::string spritePath, IParallax::ParallaxType,
         nlohmann::json options);
     void initFromFile(std::string filepath, std::string configName);
+    void initFromJson(nlohmann::json const &json);
     std::string getConfigFilePath()
     {
         return this->_filepath;

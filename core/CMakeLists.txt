@@ -6,6 +6,12 @@ set(SRC_DIR src/)
 
 include_directories(
         ./src
+        ./src/parallax
+        ./src/tools
+        ./src/texture
+        ./src/sprite
+        ./src/observer
+        ./src/particle
 )
 
 set(WARNING_FLAG
@@ -17,12 +23,20 @@ set(WARNING_FLAG
 set(SRCS
         Game.cpp
         EventSystem.cpp
-        Parallax/AParallax.cpp
-        Parallax/layerBackground.cpp
-        Parallax/ParallaxSystem.cpp
-        Parallax/ParallaxLayer.cpp
-        Parallax/ParallaxObj.cpp
+        parallax/AParallax.cpp
+        parallax/layerBackground.cpp
+        parallax/ParallaxSystem.cpp
+        parallax/ParallaxLayer.cpp
+        parallax/ParallaxObj.cpp
         tools/random.cpp
+        tools/jsonTools.cpp
+        scene/SceneManager.cpp
+        texture/Texture.cpp
+        texture/TextureManager.cpp
+        sprite/Sprite.cpp
+        sprite/SpriteManager.cpp
+        sprite/dynamicSprite.cpp
+        particle/ParticleSystem.cpp
 )
 
 list(TRANSFORM SRCS PREPEND ${SRC_DIR})

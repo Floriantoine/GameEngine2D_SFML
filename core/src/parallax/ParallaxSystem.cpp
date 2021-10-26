@@ -1,7 +1,6 @@
 
 #include "./ParallaxSystem.hpp"
 #include "../Game.hpp"
-#include "../tools/jsonTools.hpp"
 
 namespace parallax {
 
@@ -49,6 +48,28 @@ void ParallaxSystem::initFromFile(std::string filePath, std::string configName)
         this->_filepath = filePath;
         this->_configName = configName;
         for (auto x: json[configName]) {
+            std::string path = x["path"];
+
+            auto type = parallax::IParallax::ParallaxType::BACKGROUND;
+            if (x["type"] == "LAYER")
+                type = parallax::IParallax::ParallaxType::LAYER;
+            if (x["type"] == "OBJ")
+                type = parallax::IParallax::ParallaxType::OBJ;
+            this->addLayer(path, type, x["options"]);
+        }
+    }
+}
+
+void ParallaxSystem::initFromJson(nlohmann::json const &json)
+{
+    if (json == nlohmann::json::value_t::discarded || json.is_discarded()) {
+        std::cout << "Json Config Error" << std::endl;
+        return;
+    } else {
+        this->clear();
+        this->_filepath.clear();
+        this->_configName.clear();
+        for (auto x: json) {
             std::string path = x["path"];
 
             auto type = parallax::IParallax::ParallaxType::BACKGROUND;

@@ -2,21 +2,30 @@
 
 #include "./observer/Observer.hpp"
 #include "./observer/ObserverManager.hpp"
+#include "./scene/SceneManager.hpp"
+#include "SpriteManager.hpp"
+#include "TextureManager.hpp"
 #include <./EventSystem.hpp>
 #include <chrono>
 
 class AGame {
   protected:
-    Game::EventSystem _eventSys;
     bool isRunning{false};
     double _framerateLimit{60};
-    Observer _observer;
+
+    SceneManager _sceneManager;
+    Game::EventSystem _eventSys;
     ObserverManager _observerManager;
     parallax::ParallaxSystem _parallax;
+    flowEngine::TextureManager _textureManager;
+    flowEngine::SpriteManager _spriteManager;
+    ParticleSystem _particleSystem;
 
     AGame()
-        : _observerManager(), _eventSys(_observerManager),
-          _parallax(_observerManager)
+        : _observerManager(), _textureManager(), _spriteManager(),
+          _eventSys(_observerManager), _parallax(_observerManager),
+          _sceneManager(_parallax, _textureManager),
+          _particleSystem(_observerManager)
     {
     }
     virtual ~AGame() = default;

@@ -1,0 +1,63 @@
+{
+    "parallax": [
+        {
+            "path": "../core/resources/parallax-space-backgound.png",
+            "type": "BACKGROUND"
+        },
+        {
+            "path": "../core/resources/parallax-space-stars.png",
+            "type": "BACKGROUND"
+        },
+        {
+            "path": "../core/resources/parallax-space-big-planet.png",
+            "type": "OBJ"
+        },
+        {
+            "path": "../core/resources/parallax-space-stars.png",
+            "type": "LAYER"
+        },
+        {
+            "path": "../core/resources/spaceShip.png",
+            "type": "OBJ",
+            "options": {
+                "inverted": true,
+                "amplitude": 20,
+                "xStep": 3
+            }
+        },
+        {
+            "path": "../core/resources/spaceShip.png",
+            "type": "OBJ",
+            "options": {
+                "amplitude": 22,
+                "xStep": 3
+            }
+        },
+        {
+            "path": "../core/resources/parallax-space-far-planets.png",
+            "type": "LAYER"
+        },
+        {
+            "path": "../core/resources/parallax-space-stars.png",
+            "type": "LAYER"
+        },
+        {
+            "path": "../core/resources/parallax-space-far-planets.png",
+            "type": "LAYER"
+        },
+        {
+            "path": "../core/resources/parallax-space-stars.png",
+            "type": "LAYER"
+        }
+    ],
+    "texture": [
+        {
+            "path": "../core/resources/spaceShip.png",
+            "name": "texture1"
+        },
+        {
+            "path": "../core/resources/",
+            "name": "texture2"
+        }
+    ]
+}
