@@ -15,6 +15,18 @@ ParticleSystem::ParticleSystem(ObserverManager &observerManager)
             this->_mouseVector = {_mousePos.x - mouse.x, _mousePos.y - mouse.y};
             _mousePos = sf::Vector2f(mouse.x, mouse.y);
         },
+        [&](KeyPressed const &key) {
+            if (key.key == sf::Keyboard::X) {
+                if (this->_vertexArray.getPrimitiveType() ==
+                    sf::PrimitiveType::Points)
+                    this->_vertexArray.setPrimitiveType(sf::Quads);
+                else if (this->_vertexArray.getPrimitiveType() ==
+                         sf::PrimitiveType::Quads)
+                    this->_vertexArray.setPrimitiveType(sf::Lines);
+                else
+                    this->_vertexArray.setPrimitiveType(sf::Points);
+            }
+        },
     };
 
     observerManager.addObserver(obs);
