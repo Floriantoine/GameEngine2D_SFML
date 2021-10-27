@@ -14,7 +14,29 @@ FetchContent_Declare(
     GIT_SHALLOW ON
 )
 
+FetchContent_Declare(
+    imgui
+    GIT_REPOSITORY https://github.com/ocornut/imgui
+    GIT_TAG v1.85
+    GIT_SHALLOW ON
+)
+
 FetchContent_MakeAvailable(
     json
     sfml
+    imgui
+)
+
+set(IMGUI_SFML_FIND_SFML OFF)
+set(IMGUI_DIR ${imgui_SOURCE_DIR})
+
+FetchContent_Declare(
+    imgui-sfml
+    GIT_REPOSITORY https://github.com/eliasdaler/imgui-sfml
+    GIT_TAG v2.3
+    GIT_SHALLOW ON
+)
+
+FetchContent_MakeAvailable(
+    imgui-sfml
 )

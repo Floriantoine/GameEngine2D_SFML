@@ -46,4 +46,5 @@ add_executable(r-type_client ${SRCS})
 target_link_libraries(r-type_client PRIVATE
   nlohmann_json::nlohmann_json
   sfml-graphics
+  ImGui-SFML::ImGui-SFML
 )
