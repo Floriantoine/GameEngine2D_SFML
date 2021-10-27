@@ -61,17 +61,16 @@ void Game::onInit()
     this->_sceneManager.loadScene("../core/json/scene1.json");
 
     // Start Test Zone Temporary
-    auto texture =
-        this->_textureManager.getTextureByName("texture2").getSfTexture();
-    this->_spriteManager.createSprite(texture);
-    this->_dynaS.setSprite(&this->_spriteManager.getSprites()[0]);
+    // auto texture =
+    //     this->_textureManager.getTextureByName("texture2").getSfTexture();
+    // this->_spriteManager.createSprite(texture);
+    // this->_dynaS.setSprite(&this->_spriteManager.getSprites()[0]);
     // End  Test Zone Temporary
 }
 
 void Game::onBeforeUpdate()
 {
     this->_window->clear();
-    this->_particleSystem.update();
 }
 
 void Game::onAfterUpdate()

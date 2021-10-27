@@ -132,6 +132,7 @@ class AGame {
      */
     void update(long elapsed)
     {
+        this->_particleSystem.update();
         this->_parallax.update(elapsed);
         this->_eventSys.update(elapsed);
     }
@@ -162,7 +163,6 @@ class AGame {
      */
     virtual void onAfterUpdate()
     {
-        this->_parallax.display();
     }
 
     /**
