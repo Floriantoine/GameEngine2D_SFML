@@ -15,6 +15,7 @@ class ParticleSystem {
         sf::Clock _clock;
         float lifeTime = 2000;
         float mass = 10;
+        int size = 5;
     };
 
     sf::VertexArray _vertexArray;
@@ -100,14 +101,15 @@ class ParticleSystem {
     void updateQuads()
     {
         for (int i = 0; i < _vertexArray.getVertexCount() / 4; i++) {
+            int quadsSize = _particleInf[i].size;
             int real = i * 4;
             _vertexArray[real].position = cur_S[2 * i + 1];
             _vertexArray[real + 1].position = {
-                cur_S[2 * i + 1].x, cur_S[2 * i + 1].y + 5};
+                cur_S[2 * i + 1].x, cur_S[2 * i + 1].y + quadsSize};
             _vertexArray[real + 2].position = {
-                cur_S[2 * i + 1].x + 5, cur_S[2 * i + 1].y + 5};
+                cur_S[2 * i + 1].x + quadsSize, cur_S[2 * i + 1].y + quadsSize};
             _vertexArray[real + 3].position = {
-                cur_S[2 * i + 1].x + 5, cur_S[2 * i + 1].y};
+                cur_S[2 * i + 1].x + quadsSize, cur_S[2 * i + 1].y};
             if (_particleInf[i]._clock.getElapsedTime().asMilliseconds() >
                 _particleInf[i].lifeTime)
                 this->reset(i);

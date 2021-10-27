@@ -15,14 +15,16 @@ void ParticleSystem::setPrimitiveType(sf::PrimitiveType primType)
     if (primType == sf::PrimitiveType::Quads) {
         _vertexArray.setPrimitiveType(sf::Quads);
         _vertexArray.resize(count * 4);
+        this->updateQuads();
     }
     // else if (primType == sf::PrimitiveType::Lines)
     //     // _vertexArray = sf::VertexArray(sf::Lines, count * 2);
     else if (primType == sf::PrimitiveType::Points) {
         _vertexArray.setPrimitiveType(sf::Points);
         _vertexArray.resize(count / 4);
+        this->updatePoints();
     }
-    this->resetAll();
+    // this->resetAll();
 }
 
 void ParticleSystem::reset(int index)
@@ -45,14 +47,15 @@ void ParticleSystem::reset(int index)
         _vertexArray[vertexIndex + 2] = _vertexArray[index];
         _vertexArray[vertexIndex + 3] = _vertexArray[index];
 
-        _vertexArray[vertexIndex + 1].position = {floatX, floatY + 5};
-        _vertexArray[vertexIndex + 2].position = {floatX + 5, floatY + 5};
-        _vertexArray[vertexIndex + 3].position = {floatX + 5, floatY};
+        _vertexArray[vertexIndex + 1].position = {floatX, floatY + 10};
+        _vertexArray[vertexIndex + 2].position = {floatX + 10, floatY + 10};
+        _vertexArray[vertexIndex + 3].position = {floatX + 10, floatY};
     }
 
     _particleInf[index].lifeTime = tools::generate_random_number(2000, 6000);
     _particleInf[index]._clock.restart();
     _particleInf[index].mass = tools::generate_random_number(1, 30);
+    _particleInf[index].size = tools::generate_random_number(2, 10);
 
     int speedX =
         tools::generate_random_number(_mouseVector.x - 3, _mouseVector.x + 3);
