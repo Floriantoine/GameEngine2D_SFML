@@ -33,26 +33,17 @@ class ParticleSystem {
   public:
     ParticleSystem(ObserverManager &observerManager);
     ~ParticleSystem() = default;
-    void reset(int index)
+    void setPrimitiveType(sf::PrimitiveType primType);
+    void reset(int index);
+    void resetAll()
     {
-        _vertexArray[index].position = {
-            tools::generate_random_number(_mousePos.x - 5, _mousePos.x + 5),
-            tools::generate_random_number(_mousePos.y - 5, _mousePos.y + 5)};
-        _vertexArray[index].color.a = 255;
-        _vertexArray[index].color = sf::Color::Green;
-
-        _particleInf[index].lifeTime =
-            tools::generate_random_number(2000, 6000);
-        _particleInf[index]._clock.restart();
-        _particleInf[index].mass = tools::generate_random_number(1, 30);
-
-        int speedX = tools::generate_random_number(
-            _mouseVector.x - 3, _mouseVector.x + 3);
-        int speedY = tools::generate_random_number(
-            _mouseVector.y - 3, _mouseVector.y + 3);
-        cur_S[2 * index] =
-            _particleInf[index].mass * sf::Vector2f(-speedX, -speedY);
-        cur_S[2 * index + 1] = _vertexArray[index].position;
+        int count = _vertexArray.getVertexCount();
+        if (this->_vertexArray.getPrimitiveType() == sf::PrimitiveType::Quads) {
+            count = count / 4;
+        }
+        for (int index = 0; index < count; index++) {
+            reset(index);
+        }
     }
 
     void ExplicitEuler(int N, std::vector<sf::Vector2f> prior_S,
@@ -70,6 +61,9 @@ class ParticleSystem {
 
         for (int i = 0; i < _vertexArray.getVertexCount(); i++) {
             dontHaveCollide.push_back(i);
+            if (this->_vertexArray.getPrimitiveType() ==
+                sf::PrimitiveType::Quads)
+                i += 3;
         }
         bool collide;
 
@@ -103,25 +97,52 @@ class ParticleSystem {
         }
     };
 
-    void update()
+    void updateQuads()
     {
-        updateCollideState();
-        prior_S = cur_S;
-        for (int i = 0; i < _vertexArray.getVertexCount(); i++) {
-            _vertexArray[i].color.a -= 255 / _particleInf[i].lifeTime;
-            S_derivs[2 * i] = g;
-            S_derivs[2 * i + 1] = prior_S[2 * i] / _particleInf[i].mass;
+        for (int i = 0; i < _vertexArray.getVertexCount() / 4; i++) {
+            int real = i * 4;
+            _vertexArray[real].position = cur_S[2 * i + 1];
+            _vertexArray[real + 1].position = {
+                cur_S[2 * i + 1].x, cur_S[2 * i + 1].y + 5};
+            _vertexArray[real + 2].position = {
+                cur_S[2 * i + 1].x + 5, cur_S[2 * i + 1].y + 5};
+            _vertexArray[real + 3].position = {
+                cur_S[2 * i + 1].x + 5, cur_S[2 * i + 1].y};
+            if (_particleInf[i]._clock.getElapsedTime().asMilliseconds() >
+                _particleInf[i].lifeTime)
+                this->reset(i);
         }
-        ExplicitEuler(
-            2 * _vertexArray.getVertexCount(), prior_S, S_derivs, delta_t);
+    }
 
-        // Update vertexArray pos + check if dead and reset
+    void updatePoints()
+    {
         for (int i = 0; i < _vertexArray.getVertexCount(); i++) {
             _vertexArray[i].position = cur_S[2 * i + 1];
             if (_particleInf[i]._clock.getElapsedTime().asMilliseconds() >
                 _particleInf[i].lifeTime)
                 this->reset(i);
         }
+    }
+
+    void update()
+    {
+        updateCollideState();
+
+        int count = _vertexArray.getVertexCount();
+        if (this->_vertexArray.getPrimitiveType() == sf::PrimitiveType::Quads)
+            count = count / 4;
+        prior_S = cur_S;
+        for (int i = 0; i < count; i++) {
+            // _vertexArray[i].color.a -= 255 / _particleInf[i].lifeTime;
+            S_derivs[2 * i] = g;
+            S_derivs[2 * i + 1] = prior_S[2 * i] / _particleInf[i].mass;
+        }
+        ExplicitEuler(cur_S.size(), prior_S, S_derivs, delta_t);
+
+        if (this->_vertexArray.getPrimitiveType() == sf::PrimitiveType::Quads)
+            this->updateQuads();
+        if (this->_vertexArray.getPrimitiveType() == sf::PrimitiveType::Points)
+            this->updatePoints();
     }
 
     void display();
