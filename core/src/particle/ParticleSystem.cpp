@@ -52,10 +52,13 @@ void ParticleSystem::reset(int index)
         _vertexArray[vertexIndex + 3].position = {floatX + 10, floatY};
     }
 
-    _particleInf[index].lifeTime = tools::generate_random_number(2000, 6000);
+    _particleInf[index].lifeTime = tools::generate_random_number(
+        std::max(_initLifeTime / 2, 1000), _initLifeTime * 2);
     _particleInf[index]._clock.restart();
-    _particleInf[index].mass = tools::generate_random_number(1, 30);
-    _particleInf[index].size = tools::generate_random_number(2, 10);
+    _particleInf[index].mass =
+        tools::generate_random_number(std::max(_initMasse - 10, 1), _initMasse);
+    _particleInf[index].size = tools::generate_random_number(
+        std::max(_initSize - 5, 1), _initSize + 5);
 
     int speedX =
         tools::generate_random_number(_mouseVector.x - 3, _mouseVector.x + 3);
@@ -86,6 +89,10 @@ ParticleSystem::ParticleSystem(ObserverManager &observerManager)
                 //  sf::PrimitiveType::Quads)
                 // this->_vertexArray.setPrimitiveType(sf::Lines);
             }
+            if (key.key == sf::Keyboard::R)
+                this->loadConfig("../core/json/particles/Particles.json");
+            if (key.key == sf::Keyboard::D)
+                this->loadConfig("../core/json/particles/Default.json");
         },
     };
 

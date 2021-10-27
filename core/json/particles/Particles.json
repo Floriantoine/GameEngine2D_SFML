@@ -1,0 +1,8 @@
+{
+    "size": 5,
+    "count": 1000,
+    "type": "quads",
+    "force": [-10, 0],
+    "lifeTime": 1000,
+    "masse": 10
+}

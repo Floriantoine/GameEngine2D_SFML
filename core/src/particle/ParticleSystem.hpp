@@ -4,6 +4,7 @@
 #include "tools/random.hpp"
 #include <SFML/Graphics/VertexArray.hpp>
 
+#include "../tools/jsonTools.hpp"
 #include <SFML/System/Clock.hpp>
 #include <iostream>
 #include <vector>
@@ -24,16 +25,70 @@ class ParticleSystem {
     std::vector<sf::Vector2f> cur_S;
     std::vector<sf::Vector2f> prior_S;
     std::vector<sf::Vector2f> S_derivs;
-    sf::Vector2f g = {0, 9.81};
     float delta_t = 0.2;
     std::vector<int> haveCollide;
     std::vector<int> dontHaveCollide;
     sf::Vector2f _mousePos = {200, 200};
     sf::Vector2f _mouseVector = {7, 7};
+    sf::Vector2f _force = {0, 9.81};
+    int _initSize = 5;
+    int _initMasse = 10;
+    int _initLifeTime = 2000;
 
   public:
     ParticleSystem(ObserverManager &observerManager);
     ~ParticleSystem() = default;
+    void loadConfig(std::string string)
+    {
+        nlohmann::json json = json::loadJson(string);
+
+        if (json == nlohmann::json::value_t::discarded || json.is_discarded()) {
+            std::cout << "Json Config Error" << std::endl;
+            return;
+        } else {
+            if (json["force"] != nullptr)
+                this->_force = {json["force"][0], json["force"][1]};
+            if (json["size"] != nullptr)
+                this->setParticleSize(json["size"]);
+            if (json["count"] != nullptr)
+                this->setVertexCount(json["count"]);
+            if (json["type"] != nullptr) {
+                if (json["type"] == "quads")
+                    this->setPrimitiveType(sf::Quads);
+                if (json["type"] == "points")
+                    this->setPrimitiveType(sf::Points);
+            }
+            if (json["lifeTime"] != nullptr) {
+                this->setLifeTime(json["lifeTime"]);
+            }
+            if (json["masse"] != nullptr) {
+                this->setMasse(json["masse"]);
+            }
+        }
+    }
+    void setLifeTime(int lifeTime)
+    {
+        this->_initLifeTime = lifeTime;
+    }
+    void setVertexCount(int count)
+    {
+        this->cur_S.resize(count * 2);
+        this->prior_S.resize(count * 2);
+        this->S_derivs.resize(count * 2);
+        this->_particleInf.resize(count);
+        if (this->_vertexArray.getPrimitiveType() == sf::PrimitiveType::Quads)
+            count *= 4;
+        this->_vertexArray.resize(count);
+        // this->resetAll();
+    };
+    void setParticleSize(int life)
+    {
+        this->_initSize = life;
+    }
+    void setMasse(int masse)
+    {
+        this->_initMasse = masse;
+    }
     void setPrimitiveType(sf::PrimitiveType primType);
     void reset(int index);
     void resetAll()
@@ -136,7 +191,7 @@ class ParticleSystem {
         prior_S = cur_S;
         for (int i = 0; i < count; i++) {
             // _vertexArray[i].color.a -= 255 / _particleInf[i].lifeTime;
-            S_derivs[2 * i] = g;
+            S_derivs[2 * i] = this->_force;
             S_derivs[2 * i + 1] = prior_S[2 * i] / _particleInf[i].mass;
         }
         ExplicitEuler(cur_S.size(), prior_S, S_derivs, delta_t);
