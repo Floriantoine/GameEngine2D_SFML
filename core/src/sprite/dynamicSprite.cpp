@@ -7,7 +7,7 @@ namespace flowEngine {
 void dynamicSprite::setSprite(Sprite *sprite)
 {
     _sprite = sprite;
-    auto obs = new Observer{
+    _observer = Observer{
         [&](MouseMove const &mouse) {
             if (!this->_attach && !this->_resize)
                 _sprite->getSfSprite().setPosition(mouse.x, mouse.y);
@@ -43,6 +43,11 @@ void dynamicSprite::setSprite(Sprite *sprite)
         },
     };
 
-    Game::Game::getInstance().getObserverManager().addObserver(obs);
+    Game::Game::getInstance().getObserverManager().addObserver(&_observer);
 };
+
+dynamicSprite::~dynamicSprite()
+{
+    Game::Game::getInstance().getObserverManager().deleteObserver(&_observer);
+}
 } // namespace flowEngine

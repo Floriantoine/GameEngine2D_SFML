@@ -1,8 +1,9 @@
 {
-    "size": 5,
+    "size": 3,
     "count": 1000,
     "type": "quads",
-    "force": [0, -1],
-    "lifeTime": 800,
-    "masse": 10
+    "force": [0, 0],
+    "lifeTime": 5000,
+    "masse": 1,
+    "color": "red"
 }

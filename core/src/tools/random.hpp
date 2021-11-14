@@ -13,6 +13,8 @@ namespace tools {
 // include Min and Max
 int generate_random_number(int min, int max, int nop);
 int generate_random_number(int min, int max);
+float generate_random_number(float min, float max);
+
 // sf::Vector2i generate_random_free_pos(map2d const& map);
 
 } // namespace tools

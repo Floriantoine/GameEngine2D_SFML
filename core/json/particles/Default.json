@@ -1,7 +1,9 @@
 {
     "count": 1000,
-    "lifeTime": 2000,
+    "lifeTime": 4000,
     "type": "points",
     "force": [0, 9.81],
-    "masse": 10
+    "masse": 10,
+    "color": "green",
+    "mousePos": true
 }

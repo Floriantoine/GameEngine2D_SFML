@@ -128,7 +128,7 @@ ParallaxSystem::ParallaxSystem(ObserverManager &observerManager)
 {
     auto obs = Observer{
         [&](KeyPressed const &key) {
-            std::cout << "Key pressed: " << key.key << '\n';
+            // std::cout << "Key pressed: " << key.key << '\n';
             if (key.key == sf::Keyboard::Enter)
                 this->eventClickCallback();
         },
