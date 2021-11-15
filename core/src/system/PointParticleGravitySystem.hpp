@@ -43,16 +43,33 @@ class PointParticleGravitySystem : public rtype::ASystem {
         }
     }
 
-    void generatePropriety(int *value, int *initValue)
+    void generatePropriety(int *value, int initValue)
     {
-        int init = (*initValue);
-        *value = tools::generate_random_number(init / 2, init * 2);
+        *value = tools::generate_random_number(
+            initValue - (initValue / 2), initValue + (initValue / 2));
     }
-    void generatePropriety(sf::Vector2f *value, sf::Vector2f *initValue)
+    void generatePropriety(sf::Vector2f *value, sf::Vector2f initValue)
     {
-        sf::Vector2f init = (*initValue);
-        (*value).x = tools::generate_random_number(init.x / 2, init.x * 2);
-        (*value).y = tools::generate_random_number(init.y / 2, init.y * 2);
+        (*value).x = tools::generate_random_number(
+            initValue.x - (initValue.x / 2), initValue.x + (initValue.x / 2));
+        (*value).y = tools::generate_random_number(
+            initValue.y - (initValue.y / 2), initValue.y + (initValue.y / 2));
+    }
+    void generateProprietyRange(sf::Vector2f *value, sf::Vector2f initValue,
+        sf::Vector2f rangeMin, sf::Vector2f rangeMax)
+    {
+        (*value).x = tools::generate_random_number(
+            initValue.x - rangeMin.x, initValue.x + rangeMax.x);
+        (*value).y = tools::generate_random_number(
+            initValue.y - rangeMin.y, initValue.y + rangeMax.y);
+    }
+    void generateProprietyRange(sf::Vector2i *value, sf::Vector2i initValue,
+        sf::Vector2i rangeMin, sf::Vector2i rangeMax)
+    {
+        (*value).x = tools::generate_random_number(
+            initValue.x - rangeMin.x, initValue.x + rangeMax.x);
+        (*value).y = tools::generate_random_number(
+            initValue.y - rangeMin.y, initValue.y + rangeMax.y);
     }
 
     void resetParticle(int index)
@@ -67,20 +84,19 @@ class PointParticleGravitySystem : public rtype::ASystem {
         rtype::PosComponent *PosComp =
             this->componentManager_->getComponent<rtype::PosComponent>(index);
         if (MasseComp)
-            generatePropriety(&MasseComp->masse, &MasseComp->_initMasse);
+            generatePropriety(&MasseComp->masse, MasseComp->_initMasse);
         if (compLife)
-            generatePropriety(&compLife->health, &compLife->_initHealth);
+            generatePropriety(&compLife->health, compLife->_initHealth);
         if (ForceComp)
-            generatePropriety(&ForceComp->force, &ForceComp->_initForce);
-        float floatX, floatY = 0;
+            generateProprietyRange(&ForceComp->force, ForceComp->_initForce,
+                ForceComp->_rangeMin, ForceComp->_rangeMax);
         if (PosComp) {
-            floatX = tools::generate_random_number(
-                PosComp->_initPos.x - 5, PosComp->_initPos.x + 5);
-            floatY = tools::generate_random_number(
-                PosComp->_initPos.y - 5, PosComp->_initPos.y + 5);
+            generateProprietyRange(&PosComp->pos, PosComp->_initPos,
+                PosComp->_rangeMin, PosComp->_rangeMax);
         }
 
-        (*_vertexArray)[index].position = {floatX, floatY};
+        (*_vertexArray)[index].position =
+            sf::Vector2f(PosComp->pos.x, PosComp->pos.y);
         float masse = (MasseComp ? MasseComp->masse : 0);
         sf::Vector2f force =
             (ForceComp ? ForceComp->force : sf::Vector2f(0, 0));

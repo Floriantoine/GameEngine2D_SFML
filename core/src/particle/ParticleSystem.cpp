@@ -17,7 +17,11 @@ void ParticleSystem::loadConfig(std::string string)
         return;
     } else {
         if (json["force"] != nullptr)
-            this->_force = {json["force"][0], json["force"][1]};
+            this->_componentManager.addComponentRange<rtype::ForceComponent>(
+                0, this->_vertexArray.getVertexCount(), json["force"]);
+        if (json["pos"] != nullptr)
+            this->_componentManager.addComponentRange<rtype::PosComponent>(
+                0, this->_vertexArray.getVertexCount(), json["pos"]);
         if (json["size"] != nullptr)
             this->setParticleSize(json["size"]);
         if (json["count"] != nullptr)
@@ -50,10 +54,6 @@ void ParticleSystem::loadConfig(std::string string)
         0, this->_vertexArray.getVertexCount(), this->_initLifeTime);
     this->_componentManager.addComponentRange<rtype::MasseComponent>(
         0, this->_vertexArray.getVertexCount(), this->_initMasse);
-    this->_componentManager.addComponentRange<rtype::ForceComponent>(
-        0, this->_vertexArray.getVertexCount(), this->_force);
-    this->_componentManager.addComponentRange<rtype::PosComponent>(
-        0, this->_vertexArray.getVertexCount(), sf::Vector2i(200, 200));
 
     if (this->_vertexArray.getPrimitiveType() == sf::PrimitiveType::Points)
         _systemManager.createSystem<PointParticleGravitySystem>(&_vertexArray);
@@ -143,8 +143,10 @@ ParticleSystem::ParticleSystem(ObserverManager &observerManager)
                 this->setParticleSize(this->getSize() - 1);
             if (key.key == sf::Keyboard::R)
                 this->loadConfig("../core/json/particles/Particles.json");
-            if (key.key == sf::Keyboard::D)
+            if (key.key == sf::Keyboard::D) {
+                std::cout << "key input " << std::endl;
                 this->loadConfig("../core/json/particles/Default.json");
+            }
         },
     };
     _observerManager.addObserver(&_observers);

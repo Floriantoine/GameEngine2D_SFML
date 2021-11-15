@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../component/Component.hpp"
+#include "nlohmann/json.hpp"
 #include <SFML/System/Vector2.hpp>
 
 namespace rtype {
@@ -9,11 +10,25 @@ class ForceComponent : public Component<ForceComponent> {
   public:
     sf::Vector2f force{0, 0};
     sf::Vector2f _initForce{0, 0};
+    sf::Vector2f _rangeMin{0, 0};
+    sf::Vector2f _rangeMax{0, 0};
 
   public:
     ForceComponent() = default;
-    ForceComponent(sf::Vector2f force) : force{force}, _initForce{force}
+    ForceComponent(nlohmann::json config)
     {
+        if (config["init"] != nullptr && config["init"].size() == 2) {
+            _initForce = sf::Vector2f(config["init"][0], config["init"][1]);
+            force = _initForce;
+        }
+        if (config["rangeMin"] != nullptr && config["rangeMin"].size() == 2) {
+            _rangeMin =
+                sf::Vector2f(config["rangeMin"][0], config["rangeMin"][1]);
+        }
+        if (config["rangeMax"] != nullptr && config["rangeMax"].size() == 2) {
+            _rangeMax =
+                sf::Vector2f(config["rangeMax"][0], config["rangeMax"][1]);
+        }
     }
 };
 } // namespace rtype

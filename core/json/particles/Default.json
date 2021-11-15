@@ -2,8 +2,18 @@
     "count": 1000,
     "lifeTime": 4000,
     "type": "points",
-    "force": [0, 9.81],
-    "masse": 10,
+    "force": {
+        "init": [-1 , 9.91],
+        "rangeMin": [2, 1],
+        "rangeMax": [0, 1]
+    },
+    "pos": {
+        "init": [0 , 0],
+        "rangeMin": [0, 0],
+        "rangeMax": [1920, 0]
+    },
+    "masse": 1,
     "color": "green",
-    "mousePos": true
+    "mousePos": false,
+    "mouseForce": false
 }
