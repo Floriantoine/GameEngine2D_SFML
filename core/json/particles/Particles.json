@@ -1,9 +1,24 @@
 {
-    "size": 3,
     "count": 1000,
-    "type": "quads",
-    "force": [0, 0],
-    "lifeTime": 5000,
+    "lifeTime": {
+        "init": 6000,
+        "rangeMin": 3000,
+        "rangeMax": 3000
+    },
+    "type": "points",
+    "force": {
+        "init": [ 0, 0],
+        "rangeMin": [1, 1],
+        "rangeMax": [1, 1]
+    },
+    "pos": {
+        "init": [0 , 0],
+        "rangeMin": [0, 0],
+        "rangeMax": [0, 0]
+    },
     "masse": 1,
-    "color": "red"
+    "color": "green",
+    "mousePos": true,
+    "mouseForce": false,
+    "targetMouse": false
 }
