@@ -22,12 +22,12 @@ namespace rtype {
 class ComponentManager {
   private:
     std::unordered_map<id_t, std::unordered_map<id_t, ComponentBase *>>
-        componentLists_;
+        _componentLists;
 
     bool isComponentTypeRegistered(id_t typeId) const
     {
         return (
-            this->componentLists_.find(typeId) != this->componentLists_.end());
+            this->_componentLists.find(typeId) != this->_componentLists.end());
     }
 
     template <class T> bool isComponentTypeRegistered() const
@@ -37,11 +37,11 @@ class ComponentManager {
 
     std::unordered_map<id_t, ComponentBase *> &getComponentList(id_t typeId)
     {
-        auto it = this->componentLists_.find(typeId);
-        if (it == this->componentLists_.end()) {
+        auto it = this->_componentLists.find(typeId);
+        if (it == this->_componentLists.end()) {
             assert("Component type not registered");
-            this->componentLists_.emplace(typeId, 512);
-            it = this->componentLists_.find(typeId);
+            this->_componentLists.emplace(typeId, 512);
+            it = this->_componentLists.find(typeId);
         }
         return it->second;
     }
@@ -80,13 +80,16 @@ class ComponentManager {
     ComponentManager() = default;
     ComponentManager(const ComponentManager &) = delete;
     ComponentManager(ComponentManager &&) = delete;
-    ~ComponentManager() = default;
+    ~ComponentManager()
+    {
+        this->_componentLists.clear();
+    };
 
     ComponentManager &operator=(const ComponentManager &) = delete;
 
     void clear()
     {
-        this->componentLists_.clear();
+        this->_componentLists.clear();
     }
     template <class T, typename... Args>
     void addComponent(id_t entityId, Args &&...args)
@@ -132,7 +135,7 @@ class ComponentManager {
 
     void removeAllComponents(id_t entityId)
     {
-        for (const auto &list: this->componentLists_) {
+        for (const auto &list: this->_componentLists) {
             if (list.second.find(entityId) != list.second.end()) {
                 this->removeComponent(list.first, entityId);
             }

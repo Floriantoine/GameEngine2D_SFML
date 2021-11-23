@@ -33,7 +33,8 @@ void ParticleSystem::loadConfig(std::string string)
                 this->setPrimitiveType(sf::Points);
         }
         if (json["lifeTime"] != nullptr) {
-            this->setLifeTime(json["lifeTime"]);
+            this->_componentManager.addComponentRange<rtype::HealthComponent>(
+                0, this->_vertexArray.getVertexCount(), json["lifeTime"]);
         }
         if (json["masse"] != nullptr) {
             this->setMasse(json["masse"]);
@@ -49,9 +50,16 @@ void ParticleSystem::loadConfig(std::string string)
             _systemManager.createSystem<rtype::ParticleMousePosSystem>(
                 Game::Game::getInstance().getObserverManager());
         }
+        if (json["targetMouse"] != nullptr && json["targetMouse"] == true) {
+            _systemManager.createSystem<rtype::ParticleMouseTargetSystem>(
+                Game::Game::getInstance().getObserverManager(), &_vertexArray);
+        }
+        if (json["alphaGradient"] != nullptr && json["alphaGradient"] == true) {
+            _systemManager.createSystem<PointParticleAlphaSystem>(
+                &_vertexArray);
+        }
     }
-    this->_componentManager.addComponentRange<rtype::HealthComponent>(
-        0, this->_vertexArray.getVertexCount(), this->_initLifeTime);
+
     this->_componentManager.addComponentRange<rtype::MasseComponent>(
         0, this->_vertexArray.getVertexCount(), this->_initMasse);
 
@@ -92,8 +100,8 @@ void ParticleSystem::reset(int index)
         vertexIndex = vertexIndex * 4;
     }
     _vertexArray[vertexIndex].position = {floatX, floatY};
-    _vertexArray[vertexIndex].color.a = 255;
-    _vertexArray[vertexIndex].color = _initColor;
+    // _vertexArray[vertexIndex].color.a = 255;
+    // _vertexArray[vertexIndex].color = _initColor;
 
     if (_vertexArray.getPrimitiveType() == sf::PrimitiveType::Quads) {
         _vertexArray[vertexIndex + 1] = _vertexArray[index];
@@ -130,13 +138,13 @@ ParticleSystem::ParticleSystem(ObserverManager &observerManager)
 {
     _observers = Observer{
         [&](KeyPressed const &key) {
-            if (key.key == sf::Keyboard::X) {
-                if (this->_vertexArray.getPrimitiveType() ==
-                    sf::PrimitiveType::Points)
-                    this->setPrimitiveType(sf::Quads);
-                else
-                    this->setPrimitiveType(sf::Points);
-            }
+            // if (key.key == sf::Keyboard::X) {
+            //     if (this->_vertexArray.getPrimitiveType() ==
+            //         sf::PrimitiveType::Points)
+            //         this->setPrimitiveType(sf::Quads);
+            //     else
+            //         this->setPrimitiveType(sf::Points);
+            // }
             if (key.key == sf::Keyboard::Up)
                 this->setParticleSize(this->getSize() + 1);
             if (key.key == sf::Keyboard::Down)

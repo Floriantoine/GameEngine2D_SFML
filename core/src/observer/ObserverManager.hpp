@@ -64,5 +64,6 @@ class ObserverManager : public IObserver {
     {
         _observers.clear();
         _subjects.clear();
+        _observerQueue.clear();
     };
 };

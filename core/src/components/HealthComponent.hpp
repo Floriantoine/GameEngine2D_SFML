@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2020
-** B-CPP-501-BDX-5-1-rtype-albert.corson
-** File description:
-** Health Component
-*/
-
 #pragma once
 
 #include "../component/Component.hpp"
@@ -14,13 +7,25 @@ namespace rtype {
 
 class HealthComponent : public Component<HealthComponent> {
   public:
-    int health{1};
-    int _initHealth{1};
+    int health{0};
+    int _initHealth{0};
+    int _rangeMin{0};
+    int _rangeMax{0};
 
   public:
     HealthComponent() = default;
-    HealthComponent(int health) : health{health}, _initHealth{health}
+    HealthComponent(nlohmann::json config)
     {
+        if (config["init"] != nullptr) {
+            _initHealth = config["init"];
+            health = _initHealth;
+        }
+        if (config["rangeMin"] != nullptr) {
+            _rangeMin = config["rangeMin"];
+        }
+        if (config["rangeMax"] != nullptr) {
+            _rangeMax = config["rangeMax"];
+        }
     }
 };
 } // namespace rtype
