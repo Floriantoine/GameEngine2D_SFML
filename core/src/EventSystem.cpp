@@ -9,6 +9,7 @@
 
 #include "./Game.hpp"
 #include "SFML/Window/Event.hpp"
+#include "imgui-SFML.h"
 
 namespace Game {
 
@@ -18,6 +19,7 @@ void EventSystem::update(long elapsedTime)
     sf::Event evt;
 
     while (window->pollEvent(evt)) {
+        ImGui::SFML::ProcessEvent(evt);
         this->handleCloseEvent(evt);
         this->handleMouseMove(evt);
         this->handleMouseButtonPressedEvents(evt);
