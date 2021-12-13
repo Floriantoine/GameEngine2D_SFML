@@ -6,6 +6,68 @@ void ParticleSystem::display()
     Game::Game::getInstance().getWindow()->draw(_vertexArray);
 }
 
+void ParticleSystem::loadConfig(std::string string)
+{
+    this->_componentManager.clear();
+    this->_systemManager.clear();
+    nlohmann::json json = json::loadJson(string);
+
+    if (json == nlohmann::json::value_t::discarded || json.is_discarded()) {
+        std::cout << "Json Config Error" << std::endl;
+        return;
+    } else {
+        if (json["force"] != nullptr)
+            this->_componentManager.addComponentRange<rtype::ForceComponent>(
+                0, this->_vertexArray.getVertexCount(), json["force"]);
+        if (json["pos"] != nullptr)
+            this->_componentManager.addComponentRange<rtype::PosComponent>(
+                0, this->_vertexArray.getVertexCount(), json["pos"]);
+        if (json["size"] != nullptr)
+            this->setParticleSize(json["size"]);
+        if (json["count"] != nullptr)
+            this->setVertexCount(json["count"]);
+        if (json["type"] != nullptr) {
+            if (json["type"] == "quads")
+                this->setPrimitiveType(sf::Quads);
+            if (json["type"] == "points")
+                this->setPrimitiveType(sf::Points);
+        }
+        if (json["lifeTime"] != nullptr) {
+            this->_componentManager.addComponentRange<rtype::HealthComponent>(
+                0, this->_vertexArray.getVertexCount(), json["lifeTime"]);
+        }
+        if (json["masse"] != nullptr) {
+            this->setMasse(json["masse"]);
+        }
+        if (json["color"] != nullptr) {
+            this->setColor(json["color"]);
+        }
+        if (json["mouseForce"] != nullptr && json["mouseForce"] == true) {
+            _systemManager.createSystem<rtype::ParticleMouseForceSystem>(
+                Game::Game::getInstance().getObserverManager());
+        }
+        if (json["mousePos"] != nullptr && json["mousePos"] == true) {
+            _systemManager.createSystem<rtype::ParticleMousePosSystem>(
+                Game::Game::getInstance().getObserverManager());
+        }
+        if (json["targetMouse"] != nullptr && json["targetMouse"] == true) {
+            _systemManager.createSystem<rtype::ParticleMouseTargetSystem>(
+                Game::Game::getInstance().getObserverManager(), &_vertexArray);
+        }
+        if (json["alphaGradient"] != nullptr && json["alphaGradient"] == true) {
+            _systemManager.createSystem<PointParticleAlphaSystem>(
+                &_vertexArray);
+        }
+    }
+
+    this->_componentManager.addComponentRange<rtype::MasseComponent>(
+        0, this->_vertexArray.getVertexCount(), this->_initMasse);
+
+    if (this->_vertexArray.getPrimitiveType() == sf::PrimitiveType::Points)
+        _systemManager.createSystem<PointParticleGravitySystem>(&_vertexArray);
+    _systemManager.createSystem<rtype::ParticleTimeLifeSystem>();
+}
+
 void ParticleSystem::setPrimitiveType(sf::PrimitiveType primType)
 {
     if (this->_vertexArray.getPrimitiveType() == primType)
@@ -22,16 +84,15 @@ void ParticleSystem::setPrimitiveType(sf::PrimitiveType primType)
     else if (primType == sf::PrimitiveType::Points) {
         _vertexArray.setPrimitiveType(sf::Points);
         _vertexArray.resize(count / 4);
-        this->updatePoints();
     }
     // this->resetAll();
 }
 
 void ParticleSystem::reset(int index)
 {
-    int floatX =
+    float floatX =
         tools::generate_random_number(_mousePos.x - 5, _mousePos.x + 5);
-    int floatY =
+    float floatY =
         tools::generate_random_number(_mousePos.y - 5, _mousePos.y + 5);
 
     int vertexIndex = index;
@@ -39,8 +100,8 @@ void ParticleSystem::reset(int index)
         vertexIndex = vertexIndex * 4;
     }
     _vertexArray[vertexIndex].position = {floatX, floatY};
-    _vertexArray[vertexIndex].color.a = 255;
-    _vertexArray[vertexIndex].color = sf::Color::Green;
+    // _vertexArray[vertexIndex].color.a = 255;
+    // _vertexArray[vertexIndex].color = _initColor;
 
     if (_vertexArray.getPrimitiveType() == sf::PrimitiveType::Quads) {
         _vertexArray[vertexIndex + 1] = _vertexArray[index];
@@ -52,18 +113,19 @@ void ParticleSystem::reset(int index)
         _vertexArray[vertexIndex + 3].position = {floatX + 10, floatY};
     }
 
-    _particleInf[index].lifeTime = tools::generate_random_number(
-        std::max(_initLifeTime / 2, 1000), _initLifeTime * 2);
-    _particleInf[index]._clock.restart();
-    _particleInf[index].mass =
-        tools::generate_random_number(std::max(_initMasse - 10, 1), _initMasse);
+    _particleInf[index].mass = tools::generate_random_number(
+        std::max(_initMasse - 10, _initMasse), _initMasse);
     _particleInf[index].size = tools::generate_random_number(
         std::max(_initSize - 5, 1), _initSize + 5);
 
-    int speedX =
-        tools::generate_random_number(_mouseVector.x - 3, _mouseVector.x + 3);
-    int speedY =
-        tools::generate_random_number(_mouseVector.y - 3, _mouseVector.y + 3);
+    sf::Vector2i newPos =
+        sf::Mouse::getPosition(*Game::Game::getInstance().getWindow());
+    if (newPos.x == _mousePos.x && newPos.y == _mousePos.y)
+        this->_mouseVector = sf::Vector2f(0, 0);
+    float speedX =
+        tools::generate_random_number(_mouseVector.x - 1, _mouseVector.x + 1);
+    float speedY =
+        tools::generate_random_number(_mouseVector.y - 1, _mouseVector.y + 1);
     cur_S[2 * index] =
         _particleInf[index].mass * sf::Vector2f(-speedX, -speedY);
     cur_S[2 * index + 1] = _vertexArray[vertexIndex].position;
@@ -71,31 +133,38 @@ void ParticleSystem::reset(int index)
 
 ParticleSystem::ParticleSystem(ObserverManager &observerManager)
     : _vertexArray(sf::Points, 1000), _particleInf(1000), cur_S(2000),
-      prior_S(2000), S_derivs(2000)
+      prior_S(2000), S_derivs(2000), _componentManager(),
+      _observerManager(observerManager), _systemManager(_componentManager)
 {
-    auto obs = new Observer{
-        [&](MouseMove const &mouse) {
-            this->_mouseVector = {_mousePos.x - mouse.x, _mousePos.y - mouse.y};
-            _mousePos = sf::Vector2f(mouse.x, mouse.y);
-        },
+    _observers = Observer{
         [&](KeyPressed const &key) {
-            if (key.key == sf::Keyboard::X) {
-                if (this->_vertexArray.getPrimitiveType() ==
-                    sf::PrimitiveType::Points)
-                    this->setPrimitiveType(sf::Quads);
-                else
-                    this->setPrimitiveType(sf::Points);
-                // else if (this->_vertexArray.getPrimitiveType() ==
-                //  sf::PrimitiveType::Quads)
-                // this->_vertexArray.setPrimitiveType(sf::Lines);
-            }
+            // if (key.key == sf::Keyboard::X) {
+            //     if (this->_vertexArray.getPrimitiveType() ==
+            //         sf::PrimitiveType::Points)
+            //         this->setPrimitiveType(sf::Quads);
+            //     else
+            //         this->setPrimitiveType(sf::Points);
+            // }
+            if (key.key == sf::Keyboard::Up)
+                this->setParticleSize(this->getSize() + 1);
+            if (key.key == sf::Keyboard::Down)
+                this->setParticleSize(this->getSize() - 1);
             if (key.key == sf::Keyboard::R)
                 this->loadConfig("../core/json/particles/Particles.json");
-            if (key.key == sf::Keyboard::D)
+            if (key.key == sf::Keyboard::D) {
+                std::cout << "key input " << std::endl;
                 this->loadConfig("../core/json/particles/Default.json");
+            }
         },
     };
+    _observerManager.addObserver(&_observers);
+}
 
-    observerManager.addObserver(obs);
+ParticleSystem::~ParticleSystem()
+{
+}
+
+void ParticleSystem::init()
+{
     this->resetAll();
 }

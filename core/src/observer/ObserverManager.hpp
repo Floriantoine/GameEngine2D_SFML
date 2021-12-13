@@ -10,19 +10,28 @@
 class ObserverManager : public IObserver {
   private:
     std::vector<Observer *> _observers;
+    std::vector<Observer *> _observerQueue;
     std::vector<Subject *> _subjects;
-    std::string message_from_subject_;
 
   public:
     ObserverManager(Subject *subject) = delete;
 
     void handle(Event const &event) override
     {
-        std::vector<Observer *>::iterator iterator = _observers.begin();
+        if (_observerQueue.size() > 0) {
+            _observers.insert(
+                _observers.end(), _observerQueue.begin(), _observerQueue.end());
+            _observerQueue.clear();
+        }
 
+        std::vector<Observer *>::iterator iterator = _observers.begin();
         while (iterator != _observers.end()) {
-            (*iterator)->handle(event);
-            ++iterator;
+            if ((*iterator) != nullptr && (*iterator) != NULL) {
+                (*iterator)->handle(event);
+                ++iterator;
+            } else {
+                _observers.erase(iterator);
+            }
         }
     }
 
@@ -31,7 +40,17 @@ class ObserverManager : public IObserver {
 
     void addObserver(Observer *observer)
     {
-        this->_observers.push_back(observer);
+        if (observer == nullptr)
+            return;
+        this->_observerQueue.push_back(observer);
+    };
+
+    void deleteObserver(Observer *observer)
+    {
+        auto it = std::find(_observers.begin(), _observers.end(), observer);
+
+        if (it != _observers.end())
+            _observers.erase(it);
     };
 
     void addSubject(Subject *subject)
@@ -41,5 +60,10 @@ class ObserverManager : public IObserver {
         subject->Attach(this);
     }
     ObserverManager(/* args */) = default;
-    ~ObserverManager() = default;
+    ~ObserverManager()
+    {
+        _observers.clear();
+        _subjects.clear();
+        _observerQueue.clear();
+    };
 };

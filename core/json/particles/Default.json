@@ -1,7 +1,20 @@
 {
     "count": 1000,
-    "lifeTime": 2000,
+    "lifeTime": {
+        "init": 6000,
+        "rangeMin": 3000,
+        "rangeMax": 3000
+    },
     "type": "points",
-    "force": [0, 9.81],
-    "masse": 10
+    "force": {
+        "init": [ 0, 9.81],
+        "rangeMin": [1, 1],
+        "rangeMax": [1, 1]
+    },
+    "pos": [0 , 0],
+    "masse": 1,
+    "color": "green",
+    "mousePos": true,
+    "mouseForce": false,
+    "targetMouse": false
 }

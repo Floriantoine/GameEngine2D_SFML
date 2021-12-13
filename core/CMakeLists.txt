@@ -12,6 +12,7 @@ include_directories(
         ./src/sprite
         ./src/observer
         ./src/particle
+        ./src/system
 )
 
 set(WARNING_FLAG

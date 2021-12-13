@@ -11,10 +11,11 @@ class dynamicSprite {
     Sprite *_sprite;
     bool _attach = false;
     bool _resize = false;
+    Observer _observer;
 
   public:
     dynamicSprite() = default;
-    ~dynamicSprite() = default;
+    ~dynamicSprite();
     void update();
     void setSprite(Sprite *sprite);
 };

@@ -54,7 +54,6 @@ class Observer : public IObserver {
     {
         if (subject_ != nullptr)
             subject_->Detach(this);
-        std::cout << "Observer \"" << number_ << "\" removed from the list.\n";
     }
 
   protected:
