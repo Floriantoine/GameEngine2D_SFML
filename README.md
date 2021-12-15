@@ -47,7 +47,7 @@ voici un rapide résumé des touches
 ---
 ---
 
-# Remerciemen
+# remerciement
 
 > Merci a `adrienlucbert` pour sont aide dans la réalisation des > concepts, t'elle que l'ECS ou encore different manager !  
 > Merci a `agarof` pour m'avoir montré Imgui et pour m'aider a debug
