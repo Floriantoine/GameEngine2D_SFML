@@ -1,9 +1,3 @@
-/*
-** EPITECH PROJECT, 2020
-** B-CPP-501-BDX-5-1-rtype-albert.corson
-** File description:
-** Component manager class
-*/
 
 #pragma once
 
@@ -24,27 +18,14 @@ class ComponentManager {
     std::unordered_map<id_t, std::unordered_map<id_t, ComponentBase *>>
         _componentLists;
 
-    bool isComponentTypeRegistered(id_t typeId) const
-    {
-        return (
-            this->_componentLists.find(typeId) != this->_componentLists.end());
-    }
+    bool isComponentTypeRegistered(id_t typeId) const;
 
     template <class T> bool isComponentTypeRegistered() const
     {
         return this->isComponentTypeRegistered(T::getTypeId());
     }
 
-    std::unordered_map<id_t, ComponentBase *> &getComponentList(id_t typeId)
-    {
-        auto it = this->_componentLists.find(typeId);
-        if (it == this->_componentLists.end()) {
-            assert("Component type not registered");
-            this->_componentLists.emplace(typeId, 512);
-            it = this->_componentLists.find(typeId);
-        }
-        return it->second;
-    }
+    std::unordered_map<id_t, ComponentBase *> &getComponentList(id_t typeId);
 
     template <class T>
     std::unordered_map<id_t, ComponentBase *> &getComponentList()
@@ -52,45 +33,22 @@ class ComponentManager {
         return this->getComponentList(T::getTypeId());
     }
 
-    bool hasComponent(id_t typeId, id_t entityId)
-    {
-        if (this->isComponentTypeRegistered(typeId) == false)
-            return false;
-        const auto &list = this->getComponentList(typeId);
-        return (list.find(entityId) != list.end());
-    }
+    bool hasComponent(id_t typeId, id_t entityId);
 
-    ComponentBase *getComponent(id_t typeId, id_t entityId)
-    {
-        if (this->isComponentTypeRegistered(typeId) == false)
-            return nullptr;
-        const auto &list = this->getComponentList(typeId);
-        const auto &it = list.find(entityId);
-        if (it == list.end())
-            return nullptr;
-        return it->second;
-    }
+    ComponentBase *getComponent(id_t typeId, id_t entityId);
 
-    void removeComponent(id_t typeId, id_t entityId)
-    {
-        this->getComponentList(typeId).erase(entityId);
-    }
+    void removeComponent(id_t typeId, id_t entityId);
 
   public:
     ComponentManager() = default;
     ComponentManager(const ComponentManager &) = delete;
     ComponentManager(ComponentManager &&) = delete;
-    ~ComponentManager()
-    {
-        this->_componentLists.clear();
-    };
+    ~ComponentManager();
 
     ComponentManager &operator=(const ComponentManager &) = delete;
 
-    void clear()
-    {
-        this->_componentLists.clear();
-    }
+    void clear();
+
     template <class T, typename... Args>
     void addComponent(id_t entityId, Args &&...args)
     {
@@ -133,14 +91,7 @@ class ComponentManager {
         this->removeComponent(T::getTypeId(), entityId);
     }
 
-    void removeAllComponents(id_t entityId)
-    {
-        for (const auto &list: this->_componentLists) {
-            if (list.second.find(entityId) != list.second.end()) {
-                this->removeComponent(list.first, entityId);
-            }
-        }
-    }
+    void removeAllComponents(id_t entityId);
 
     template <class T> void apply(std::function<void(T *)> function)
     {

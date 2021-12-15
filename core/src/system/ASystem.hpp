@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "../component/ComponentManager.hpp"
 #include "../types.hpp"
+#include "component/ComponentManager.hpp"
 
 #include <iostream>
 

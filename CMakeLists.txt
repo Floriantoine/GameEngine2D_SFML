@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
-
 project("R-type" VERSION 1.0)
+
+option(BUILD_TESTS "Build tests" OFF)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake)
 include(deps)
@@ -13,3 +14,6 @@ enable_testing()
 
 add_subdirectory(core)
 
+if (BUILD_TESTS)
+    add_subdirectory(test)
+endif()

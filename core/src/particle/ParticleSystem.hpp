@@ -158,13 +158,6 @@ class ParticleSystem {
                 cur_S[2 * i + 1].x + quadsSize, cur_S[2 * i + 1].y + quadsSize};
             _vertexArray[real + 3].position = {
                 cur_S[2 * i + 1].x + quadsSize, cur_S[2 * i + 1].y};
-            auto compLife =
-                this->_componentManager.getComponent<rtype::HealthComponent>(i);
-            if (compLife && compLife->health <= 0) {
-                this->reset(i);
-            } else if (compLife) {
-                _vertexArray[i].color.a -= 255 / compLife->_initHealth;
-            }
         }
     }
 

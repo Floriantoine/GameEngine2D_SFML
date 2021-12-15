@@ -8,9 +8,9 @@
 #pragma once
 
 #include "../assert.hpp"
-#include "../component/ComponentManager.hpp"
 #include "../types.hpp"
 #include "./ASystem.hpp"
+#include "component/ComponentManager.hpp"
 
 #include <memory>
 #include <unordered_map>

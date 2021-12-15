@@ -13,6 +13,8 @@ include_directories(
         ./src/observer
         ./src/particle
         ./src/system
+        ./include/component
+        ./include
 )
 
 set(WARNING_FLAG
@@ -38,6 +40,7 @@ set(SRCS
         sprite/SpriteManager.cpp
         sprite/dynamicSprite.cpp
         particle/ParticleSystem.cpp
+        component/ComponentManager.cpp
 )
 
 list(TRANSFORM SRCS PREPEND ${SRC_DIR})

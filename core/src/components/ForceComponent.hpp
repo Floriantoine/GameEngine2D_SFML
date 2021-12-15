@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../component/Component.hpp"
+#include "component/Component.hpp"
 #include "nlohmann/json.hpp"
 #include <SFML/System/Vector2.hpp>
 
