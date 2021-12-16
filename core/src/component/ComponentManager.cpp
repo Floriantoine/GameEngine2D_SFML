@@ -54,9 +54,13 @@ void ComponentManager::clear()
     this->_componentLists.clear();
 }
 
-int ComponentManager::getComponentListSize() const
+int ComponentManager::getComponentCount() const
 {
-    return this->_componentLists.size();
+    int count = 0;
+    for (auto &it: this->_componentLists) {
+        count += it.second.size();
+    }
+    return count;
 }
 
 void ComponentManager::removeAllComponents(id_t entityId)

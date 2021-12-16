@@ -7,6 +7,7 @@
 
 #include <cassert>
 #include <functional>
+#include <iostream>
 #include <memory>
 #include <unordered_map>
 #include <vector>
@@ -49,13 +50,13 @@ class ComponentManager {
 
     void clear();
 
-    int getComponentListSize() const;
+    int getComponentCount() const;
 
     template <class T, typename... Args>
     void addComponent(id_t entityId, Args &&...args)
     {
-        assert(this->hasComponent<T>(entityId) == false &&
-               "Entity already has component");
+        if (this->hasComponent<T>(entityId) != false)
+            throw std::overflow_error("Entity already has component");
         T *component = new T(std::forward<Args>(args)...);
         this->getComponentList<T>()[entityId] =
             static_cast<ComponentBase *>(component);
@@ -67,8 +68,8 @@ class ComponentManager {
         if (endId < startId)
             assert("Bad Range");
         for (startId; startId < endId; startId++) {
-            assert(this->hasComponent<T>(startId) == false &&
-                   "Entity already has component");
+            if (this->hasComponent<T>(startId) != false)
+                throw std::overflow_error("Entity already has component");
             T *component = new T(std::forward<Args>(args)...);
             this->getComponentList<T>()[startId] =
                 static_cast<ComponentBase *>(component);
@@ -88,8 +89,8 @@ class ComponentManager {
 
     template <class T> void removeComponent(id_t entityId)
     {
-        assert(this->hasComponent<T>(entityId) &&
-               "Entity does not have component");
+        if (this->hasComponent<T>(entityId) == false)
+            throw std::overflow_error("Entity does not have component");
         this->removeComponent(T::getTypeId(), entityId);
     }
 
