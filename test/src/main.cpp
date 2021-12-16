@@ -1,19 +1,21 @@
 #include <catch2/catch_test_macros.hpp>
 
-unsigned int Factorial(unsigned int number)
-{
-    return number <= 1 ? number : Factorial(number - 1) * number;
-}
+#include "../tools/jsonTools.hpp"
+#include "ComponentManager.hpp"
+#include "components/ForceComponent.hpp"
+#include "nlohmann/json.hpp"
 
-TEST_CASE("Factorials are computed", "[factorial]")
+TEST_CASE("Add Component", "[ComponentManager / addComponent]")
 {
-    REQUIRE(Factorial(1) == 1);
-    REQUIRE(Factorial(2) == 2);
-    REQUIRE(Factorial(3) == 6);
-    REQUIRE(Factorial(10) == 3628800);
-}
+    nlohmann::json json = json::loadJson("../test/json/forceComp.json");
 
-TEST_CASE("Bad Factorials are computed", "[factorial]")
-{
-    REQUIRE(Factorial(1) == 3);
+    if (json != nlohmann::json::value_t::discarded && !json.is_discarded()) {
+        rtype::ComponentManager CompM;
+        CompM.addComponent<rtype::ForceComponent>(0, json["force"]);
+        REQUIRE(CompM.getComponentListSize() == 1);
+        CompM.addComponent<rtype::ForceComponent>(1, json["force"]);
+        REQUIRE(CompM.getComponentListSize() == 2);
+        // CompM.addComponent<rtype::ForceComponent>(1, json["force"]);
+        // REQUIRE(CompM.getComponentListSize() == 2);
+    }
 }

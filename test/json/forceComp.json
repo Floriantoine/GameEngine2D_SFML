@@ -1,0 +1,7 @@
+{
+    "force": {
+        "init": [ 0, 9.81],
+        "rangeMin": [1, 1],
+        "rangeMax": [1, 1]
+    }
+}

@@ -49,6 +49,8 @@ class ComponentManager {
 
     void clear();
 
+    int getComponentListSize() const;
+
     template <class T, typename... Args>
     void addComponent(id_t entityId, Args &&...args)
     {
