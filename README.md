@@ -11,9 +11,10 @@ Pour ce faire je develop un system d'ECS - Des Managers et Factory.
 ## `Build & Lancement`
 
 - `git clone git@github.com:Floriantoine/MyHunter_Sfml.git`
-- `./build.sh`
+- `./build.sh` or `./build.sh -t` (Build Test)
 - `cd build`
 - `./core/r-type_client` ( Attention ! Actuellement il est important de lancer le projet du dossier build ! )
+- `./test/r-type-test` ( start Test )
 
 ---
 ---
