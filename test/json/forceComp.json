@@ -3,5 +3,10 @@
         "init": [ 0, 9.81],
         "rangeMin": [1, 1],
         "rangeMax": [1, 1]
+    },
+    "lifeTime": {
+        "init": 6000,
+        "rangeMin": 3000,
+        "rangeMax": 3000
     }
 }

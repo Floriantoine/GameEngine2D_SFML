@@ -37,6 +37,15 @@ class ObserverManager : public IObserver {
 
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
+    int observerCount() const
+    {
+        return _observers.size() + _observerQueue.size();
+    };
+
+    int subjectCount() const
+    {
+        return _subjects.size();
+    }
 
     void addObserver(Observer *observer)
     {
@@ -51,6 +60,13 @@ class ObserverManager : public IObserver {
 
         if (it != _observers.end())
             _observers.erase(it);
+        else {
+            auto it = std::find(
+                _observerQueue.begin(), _observerQueue.end(), observer);
+
+            if (it != _observerQueue.end())
+                _observerQueue.erase(it);
+        }
     };
 
     void addSubject(Subject *subject)

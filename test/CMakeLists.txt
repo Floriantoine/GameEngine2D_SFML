@@ -25,6 +25,7 @@ set(WARNING_FLAG
 
 set(SRCS
         main.cpp
+        ObserverTest.cpp
         ../../core/src/component/ComponentManager.cpp
         ../../core/src/tools/jsonTools.cpp
 )

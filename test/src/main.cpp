@@ -3,6 +3,7 @@
 #include "../tools/jsonTools.hpp"
 #include "ComponentManager.hpp"
 #include "components/ForceComponent.hpp"
+#include "components/HealthComponent.hpp"
 #include "nlohmann/json.hpp"
 
 TEST_CASE("JsonLoader")
@@ -45,6 +46,13 @@ TEST_CASE("ComponentManager")
             REQUIRE(CompM.getComponentCount() == 2);
         }
 
+        SECTION("basic add range")
+        {
+            CompM.addComponentRange<rtype::ForceComponent>(
+                0, 10, json["force"]);
+            REQUIRE(CompM.getComponentCount() == 10);
+        }
+
         SECTION("hasComponent")
         {
             CompM.addComponent<rtype::ForceComponent>(1, json["force"]);
@@ -67,6 +75,24 @@ TEST_CASE("ComponentManager")
                 CompM.addComponent<rtype::ForceComponent>(1, json["force"]);
                 REQUIRE(CompM.getComponentCount() == 1);
                 CompM.removeComponent<rtype::ForceComponent>(1);
+                REQUIRE(CompM.getComponentCount() == 0);
+            }
+            SECTION("All")
+            {
+                CompM.addComponent<rtype::ForceComponent>(1, json["force"]);
+                CompM.addComponent<rtype::HealthComponent>(1, json["lifeTime"]);
+                REQUIRE(CompM.getComponentCount() == 2);
+                CompM.removeAllComponents(1);
+                REQUIRE(CompM.getComponentCount() == 0);
+            }
+            SECTION("Clear")
+            {
+                CompM.addComponent<rtype::ForceComponent>(1, json["force"]);
+                CompM.addComponent<rtype::HealthComponent>(1, json["lifeTime"]);
+                CompM.addComponent<rtype::HealthComponent>(2, json["lifeTime"]);
+                CompM.addComponent<rtype::HealthComponent>(3, json["lifeTime"]);
+                REQUIRE(CompM.getComponentCount() == 4);
+                CompM.clear();
                 REQUIRE(CompM.getComponentCount() == 0);
             }
             SECTION("throws")
