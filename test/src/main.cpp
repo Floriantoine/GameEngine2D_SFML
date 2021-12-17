@@ -104,3 +104,52 @@ TEST_CASE("ComponentManager")
         }
     }
 }
+
+TEST_CASE("ComponentForce")
+{
+    nlohmann::json json = json::loadJson("../test/json/forceComp.json");
+
+    if (json != nlohmann::json::value_t::discarded && !json.is_discarded()) {
+        rtype::ComponentManager CompM;
+        CompM.addComponent<rtype::ForceComponent>(1, json["force"]);
+        auto forceComp = CompM.getComponent<rtype::ForceComponent>(1);
+
+        SECTION("init")
+        {
+            REQUIRE(forceComp->force.x == (float)json["force"]["init"][0]);
+            REQUIRE(forceComp->force.y == (float)json["force"]["init"][1]);
+        }
+        SECTION("range")
+        {
+            REQUIRE(
+                forceComp->_rangeMin.y == (float)json["force"]["rangeMin"][1]);
+            REQUIRE(
+                forceComp->_rangeMin.x == (float)json["force"]["rangeMin"][0]);
+            REQUIRE(
+                forceComp->_rangeMax.x == (float)json["force"]["rangeMax"][0]);
+            REQUIRE(
+                forceComp->_rangeMax.y == (float)json["force"]["rangeMax"][1]);
+        }
+    }
+}
+
+TEST_CASE("ComponentLifeTime")
+{
+    nlohmann::json json = json::loadJson("../test/json/forceComp.json");
+
+    if (json != nlohmann::json::value_t::discarded && !json.is_discarded()) {
+        rtype::ComponentManager CompM;
+        CompM.addComponent<rtype::HealthComponent>(1, json["lifeTime"]);
+        auto LifeComp = CompM.getComponent<rtype::HealthComponent>(1);
+
+        SECTION("init")
+        {
+            REQUIRE(LifeComp->_initHealth == (float)json["lifeTime"]["init"]);
+        }
+        SECTION("range")
+        {
+            REQUIRE(LifeComp->_rangeMin == json["lifeTime"]["rangeMin"]);
+            REQUIRE(LifeComp->_rangeMax == json["lifeTime"]["rangeMax"]);
+        }
+    }
+}

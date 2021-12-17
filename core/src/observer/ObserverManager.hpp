@@ -35,6 +35,13 @@ class ObserverManager : public IObserver {
         }
     }
 
+    void clear()
+    {
+        _observerQueue.clear();
+        _observers.clear();
+        _subjects.clear();
+    }
+
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
     int observerCount() const
@@ -67,6 +74,14 @@ class ObserverManager : public IObserver {
             if (it != _observerQueue.end())
                 _observerQueue.erase(it);
         }
+    };
+
+    void deleteSubject(Subject *subject)
+    {
+        auto it = std::find(_subjects.begin(), _subjects.end(), subject);
+
+        if (it != _subjects.end())
+            _subjects.erase(it);
     };
 
     void addSubject(Subject *subject)
