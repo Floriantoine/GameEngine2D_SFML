@@ -1,4 +1,4 @@
-#include "ParticleSystem.hpp"
+#include "particle/ParticleSystem.hpp"
 #include "Game.hpp"
 
 void ParticleSystem::display()

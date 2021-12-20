@@ -3,8 +3,8 @@
 
 #include "./Singleton.hpp"
 #include "./parallax/ParallaxSystem.hpp"
-#include "ParticleSystem.hpp"
 #include "dynamicSprite.hpp"
+#include "particle/ParticleSystem.hpp"
 #include <./AGame.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Sprite.hpp>

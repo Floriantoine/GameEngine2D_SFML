@@ -1,7 +1,7 @@
 #pragma once
 
 #include "./Sprite.hpp"
-#include "ObserverManager.hpp"
+#include "observer/ObserverManager.hpp"
 #include <SFML/System/Clock.hpp>
 
 namespace flowEngine {

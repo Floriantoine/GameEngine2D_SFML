@@ -2,9 +2,10 @@
 #pragma once
 
 #include "../components/PosComponent.hpp"
-#include "../observer/Observer.hpp"
-#include "../observer/ObserverManager.hpp"
-#include "./ASystem.hpp"
+#include "ASystem.hpp"
+#include "observer/Observer.hpp"
+#include "observer/ObserverManager.hpp"
+
 #include "tools/random.hpp"
 
 namespace rtype {

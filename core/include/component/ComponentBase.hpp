@@ -1,13 +1,6 @@
-/*
-** EPITECH PROJECT, 2020
-** B-CPP-501-BDX-5-1-rtype-albert.corson
-** File description:
-** Component base class
-*/
-
 #pragma once
 
-#include "types.hpp"
+#include "../../src/types.hpp"
 
 namespace rtype {
 

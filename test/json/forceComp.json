@@ -4,6 +4,14 @@
         "rangeMin": [1, 1],
         "rangeMax": [1, 1]
     },
+    "pos": {
+        "init": [ 200, 200],
+        "rangeMin": [20, 20],
+        "rangeMax": [20, 20]
+    },
+    "masse": {
+        "init": 1
+    },
     "lifeTime": {
         "init": 6000,
         "rangeMin": 3000,

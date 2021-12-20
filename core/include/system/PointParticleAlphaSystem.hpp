@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../components/HealthComponent.hpp"
-#include "./ASystem.hpp"
+#include "ASystem.hpp"
 #include <SFML/Graphics/VertexArray.hpp>
 #include <vector>
 

@@ -4,18 +4,7 @@ project("R-type's client" LANGUAGES CXX)
 
 set(SRC_DIR src/)
 
-include_directories(
-        ./src
-        ./src/parallax
-        ./src/tools
-        ./src/texture
-        ./src/sprite
-        ./src/observer
-        ./src/particle
-        ./src/system
-        ./include/component
-        ./include
-)
+
 
 set(WARNING_FLAG
         -Wall
@@ -41,11 +30,22 @@ set(SRCS
         sprite/dynamicSprite.cpp
         particle/ParticleSystem.cpp
         component/ComponentManager.cpp
+        system/PointParticleGravitySystem.cpp
 )
 
 list(TRANSFORM SRCS PREPEND ${SRC_DIR})
 
 add_executable(r-type_client ${SRCS})
+
+target_include_directories( r-type_client PRIVATE
+        ./src
+        ./src/parallax
+        ./src/tools
+        ./src/texture
+        ./src/sprite
+        ./src/observer
+        ./include
+)
 
 target_link_libraries(r-type_client PRIVATE
   nlohmann_json::nlohmann_json

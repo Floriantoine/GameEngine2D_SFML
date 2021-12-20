@@ -4,7 +4,7 @@
 #include "../components/HealthComponent.hpp"
 #include "../components/MasseComponent.hpp"
 #include "../components/PosComponent.hpp"
-#include "./ASystem.hpp"
+#include "ASystem.hpp"
 #include <SFML/Graphics/VertexArray.hpp>
 #include <vector>
 

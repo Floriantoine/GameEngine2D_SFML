@@ -9,7 +9,7 @@
 
 #include "../assert.hpp"
 #include "../types.hpp"
-#include "./ASystem.hpp"
+#include "ASystem.hpp"
 #include "component/ComponentManager.hpp"
 
 #include <memory>

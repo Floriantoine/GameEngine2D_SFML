@@ -9,12 +9,12 @@
 #include <json/value.h>
 #include <memory>
 
-#include "../observer/ObserverManager.hpp"
 #include "../tools/jsonTools.hpp"
 #include "./IParallax.hpp"
 #include "./ParallaxLayer.hpp"
 #include "./ParallaxObj.hpp"
 #include "./layerBackground.hpp"
+#include "observer/ObserverManager.hpp"
 
 namespace parallax {
 

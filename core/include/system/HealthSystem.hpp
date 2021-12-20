@@ -1,22 +1,21 @@
-
 #pragma once
 
-#include "../components/HealthComponent.hpp"
-#include "./ASystem.hpp"
-#include "tools/random.hpp"
+#include "ASystem.hpp"
+#include "components/HealthComponent.hpp"
 
-namespace rtype {
-
-class ParticleTimeLifeSystem : public ASystem {
+class HealthSystem : public ASystem {
   public:
-    ParticleTimeLifeSystem() : ASystem(){};
-    ~ParticleTimeLifeSystem() = default;
+    HealthSystem() : ASystem(){};
+    ~HealthSystem() = default;
 
     void update(long elapsedTime) override
     {
         this->componentManager_->apply<HealthComponent>(
             [&](HealthComponent *component) {
-                if (component->health > 0) {
+                if (component->health <= 0) {
+                    component->health = component->_initHealth;
+                    // this->destroyEntity(component->getEntity());
+                } else {
                     component->health -= elapsedTime;
                 }
             });

@@ -1,30 +1,22 @@
-/*
-** EPITECH PROJECT, 2020
-** B-CPP-501-BDX-5-1-rtype-albert.corson
-** File description:
-** HealthSystem
-*/
 
 #pragma once
 
 #include "../components/HealthComponent.hpp"
-#include "./ASystem.hpp"
+#include "ASystem.hpp"
+#include "tools/random.hpp"
 
 namespace rtype {
 
-class HealthSystem : public ASystem {
+class ParticleTimeLifeSystem : public ASystem {
   public:
-    HealthSystem() : ASystem(){};
-    ~HealthSystem() = default;
+    ParticleTimeLifeSystem() : ASystem(){};
+    ~ParticleTimeLifeSystem() = default;
 
     void update(long elapsedTime) override
     {
         this->componentManager_->apply<HealthComponent>(
             [&](HealthComponent *component) {
-                if (component->health <= 0) {
-                    component->health = component->_initHealth;
-                    // this->destroyEntity(component->getEntity());
-                } else {
+                if (component->health > 0) {
                     component->health -= elapsedTime;
                 }
             });

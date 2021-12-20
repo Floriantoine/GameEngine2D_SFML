@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "./observer/ObserverManager.hpp"
-#include "./observer/Subject.hpp"
+#include "observer/ObserverManager.hpp"
+#include "observer/Subject.hpp"
 #include <SFML/Window/Event.hpp>
 
 namespace Game {

@@ -4,6 +4,8 @@
 #include "ComponentManager.hpp"
 #include "components/ForceComponent.hpp"
 #include "components/HealthComponent.hpp"
+#include "components/MasseComponent.hpp"
+#include "components/PosComponent.hpp"
 #include "nlohmann/json.hpp"
 
 TEST_CASE("JsonLoader")
@@ -150,6 +152,50 @@ TEST_CASE("ComponentLifeTime")
         {
             REQUIRE(LifeComp->_rangeMin == json["lifeTime"]["rangeMin"]);
             REQUIRE(LifeComp->_rangeMax == json["lifeTime"]["rangeMax"]);
+        }
+    }
+}
+
+TEST_CASE("ComponentMasse")
+{
+    nlohmann::json json = json::loadJson("../test/json/forceComp.json");
+
+    if (json != nlohmann::json::value_t::discarded && !json.is_discarded()) {
+        rtype::ComponentManager CompM;
+        CompM.addComponent<rtype::MasseComponent>(1, json["masse"]["init"]);
+        auto MasseComp = CompM.getComponent<rtype::MasseComponent>(1);
+
+        SECTION("init")
+        {
+            REQUIRE(MasseComp->_initMasse == (float)json["masse"]["init"]);
+        }
+    }
+}
+
+TEST_CASE("ComponentPos")
+{
+    nlohmann::json json = json::loadJson("../test/json/forceComp.json");
+
+    if (json != nlohmann::json::value_t::discarded && !json.is_discarded()) {
+        rtype::ComponentManager CompM;
+        CompM.addComponent<rtype::PosComponent>(1, json["pos"]);
+        auto forceComp = CompM.getComponent<rtype::PosComponent>(1);
+
+        SECTION("init")
+        {
+            REQUIRE(forceComp->_initPos.x == (float)json["pos"]["init"][0]);
+            REQUIRE(forceComp->_initPos.y == (float)json["pos"]["init"][1]);
+        }
+        SECTION("range")
+        {
+            REQUIRE(
+                forceComp->_rangeMin.y == (float)json["pos"]["rangeMin"][1]);
+            REQUIRE(
+                forceComp->_rangeMin.x == (float)json["pos"]["rangeMin"][0]);
+            REQUIRE(
+                forceComp->_rangeMax.x == (float)json["pos"]["rangeMax"][0]);
+            REQUIRE(
+                forceComp->_rangeMax.y == (float)json["pos"]["rangeMax"][1]);
         }
     }
 }
