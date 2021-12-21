@@ -10,19 +10,16 @@ class PointParticleGravitySystem : public rtype::ASystem {
   private:
     sf::VertexArray *_vertexArray;
 
-    std::vector<sf::Vector2f> cur_S;
-    std::vector<sf::Vector2f> prior_S;
-    std::vector<sf::Vector2f> S_derivs;
     float delta_t = 0.2;
     int _vertexSize;
 
-    void ExplicitEuler(int N, std::vector<sf::Vector2f> prior_S,
-        std::vector<sf::Vector2f> S_derivs, float delta_t);
+    void ExplicitEuler(int N, std::vector<sf::Vector2f> *cur_S,
+        std::vector<sf::Vector2f> prior_S, std::vector<sf::Vector2f> S_derivs,
+        float delta_t);
 
   public:
     PointParticleGravitySystem(sf::VertexArray *vertexArray)
-        : _vertexArray(vertexArray), cur_S(1), prior_S(1), S_derivs(1),
-          _vertexSize(-1), ASystem(){};
+        : _vertexArray(vertexArray), _vertexSize(-1), ASystem(){};
     ~PointParticleGravitySystem() = default;
 
     void init();

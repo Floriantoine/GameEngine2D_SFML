@@ -1,5 +1,9 @@
 #include "./Game.hpp"
 #include <stdio.h>
+
+#include <imgui-SFML.h>
+#include <imgui.h>
+
 int Observer::static_number_ = 0;
 
 int main(int argc, char const *argv[])
@@ -56,6 +60,8 @@ void Game::onInit()
     this->_window = std::make_unique<sf::RenderWindow>(
         this->_videoMode, this->_windowTitle, this->_windowStyle);
 
+    ImGui::SFML::Init(*this->_window);
+
     this->_parallax.setRenderWindow(this->_window.get());
     this->_parallax.clear();
     this->_sceneManager.loadScene("../core/json/scene1.json");
@@ -75,9 +81,15 @@ void Game::onBeforeUpdate()
 
 void Game::onAfterUpdate()
 {
+    ImGui::SFML::Update(*this->_window, this->_imguiClock.restart());
+
+    ImGui::Begin("test");
+    ImGui::End();
+
     this->_parallax.display();
     this->_spriteManager.display();
     this->_particleSystem.display();
+    ImGui::SFML::Render(*this->_window);
     this->_window->display();
 }
 
@@ -87,6 +99,7 @@ Game::Game()
 
 Game::~Game()
 {
+    ImGui::SFML::Shutdown();
 }
 
 } // namespace Game

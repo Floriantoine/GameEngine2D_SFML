@@ -63,8 +63,11 @@ void ParticleSystem::loadConfig(std::string string)
     this->_componentManager.addComponentRange<rtype::MasseComponent>(
         0, this->_vertexArray.getVertexCount(), this->_initMasse);
 
-    if (this->_vertexArray.getPrimitiveType() == sf::PrimitiveType::Points)
+    if (this->_vertexArray.getPrimitiveType() == sf::PrimitiveType::Points) {
+        this->_componentManager.addComponentRange<components::Gravity>(
+            0, this->_vertexArray.getVertexCount());
         _systemManager.createSystem<PointParticleGravitySystem>(&_vertexArray);
+    }
     _systemManager.createSystem<rtype::ParticleTimeLifeSystem>();
 }
 

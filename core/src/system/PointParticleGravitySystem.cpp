@@ -1,20 +1,17 @@
 #include "system/GravitySystem.hpp"
 
 void PointParticleGravitySystem::ExplicitEuler(int N,
-    std::vector<sf::Vector2f> prior_S, std::vector<sf::Vector2f> S_derivs,
-    float delta_t)
+    std::vector<sf::Vector2f> *cur_S, std::vector<sf::Vector2f> prior_S,
+    std::vector<sf::Vector2f> S_derivs, float delta_t)
 {
     for (int i = 0; i < N; i++) {
-        cur_S[i] = prior_S[i] + delta_t * S_derivs[i];
+        (*cur_S)[i] = prior_S[i] + delta_t * S_derivs[i];
     }
 }
 
 void PointParticleGravitySystem::init()
 {
     this->_vertexSize = this->_vertexArray->getVertexCount();
-    this->cur_S.resize(_vertexSize * 2);
-    this->prior_S.resize(_vertexSize * 2);
-    this->S_derivs.resize(_vertexSize * 2);
 
     for (int index = 0; index < _vertexSize; index++) {
         resetParticle(index);
@@ -23,6 +20,10 @@ void PointParticleGravitySystem::init()
 
 void PointParticleGravitySystem::resetParticle(int index)
 {
+    components::Gravity *gravityC =
+        this->componentManager_->getComponent<components::Gravity>(index);
+    if (gravityC == nullptr)
+        return;
     rtype::HealthComponent *compLife =
         this->componentManager_->getComponent<rtype::HealthComponent>(index);
     rtype::MasseComponent *MasseComp =
@@ -51,8 +52,8 @@ void PointParticleGravitySystem::resetParticle(int index)
 
     float masse = (MasseComp ? MasseComp->masse : 0);
     sf::Vector2f force = (ForceComp ? ForceComp->force : sf::Vector2f(0, 0));
-    cur_S[2 * index] = masse * force;
-    cur_S[2 * index + 1] = (*_vertexArray)[index].position;
+    gravityC->_cur_S[0] = masse * force;
+    gravityC->_cur_S[1] = (*_vertexArray)[index].position;
 }
 
 void PointParticleGravitySystem::update(long elapsedTime)
@@ -61,8 +62,11 @@ void PointParticleGravitySystem::update(long elapsedTime)
     if (count != _vertexSize) {
         init();
     }
-    prior_S = cur_S;
     for (int i = 0; i < count; i++) {
+        components::Gravity *gravityC =
+            this->componentManager_->getComponent<components::Gravity>(i);
+        if (gravityC == nullptr)
+            break;
         rtype::ForceComponent *forceComponent =
             this->componentManager_->getComponent<rtype::ForceComponent>(i);
         sf::Vector2f force =
@@ -71,17 +75,24 @@ void PointParticleGravitySystem::update(long elapsedTime)
             this->componentManager_->getComponent<rtype::MasseComponent>(i);
         float masse = (MasseComponent ? MasseComponent->masse : 0);
 
-        S_derivs[2 * i] = force;
-        S_derivs[2 * i + 1] = prior_S[2 * i] / masse;
+        gravityC->_prior_S = gravityC->_cur_S;
+        gravityC->_S_derivs[0] = force;
+        gravityC->_S_derivs[1] = gravityC->_prior_S[0] / masse;
+        ExplicitEuler(gravityC->_cur_S.size(), &gravityC->_cur_S,
+            gravityC->_prior_S, gravityC->_S_derivs, delta_t);
     }
-    ExplicitEuler(cur_S.size(), prior_S, S_derivs, delta_t);
 
     for (int i = 0; i < count; i++) {
         rtype::HealthComponent *compLife =
             this->componentManager_->getComponent<rtype::HealthComponent>(i);
-        (*_vertexArray)[i].position = cur_S[2 * i + 1];
         if (compLife && compLife->health <= 0) {
             resetParticle(i);
+        } else {
+            components::Gravity *gravityC =
+                this->componentManager_->getComponent<components::Gravity>(i);
+            if (gravityC != nullptr) {
+                (*_vertexArray)[i].position = gravityC->_cur_S[1];
+            }
         }
     }
 }
