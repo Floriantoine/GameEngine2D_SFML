@@ -1,8 +1,8 @@
 #pragma once
 
-#include "TextureManager.hpp"
 #include "nlohmann/json.hpp"
 #include "parallax/ParallaxSystem.hpp"
+#include "texture/TextureManager.hpp"
 #include "tools/jsonTools.hpp"
 
 class SceneManager {
