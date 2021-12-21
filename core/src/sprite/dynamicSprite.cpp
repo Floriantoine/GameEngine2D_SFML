@@ -1,4 +1,4 @@
-#include "dynamicSprite.hpp"
+#include "sprite/dynamicSprite.hpp"
 #include "Game.hpp"
 #include <SFML/Window/Keyboard.hpp>
 #include <cstdlib>

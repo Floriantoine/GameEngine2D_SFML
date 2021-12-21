@@ -1,5 +1,5 @@
 
-#include "SpriteManager.hpp"
+#include "sprite/SpriteManager.hpp"
 #include "Game.hpp"
 
 namespace flowEngine {

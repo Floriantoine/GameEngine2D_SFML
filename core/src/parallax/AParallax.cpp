@@ -1,5 +1,5 @@
-#include "./AParallax.hpp"
-#include "./ParallaxSystem.hpp"
+#include "parallax/AParallax.hpp"
+#include "parallax/ParallaxSystem.hpp"
 
 namespace parallax {
 

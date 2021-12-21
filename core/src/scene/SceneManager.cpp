@@ -1,5 +1,5 @@
 
-#include "./SceneManager.hpp"
+#include "scene/SceneManager.hpp"
 
 void SceneManager::loadScene(std::string const &filePath)
 {

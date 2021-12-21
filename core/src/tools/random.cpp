@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2018
-** CPE_dante_2018
-** File description:
-** randy.c
-*/
-
 #include <SFML/System/Vector2.hpp>
 #include <ctime>
 #include <iostream>

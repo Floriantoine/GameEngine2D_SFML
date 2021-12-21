@@ -1,6 +1,6 @@
 
-#include "./ParallaxObj.hpp"
-#include "./ParallaxSystem.hpp"
+#include "parallax/ParallaxObj.hpp"
+#include "parallax/ParallaxSystem.hpp"
 #include <SFML/System/Vector2.hpp>
 #include <iostream>
 

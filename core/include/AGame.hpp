@@ -1,10 +1,11 @@
 #pragma once
 
-#include "./scene/SceneManager.hpp"
-#include "SpriteManager.hpp"
 #include "TextureManager.hpp"
 #include "observer/Observer.hpp"
 #include "observer/ObserverManager.hpp"
+#include "particle/ParticleSystem.hpp"
+#include "scene/SceneManager.hpp"
+#include "sprite/SpriteManager.hpp"
 #include <./EventSystem.hpp>
 #include <chrono>
 

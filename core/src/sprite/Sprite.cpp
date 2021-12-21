@@ -1,4 +1,4 @@
-#include "Sprite.hpp"
+#include "sprite/Sprite.hpp"
 #include <iostream>
 
 namespace flowEngine {

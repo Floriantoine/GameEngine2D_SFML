@@ -1,5 +1,5 @@
 
-#include "./layerBackground.hpp"
+#include "parallax/layerBackground.hpp"
 
 namespace parallax {
 

@@ -1,4 +1,4 @@
-#include "./jsonTools.hpp"
+#include "tools/jsonTools.hpp"
 
 nlohmann::json json::loadJson(const std::string &file)
 {

@@ -1,6 +1,6 @@
 
-#include "./ParallaxSystem.hpp"
-#include "../Game.hpp"
+#include "parallax/ParallaxSystem.hpp"
+#include "Game.hpp"
 
 namespace parallax {
 

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../tools/jsonTools.hpp"
-#include "ParallaxSystem.hpp"
 #include "TextureManager.hpp"
 #include "nlohmann/json.hpp"
+#include "parallax/ParallaxSystem.hpp"
+#include "tools/jsonTools.hpp"
 
 class SceneManager {
   private:

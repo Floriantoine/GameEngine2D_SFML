@@ -1,5 +1,5 @@
-#include "./ParallaxLayer.hpp"
-#include "./ParallaxSystem.hpp"
+#include "parallax/ParallaxLayer.hpp"
+#include "parallax/ParallaxSystem.hpp"
 #include <SFML/System/Vector2.hpp>
 
 namespace parallax {
