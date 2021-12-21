@@ -80,7 +80,6 @@ void ParticleSystem::setPrimitiveType(sf::PrimitiveType primType)
     if (primType == sf::PrimitiveType::Quads) {
         _vertexArray.setPrimitiveType(sf::Quads);
         _vertexArray.resize(count * 4);
-        this->updateQuads();
     }
     // else if (primType == sf::PrimitiveType::Lines)
     //     // _vertexArray = sf::VertexArray(sf::Lines, count * 2);
@@ -93,50 +92,10 @@ void ParticleSystem::setPrimitiveType(sf::PrimitiveType primType)
 
 void ParticleSystem::reset(int index)
 {
-    float floatX =
-        tools::generate_random_number(_mousePos.x - 5, _mousePos.x + 5);
-    float floatY =
-        tools::generate_random_number(_mousePos.y - 5, _mousePos.y + 5);
-
-    int vertexIndex = index;
-    if (_vertexArray.getPrimitiveType() == sf::PrimitiveType::Quads) {
-        vertexIndex = vertexIndex * 4;
-    }
-    _vertexArray[vertexIndex].position = {floatX, floatY};
-    // _vertexArray[vertexIndex].color.a = 255;
-    // _vertexArray[vertexIndex].color = _initColor;
-
-    if (_vertexArray.getPrimitiveType() == sf::PrimitiveType::Quads) {
-        _vertexArray[vertexIndex + 1] = _vertexArray[index];
-        _vertexArray[vertexIndex + 2] = _vertexArray[index];
-        _vertexArray[vertexIndex + 3] = _vertexArray[index];
-
-        _vertexArray[vertexIndex + 1].position = {floatX, floatY + 10};
-        _vertexArray[vertexIndex + 2].position = {floatX + 10, floatY + 10};
-        _vertexArray[vertexIndex + 3].position = {floatX + 10, floatY};
-    }
-
-    _particleInf[index].mass = tools::generate_random_number(
-        std::max(_initMasse - 10, _initMasse), _initMasse);
-    _particleInf[index].size = tools::generate_random_number(
-        std::max(_initSize - 5, 1), _initSize + 5);
-
-    sf::Vector2i newPos =
-        sf::Mouse::getPosition(*Game::Game::getInstance().getWindow());
-    if (newPos.x == _mousePos.x && newPos.y == _mousePos.y)
-        this->_mouseVector = sf::Vector2f(0, 0);
-    float speedX =
-        tools::generate_random_number(_mouseVector.x - 1, _mouseVector.x + 1);
-    float speedY =
-        tools::generate_random_number(_mouseVector.y - 1, _mouseVector.y + 1);
-    cur_S[2 * index] =
-        _particleInf[index].mass * sf::Vector2f(-speedX, -speedY);
-    cur_S[2 * index + 1] = _vertexArray[vertexIndex].position;
 }
 
 ParticleSystem::ParticleSystem(ObserverManager &observerManager)
-    : _vertexArray(sf::Points, 1000), _particleInf(1000), cur_S(2000),
-      prior_S(2000), S_derivs(2000), _componentManager(),
+    : _vertexArray(sf::Points, 1000), _componentManager(),
       _observerManager(observerManager), _systemManager(_componentManager)
 {
     _observers = Observer{
