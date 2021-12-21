@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2020
-** B-CPP-501-BDX-5-1-rtype-albert.corson
-** File description:
-** Event System
-*/
-
 #include "EventSystem.hpp"
 
 #include "./Game.hpp"
@@ -18,6 +11,8 @@ void EventSystem::update(long elapsedTime)
     sf::Event evt;
 
     while (window->pollEvent(evt)) {
+        ImGui::SFML::ProcessEvent(evt);
+
         this->handleCloseEvent(evt);
         this->handleMouseMove(evt);
         this->handleMouseButtonPressedEvents(evt);

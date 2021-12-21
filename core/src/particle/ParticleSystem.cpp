@@ -126,6 +126,59 @@ ParticleSystem::~ParticleSystem()
 {
 }
 
+void ParticleSystem::update(long elapsedTime)
+{
+    ImGui::Begin("test");
+    // this->_jsonEditor.update();
+
+    rtype::ForceComponent *forceComp =
+        this->_componentManager.getComponent<rtype::ForceComponent>(0);
+    rtype::HealthComponent *LifeComp =
+        this->_componentManager.getComponent<rtype::HealthComponent>(0);
+    // rtype::SizeComponent *SizeComp =
+    //     this->_componentManager.getComponent<rtype::SizeComponent>(0);
+    // if (SizeComp != nullptr) {
+    //     float size = SizeComp->_size;
+    //     ImGui::SliderFloat("Size", &size, 1, 100);
+    //     if (SizeComp->_size != size) {
+    //         _componentManager.apply<rtype::SizeComponent>(
+    //             [&](rtype::SizeComponent *component) {
+    //                 component->_size = size;
+    //             });
+    //     }
+    // }
+    int tempo = _vertexArray.getVertexCount();
+    ImGui::SliderInt("Count", &tempo, 0, 4000);
+    if (tempo != _vertexArray.getVertexCount()) {
+        this->setVertexCount(tempo);
+    }
+    if (forceComp != nullptr) {
+        float tempo[2] = {forceComp->_initForce.x, forceComp->_initForce.y};
+        ImGui::SliderFloat2("Force", tempo, -100.0f, 100.0f);
+        if (forceComp->_initForce.x != tempo[0] ||
+            forceComp->_initForce.y != tempo[1]) {
+            _componentManager.apply<rtype::ForceComponent>(
+                [&](rtype::ForceComponent *component) {
+                    component->_initForce = sf::Vector2f(tempo[0], tempo[1]);
+                });
+        }
+    }
+    if (LifeComp != nullptr) {
+        int life = LifeComp->_initHealth;
+        ImGui::SliderInt("Life", &life, 0, 60000);
+        if (LifeComp->_initHealth != life) {
+            _componentManager.apply<rtype::HealthComponent>(
+                [&](rtype::HealthComponent *component) {
+                    component->_initHealth = life;
+                });
+        }
+    }
+    ImGui::End();
+
+    // updateCollideState();
+    this->_systemManager.update(elapsedTime);
+}
+
 void ParticleSystem::init()
 {
     this->resetAll();

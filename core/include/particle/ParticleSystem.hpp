@@ -13,6 +13,8 @@
 #include <SFML/Graphics/VertexArray.hpp>
 
 #include "../tools/jsonTools.hpp"
+#include "imgui-SFML.h"
+#include "imgui.h"
 #include "system/SystemManager.hpp"
 #include <SFML/System/Clock.hpp>
 #include <iostream>
@@ -142,11 +144,7 @@ class ParticleSystem {
     //     }
     // };
 
-    void update(long elapsedTime)
-    {
-        // updateCollideState();
-        this->_systemManager.update(elapsedTime);
-    }
+    void update(long elapsedTime);
 
     void display();
 };

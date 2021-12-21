@@ -19,6 +19,7 @@ class Game : public AGame, public Singleton<Game> {
     sf::Uint32 _windowStyle{sf::Style::Default};
     std::string _windowTitle{"Game"};
     std::chrono::steady_clock::time_point _lastUpdate;
+    sf::Clock _imguiClock;
 
   public:
     void setWindowTitle(const std::string &title);

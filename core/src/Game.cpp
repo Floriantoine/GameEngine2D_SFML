@@ -1,4 +1,6 @@
 #include "./Game.hpp"
+#include "imgui.h"
+#include <imgui-SFML.h>
 #include <stdio.h>
 
 int Observer::static_number_ = 0;
@@ -61,6 +63,7 @@ void Game::onInit()
     this->_parallax.clear();
     this->_sceneManager.loadScene("../core/json/scene1.json");
 
+    ImGui::SFML::Init(*this->_window);
     // Start Test Zone Temporary
     // auto texture =
     //     this->_textureManager.getTextureByName("texture2").getSfTexture();
@@ -72,6 +75,7 @@ void Game::onInit()
 void Game::onBeforeUpdate()
 {
     this->_window->clear();
+    ImGui::SFML::Update(*this->_window, this->_imguiClock.restart());
 }
 
 void Game::onAfterUpdate()
@@ -79,6 +83,7 @@ void Game::onAfterUpdate()
     this->_parallax.display();
     this->_spriteManager.display();
     this->_particleSystem.display();
+    ImGui::SFML::Render(*this->_window);
     this->_window->display();
 }
 
@@ -88,6 +93,7 @@ Game::Game()
 
 Game::~Game()
 {
+    ImGui::SFML::Shutdown();
 }
 
 } // namespace Game
