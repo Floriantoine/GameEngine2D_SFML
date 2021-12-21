@@ -170,9 +170,19 @@ void ParticleSystem::update(long elapsedTime)
                 tempo, this->_vertexArray.getVertexCount());
         this->setVertexCount(tempo);
     }
+
+    ImGui::Separator();
+    ImGui::LabelText("", "Pos");
     if (posComp != nullptr) {
-        int tempo[2] = {posComp->_initPos.x, posComp->_initPos.y};
-        ImGui::SliderInt2("Pos", tempo, 0, 1920);
+        int tempo[6] = {posComp->_initPos.x, posComp->_initPos.y,
+            posComp->_rangeMin.x, posComp->_rangeMin.y, posComp->_rangeMax.x,
+            posComp->_rangeMax.y};
+        ImGui::SliderInt("X", &tempo[0], 0, 1920);
+        ImGui::SliderInt("Y", &tempo[1], 0, 1920);
+        ImGui::SliderInt("Min X", &tempo[2], 0, 1000);
+        ImGui::SliderInt("Min Y", &tempo[3], 0, 1000);
+        ImGui::SliderInt("Max X", &tempo[4], 0, 1000);
+        ImGui::SliderInt("Max Y", &tempo[5], 0, 1000);
         if (posComp->_initPos.x != tempo[0] ||
             posComp->_initPos.y != tempo[1]) {
             _componentManager.apply<rtype::PosComponent>(
@@ -180,8 +190,23 @@ void ParticleSystem::update(long elapsedTime)
                     component->_initPos = sf::Vector2i(tempo[0], tempo[1]);
                 });
         }
+        if (posComp->_rangeMin.x != tempo[2] ||
+            posComp->_rangeMin.y != tempo[3]) {
+            _componentManager.apply<rtype::PosComponent>(
+                [&](rtype::PosComponent *component) {
+                    component->_rangeMin = sf::Vector2i(tempo[2], tempo[3]);
+                });
+        }
+        if (posComp->_rangeMax.x != tempo[4] ||
+            posComp->_rangeMax.y != tempo[5]) {
+            _componentManager.apply<rtype::PosComponent>(
+                [&](rtype::PosComponent *component) {
+                    component->_rangeMax = sf::Vector2i(tempo[4], tempo[5]);
+                });
+        }
     }
-
+    ImGui::Separator();
+    ImGui::LabelText("", "Force");
     if (forceComp != nullptr) {
         float tempo[2] = {forceComp->_initForce.x, forceComp->_initForce.y};
         ImGui::SliderFloat2("Force", tempo, -100.0f, 100.0f);
@@ -193,6 +218,9 @@ void ParticleSystem::update(long elapsedTime)
                 });
         }
     }
+
+    ImGui::Separator();
+    ImGui::LabelText("", "Life");
 
     if (LifeComp != nullptr) {
         int life = LifeComp->_initHealth;
