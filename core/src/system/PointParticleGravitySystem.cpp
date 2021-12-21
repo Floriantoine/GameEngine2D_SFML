@@ -62,37 +62,36 @@ void PointParticleGravitySystem::update(long elapsedTime)
     if (count != _vertexSize) {
         init();
     }
-    for (int i = 0; i < count; i++) {
+    auto array =
+        this->componentManager_->getComponentList<components::Gravity>();
+    for (auto it = array.begin(); it != array.end(); ++it) {
         components::Gravity *gravityC =
-            this->componentManager_->getComponent<components::Gravity>(i);
+            static_cast<components::Gravity *>(it->second);
         if (gravityC == nullptr)
             break;
         rtype::ForceComponent *forceComponent =
-            this->componentManager_->getComponent<rtype::ForceComponent>(i);
-        sf::Vector2f force =
-            (forceComponent ? forceComponent->force : sf::Vector2f(0, 0));
+            this->componentManager_->getComponent<rtype::ForceComponent>(
+                it->first);
         rtype::MasseComponent *MasseComponent =
-            this->componentManager_->getComponent<rtype::MasseComponent>(i);
-        float masse = (MasseComponent ? MasseComponent->masse : 0);
+            this->componentManager_->getComponent<rtype::MasseComponent>(
+                it->first);
 
         gravityC->_prior_S = gravityC->_cur_S;
-        gravityC->_S_derivs[0] = force;
-        gravityC->_S_derivs[1] = gravityC->_prior_S[0] / masse;
+        gravityC->_S_derivs[0] =
+            (forceComponent ? forceComponent->force : sf::Vector2f(0, 0));
+        gravityC->_S_derivs[1] =
+            gravityC->_prior_S[0] /
+            (float)(MasseComponent ? MasseComponent->masse : 0);
         ExplicitEuler(gravityC->_cur_S.size(), &gravityC->_cur_S,
             gravityC->_prior_S, gravityC->_S_derivs, delta_t);
-    }
 
-    for (int i = 0; i < count; i++) {
         rtype::HealthComponent *compLife =
-            this->componentManager_->getComponent<rtype::HealthComponent>(i);
+            this->componentManager_->getComponent<rtype::HealthComponent>(
+                it->first);
         if (compLife && compLife->health <= 0) {
-            resetParticle(i);
+            resetParticle(it->first);
         } else {
-            components::Gravity *gravityC =
-                this->componentManager_->getComponent<components::Gravity>(i);
-            if (gravityC != nullptr) {
-                (*_vertexArray)[i].position = gravityC->_cur_S[1];
-            }
+            (*_vertexArray)[it->first].position = gravityC->_cur_S[1];
         }
     }
 }

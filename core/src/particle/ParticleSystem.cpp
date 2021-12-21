@@ -96,8 +96,11 @@ void ParticleSystem::reset(int index)
 
 ParticleSystem::ParticleSystem(ObserverManager &observerManager)
     : _vertexArray(sf::Points, 1000), _componentManager(),
-      _observerManager(observerManager), _systemManager(_componentManager)
+      _observerManager(observerManager), _systemManager(_componentManager),
+      fileDialog()
 {
+    fileDialog.SetTitle("title");
+    fileDialog.SetTypeFilters({".json"});
     _observers = Observer{
         [&](KeyPressed const &key) {
             // if (key.key == sf::Keyboard::X) {
@@ -129,6 +132,8 @@ ParticleSystem::~ParticleSystem()
 void ParticleSystem::update(long elapsedTime)
 {
     ImGui::Begin("test");
+    if (ImGui::Button("open config file (core->json->particle)"))
+        fileDialog.Open();
     // this->_jsonEditor.update();
 
     rtype::ForceComponent *forceComp =
@@ -174,6 +179,13 @@ void ParticleSystem::update(long elapsedTime)
         }
     }
     ImGui::End();
+
+    fileDialog.Display();
+
+    if (fileDialog.HasSelected()) {
+        this->loadConfig(fileDialog.GetSelected().string());
+        fileDialog.ClearSelected();
+    }
 
     // updateCollideState();
     this->_systemManager.update(elapsedTime);

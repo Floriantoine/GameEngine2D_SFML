@@ -28,12 +28,6 @@ class ComponentManager {
 
     std::unordered_map<id_t, ComponentBase *> &getComponentList(id_t typeId);
 
-    template <class T>
-    std::unordered_map<id_t, ComponentBase *> &getComponentList()
-    {
-        return this->getComponentList(T::getTypeId());
-    }
-
     bool hasComponent(id_t typeId, id_t entityId);
 
     ComponentBase *getComponent(id_t typeId, id_t entityId);
@@ -51,6 +45,12 @@ class ComponentManager {
     void clear();
 
     int getComponentCount() const;
+
+    template <class T>
+    std::unordered_map<id_t, ComponentBase *> &getComponentList()
+    {
+        return this->getComponentList(T::getTypeId());
+    }
 
     template <class T, typename... Args>
     void addComponent(id_t entityId, Args &&...args)

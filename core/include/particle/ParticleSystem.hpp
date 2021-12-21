@@ -15,6 +15,7 @@
 #include "../tools/jsonTools.hpp"
 #include "imgui-SFML.h"
 #include "imgui.h"
+#include "imgui/imfilebrowser.h"
 #include "system/SystemManager.hpp"
 #include <SFML/System/Clock.hpp>
 #include <iostream>
@@ -44,6 +45,7 @@ class ParticleSystem {
     sf::Color _initColor = sf::Color::Blue;
     Observer _observers;
     ObserverManager &_observerManager;
+    ImGui::FileBrowser fileDialog;
 
   public:
     void init();
