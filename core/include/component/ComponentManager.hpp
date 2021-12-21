@@ -95,6 +95,7 @@ class ComponentManager {
     }
 
     void removeAllComponents(id_t entityId);
+    void removeAllComponentsRange(id_t entityIdMin, id_t entityIdMax);
 
     template <class T> void apply(std::function<void(T *)> function)
     {

@@ -72,4 +72,17 @@ void ComponentManager::removeAllComponents(id_t entityId)
     }
 }
 
+void ComponentManager::removeAllComponentsRange(id_t startId, id_t endId)
+{
+    if (endId < startId)
+        assert("Bad Range");
+    for (startId; startId < endId; startId++) {
+        for (const auto &list: this->_componentLists) {
+            if (list.second.find(startId) != list.second.end()) {
+                this->removeComponent(list.first, startId);
+            }
+        }
+    }
+}
+
 } // namespace rtype

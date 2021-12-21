@@ -76,5 +76,17 @@ class SystemManager {
         }
         assert("System is not registered in this SystemManager instance");
     }
+
+    // template <class T> void haveSystem(std::shared_ptr<T> system)
+    // {
+    //     STATIC_ASSERT_IS_SYSTEM(T);
+    //     for (auto it = this->systemList_.cbegin();
+    //          it != this->systemList_.cend(); ++it) {
+    //         if (it->second == system) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 };
 } // namespace rtype

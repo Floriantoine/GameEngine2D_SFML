@@ -29,6 +29,10 @@ class ParticleSystem {
         int size = 5;
     };
 
+    std::shared_ptr<rtype::ParticleTimeLifeSystem> _ParticleTimeLifeSystem;
+    std::shared_ptr<PointParticleAlphaSystem> _PointParticleAlphaSystem;
+    std::shared_ptr<rtype::ParticleMousePosSystem> _ParticleMousePosSystem;
+
     rtype::ComponentManager _componentManager;
     rtype::SystemManager _systemManager;
 
@@ -46,12 +50,15 @@ class ParticleSystem {
     Observer _observers;
     ObserverManager &_observerManager;
     ImGui::FileBrowser fileDialog;
+    nlohmann::json _json;
 
   public:
     void init();
     ParticleSystem(ObserverManager &observerManager);
     ~ParticleSystem();
     void loadConfig(std::string string);
+    void setParticleRange(int min, int max);
+
     void setColor(std::string color)
     {
         if (color == "red")
@@ -67,7 +74,6 @@ class ParticleSystem {
     }
     void setVertexCount(int count)
     {
-        this->_particleInf.resize(count);
         if (this->_vertexArray.getPrimitiveType() == sf::PrimitiveType::Quads)
             count *= 4;
         this->_vertexArray.resize(count);
