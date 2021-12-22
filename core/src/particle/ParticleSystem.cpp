@@ -72,8 +72,9 @@ void ParticleSystem::loadConfig(std::string string)
     }
 
     if (this->_vertexArray.getPrimitiveType() == sf::PrimitiveType::Points) {
-        _systemManager.createSystem<PointParticleGravitySystem>(&_vertexArray);
+        _systemManager.createSystem<systems::GravitySystem>(&_vertexArray);
     }
+    _systemManager.createSystem<systems::ResetSystem>();
     _systemManager.createSystem<rtype::ParticleTimeLifeSystem>();
 }
 
@@ -177,28 +178,23 @@ void ParticleSystem::update(long elapsedTime)
         int tempo[6] = {posComp->_initPos.x, posComp->_initPos.y,
             posComp->_rangeMin.x, posComp->_rangeMin.y, posComp->_rangeMax.x,
             posComp->_rangeMax.y};
-        ImGui::SliderInt("X", &tempo[0], 0, 1920);
-        ImGui::SliderInt("Y", &tempo[1], 0, 1920);
-        ImGui::SliderInt("Min X", &tempo[2], 0, 1000);
-        ImGui::SliderInt("Min Y", &tempo[3], 0, 1000);
-        ImGui::SliderInt("Max X", &tempo[4], 0, 1000);
-        ImGui::SliderInt("Max Y", &tempo[5], 0, 1000);
-        if (posComp->_initPos.x != tempo[0] ||
-            posComp->_initPos.y != tempo[1]) {
+        if (ImGui::SliderInt("X", &tempo[0], 0, 1920) ||
+            ImGui::SliderInt("Y", &tempo[1], 0, 1920)) {
             _componentManager.apply<rtype::PosComponent>(
                 [&](rtype::PosComponent *component) {
                     component->_initPos = sf::Vector2i(tempo[0], tempo[1]);
                 });
         }
-        if (posComp->_rangeMin.x != tempo[2] ||
-            posComp->_rangeMin.y != tempo[3]) {
+
+        if (ImGui::SliderInt("Min X", &tempo[2], 0, 1000) ||
+            ImGui::SliderInt("Min Y", &tempo[3], 0, 1000)) {
             _componentManager.apply<rtype::PosComponent>(
                 [&](rtype::PosComponent *component) {
                     component->_rangeMin = sf::Vector2i(tempo[2], tempo[3]);
                 });
         }
-        if (posComp->_rangeMax.x != tempo[4] ||
-            posComp->_rangeMax.y != tempo[5]) {
+        if (ImGui::SliderInt("Max X", &tempo[4], 0, 1000) ||
+            ImGui::SliderInt("Max Y", &tempo[5], 0, 1000)) {
             _componentManager.apply<rtype::PosComponent>(
                 [&](rtype::PosComponent *component) {
                     component->_rangeMax = sf::Vector2i(tempo[4], tempo[5]);

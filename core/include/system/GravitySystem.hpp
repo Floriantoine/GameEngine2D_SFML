@@ -6,7 +6,9 @@
 #include <SFML/Graphics/VertexArray.hpp>
 #include <vector>
 
-class PointParticleGravitySystem : public rtype::ASystem {
+namespace systems {
+
+class GravitySystem : public rtype::ASystem {
   private:
     sf::VertexArray *_vertexArray;
 
@@ -18,30 +20,10 @@ class PointParticleGravitySystem : public rtype::ASystem {
         float delta_t);
 
   public:
-    PointParticleGravitySystem(sf::VertexArray *vertexArray)
+    GravitySystem(sf::VertexArray *vertexArray)
         : _vertexArray(vertexArray), _vertexSize(-1), ASystem(){};
-    ~PointParticleGravitySystem() = default;
-
-    void init();
-
-    template <class T>
-    void generateProprietyRange(T *value, T initValue, T rangeMin, T rangeMax)
-    {
-        (*value) = tools::generate_random_number(
-            initValue - rangeMin, initValue + rangeMax);
-    }
-
-    template <class T>
-    void generateVectorProprietyRange(
-        T *value, T initValue, T rangeMin, T rangeMax)
-    {
-        (*value).x = tools::generate_random_number(
-            initValue.x - rangeMin.x, initValue.x + rangeMax.x);
-        (*value).y = tools::generate_random_number(
-            initValue.y - rangeMin.y, initValue.y + rangeMax.y);
-    }
-
-    void resetParticle(int index);
+    ~GravitySystem() = default;
 
     void update(long elapsedTime) override;
 };
+}

@@ -1,14 +1,8 @@
 #pragma once
 
+#include "Systems.hpp"
 #include "component/ComponentManager.hpp"
 #include "observer/ObserverManager.hpp"
-#include "system/GravitySystem.hpp"
-#include "system/ParticleMouseForceSystem.hpp"
-#include "system/ParticleMousePosSystem.hpp"
-#include "system/ParticleMouseTargetSystem.hpp"
-#include "system/ParticleTimeLifeSystem.hpp"
-#include "system/PointParticleAlphaSystem.hpp"
-#include "system/PointParticleBasicSystem.hpp"
 #include "tools/random.hpp"
 #include <SFML/Graphics/VertexArray.hpp>
 

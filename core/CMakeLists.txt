@@ -30,7 +30,8 @@ set(SRCS
         sprite/dynamicSprite.cpp
         particle/ParticleSystem.cpp
         component/ComponentManager.cpp
-        system/PointParticleGravitySystem.cpp
+        system/GravitySystem.cpp
+        system/ResetSystem.cpp
 )
 
 list(TRANSFORM SRCS PREPEND ${SRC_DIR})
