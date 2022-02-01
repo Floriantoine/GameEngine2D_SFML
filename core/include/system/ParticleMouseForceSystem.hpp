@@ -41,8 +41,8 @@ class ParticleMouseForceSystem : public ASystem {
         float speedY = tools::generate_random_number(
             _mouseVector.y - 1, _mouseVector.y + 1);
 
-        this->componentManager_->apply<ForceComponent>(
-            [&](ForceComponent *component) {
+        this->componentManager_->apply<components::ForceComponent>(
+            [&](components::ForceComponent *component) {
                 component->_initForce = sf::Vector2f(-speedX, -speedY);
             });
     };

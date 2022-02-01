@@ -10,8 +10,8 @@ class HealthSystem : public ASystem {
 
     void update(long elapsedTime) override
     {
-        this->componentManager_->apply<HealthComponent>(
-            [&](HealthComponent *component) {
+        this->componentManager_->apply<components::HealthComponent>(
+            [&](components::HealthComponent *component) {
                 if (component->health <= 0) {
                     component->health = component->_initHealth;
                     // this->destroyEntity(component->getEntity());

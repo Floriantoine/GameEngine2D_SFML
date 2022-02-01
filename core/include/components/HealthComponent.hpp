@@ -3,9 +3,9 @@
 #include "component/Component.hpp"
 #include "nlohmann/json.hpp"
 
-namespace rtype {
+namespace components {
 
-class HealthComponent : public Component<HealthComponent> {
+class HealthComponent : public rtype::Component<HealthComponent> {
   public:
     int health{0};
     int _initHealth{0};
@@ -28,4 +28,4 @@ class HealthComponent : public Component<HealthComponent> {
         }
     }
 };
-} // namespace rtype
+} // namespace components

@@ -2,9 +2,9 @@
 
 #include "component/Component.hpp"
 
-namespace rtype {
+namespace components {
 
-class MasseComponent : public Component<MasseComponent> {
+class MasseComponent : public rtype::Component<MasseComponent> {
   public:
     int masse{1};
     int _initMasse{1};
@@ -15,4 +15,4 @@ class MasseComponent : public Component<MasseComponent> {
     {
     }
 };
-} // namespace rtype
+} // namespace components

@@ -20,11 +20,11 @@ void GravitySystem::update(long elapsedTime)
             static_cast<components::Gravity *>(it->second);
         if (gravityC == nullptr)
             break;
-        rtype::ForceComponent *forceComponent =
-            this->componentManager_->getComponent<rtype::ForceComponent>(
+        components::ForceComponent *forceComponent =
+            this->componentManager_->getComponent<components::ForceComponent>(
                 it->first);
-        rtype::MasseComponent *MasseComponent =
-            this->componentManager_->getComponent<rtype::MasseComponent>(
+        components::MasseComponent *MasseComponent =
+            this->componentManager_->getComponent<components::MasseComponent>(
                 it->first);
 
         gravityC->_prior_S = gravityC->_cur_S;
@@ -36,8 +36,8 @@ void GravitySystem::update(long elapsedTime)
         ExplicitEuler(gravityC->_cur_S.size(), &gravityC->_cur_S,
             gravityC->_prior_S, gravityC->_S_derivs, delta_t);
 
-        rtype::HealthComponent *compLife =
-            this->componentManager_->getComponent<rtype::HealthComponent>(
+        components::HealthComponent *compLife =
+            this->componentManager_->getComponent<components::HealthComponent>(
                 it->first);
         if (compLife && compLife->health > 0) {
             (*_vertexArray)[it->first].position = gravityC->_cur_S[1];

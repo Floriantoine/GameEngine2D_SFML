@@ -47,13 +47,15 @@ class PointParticleBasicSystem : public rtype::ASystem {
 
     void resetParticle(int index)
     {
-        rtype::HealthComponent *compLife =
-            this->componentManager_->getComponent<rtype::HealthComponent>(
+        components::HealthComponent *compLife =
+            this->componentManager_->getComponent<components::HealthComponent>(
                 index);
-        rtype::ForceComponent *ForceComp =
-            this->componentManager_->getComponent<rtype::ForceComponent>(index);
-        rtype::PosComponent *PosComp =
-            this->componentManager_->getComponent<rtype::PosComponent>(index);
+        components::ForceComponent *ForceComp =
+            this->componentManager_->getComponent<components::ForceComponent>(
+                index);
+        components::PosComponent *PosComp =
+            this->componentManager_->getComponent<components::PosComponent>(
+                index);
         if (compLife)
             generateProprietyRange(&compLife->health, compLife->_initHealth,
                 compLife->_rangeMin, compLife->_rangeMax);
@@ -79,11 +81,12 @@ class PointParticleBasicSystem : public rtype::ASystem {
             init();
         }
         for (int i = 0; i < count; i++) {
-            rtype::HealthComponent *compLife =
-                this->componentManager_->getComponent<rtype::HealthComponent>(
-                    i);
-            rtype::ForceComponent *forceComponent =
-                this->componentManager_->getComponent<rtype::ForceComponent>(i);
+            components::HealthComponent *compLife =
+                this->componentManager_
+                    ->getComponent<components::HealthComponent>(i);
+            components::ForceComponent *forceComponent =
+                this->componentManager_
+                    ->getComponent<components::ForceComponent>(i);
             sf::Vector2f force =
                 (forceComponent ? forceComponent->force : sf::Vector2f(0, 0));
             if (compLife && compLife->health <= 0) {

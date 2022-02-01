@@ -34,8 +34,8 @@ class ParticleMousePosSystem : public ASystem {
 
     void update(long elapsedTime) override
     {
-        this->componentManager_->apply<PosComponent>(
-            [&](PosComponent *component) { component->_initPos = _mousePos; });
+        this->componentManager_->apply<components::PosComponent>(
+            [&](components::PosComponent *component) { component->_initPos = _mousePos; });
     };
 };
 } // namespace rtype

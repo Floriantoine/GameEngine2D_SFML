@@ -4,9 +4,9 @@
 #include "nlohmann/json.hpp"
 #include <SFML/System/Vector2.hpp>
 
-namespace rtype {
+namespace components {
 
-class ForceComponent : public Component<ForceComponent> {
+class ForceComponent : public rtype::Component<ForceComponent> {
   public:
     sf::Vector2f force{0, 0};
     sf::Vector2f _initForce{0, 0};
@@ -39,4 +39,4 @@ class ForceComponent : public Component<ForceComponent> {
         }
     }
 };
-} // namespace rtype
+} // namespace components

@@ -7,14 +7,17 @@ void ResetSystem::reset(int index)
         this->componentManager_->getComponent<components::Gravity>(index);
     if (gravityC == nullptr)
         return;
-    rtype::HealthComponent *compLife =
-        this->componentManager_->getComponent<rtype::HealthComponent>(index);
-    rtype::MasseComponent *MasseComp =
-        this->componentManager_->getComponent<rtype::MasseComponent>(index);
-    rtype::ForceComponent *ForceComp =
-        this->componentManager_->getComponent<rtype::ForceComponent>(index);
-    rtype::PosComponent *PosComp =
-        this->componentManager_->getComponent<rtype::PosComponent>(index);
+    components::HealthComponent *compLife =
+        this->componentManager_->getComponent<components::HealthComponent>(
+            index);
+    components::MasseComponent *MasseComp =
+        this->componentManager_->getComponent<components::MasseComponent>(
+            index);
+    components::ForceComponent *ForceComp =
+        this->componentManager_->getComponent<components::ForceComponent>(
+            index);
+    components::PosComponent *PosComp =
+        this->componentManager_->getComponent<components::PosComponent>(index);
     if (MasseComp)
         generateProprietyRange(&MasseComp->masse, MasseComp->_initMasse, 1, 1);
     if (compLife)
@@ -36,11 +39,11 @@ void ResetSystem::reset(int index)
 
 void ResetSystem::update(long elapsedTime)
 {
-    auto array =
-        this->componentManager_->getComponentList<rtype::HealthComponent>();
+    auto array = this->componentManager_
+                     ->getComponentList<components::HealthComponent>();
     for (auto it = array.begin(); it != array.end(); ++it) {
-        rtype::HealthComponent *Comp =
-            static_cast<rtype::HealthComponent *>(it->second);
+        components::HealthComponent *Comp =
+            static_cast<components::HealthComponent *>(it->second);
         if (Comp == nullptr)
             break;
         if (Comp && Comp->health <= 0) {

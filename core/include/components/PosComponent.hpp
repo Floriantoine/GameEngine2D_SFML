@@ -4,9 +4,9 @@
 #include "nlohmann/json.hpp"
 #include <SFML/System/Vector2.hpp>
 
-namespace rtype {
+namespace components {
 
-class PosComponent : public Component<PosComponent> {
+class PosComponent : public rtype::Component<PosComponent> {
   public:
     sf::Vector2i pos{0, 0};
     sf::Vector2i _initPos{0, 0};
@@ -39,4 +39,4 @@ class PosComponent : public Component<PosComponent> {
         }
     }
 };
-} // namespace rtype
+} // namespace components

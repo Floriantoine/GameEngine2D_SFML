@@ -32,6 +32,7 @@ set(SRCS
         component/ComponentManager.cpp
         system/GravitySystem.cpp
         system/ResetSystem.cpp
+        system/FormSystem.cpp
 )
 
 list(TRANSFORM SRCS PREPEND ${SRC_DIR})

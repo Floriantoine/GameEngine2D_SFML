@@ -41,13 +41,15 @@ class ParticleMouseTargetSystem : public ASystem {
         int count = _vertexArray->getVertexCount();
 
         for (int i = 0; i < count; i++) {
-            rtype::ForceComponent *compForce =
-                this->componentManager_->getComponent<rtype::ForceComponent>(i);
-            rtype::HealthComponent *compLife =
-                this->componentManager_->getComponent<rtype::HealthComponent>(
+            components::ForceComponent *compForce =
+                this->componentManager_
+                    ->getComponent<components::ForceComponent>(i);
+            components::HealthComponent *compLife =
+                this->componentManager_
+                    ->getComponent<components::HealthComponent>(i);
+            components::PosComponent *compPos =
+                this->componentManager_->getComponent<components::PosComponent>(
                     i);
-            rtype::PosComponent *compPos =
-                this->componentManager_->getComponent<rtype::PosComponent>(i);
             if (compLife != nullptr && compPos != nullptr &&
                 compForce != nullptr) {
                 if (((*_vertexArray)[i].position.x >= _mousePos.x - 2 &&

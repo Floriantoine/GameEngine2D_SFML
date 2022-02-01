@@ -4,6 +4,7 @@
 #pragma once
 
 #include "components/ForceComponent.hpp"
+#include "components/FormComponent.hpp"
 #include "components/GravityComponent.hpp"
 #include "components/HealthComponent.hpp"
 #include "components/MasseComponent.hpp"

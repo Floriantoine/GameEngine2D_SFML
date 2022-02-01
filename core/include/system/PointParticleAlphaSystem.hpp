@@ -19,9 +19,9 @@ class PointParticleAlphaSystem : public rtype::ASystem {
         int count = _vertexArray->getVertexCount();
 
         for (int i = 0; i < count; i++) {
-            rtype::HealthComponent *compLife =
-                this->componentManager_->getComponent<rtype::HealthComponent>(
-                    i);
+            components::HealthComponent *compLife =
+                this->componentManager_
+                    ->getComponent<components::HealthComponent>(i);
             if (compLife) {
                 (*_vertexArray)[i].color.a -= std::max(
                     (int)((255 / compLife->_initHealth) * elapsedTime), 1);
