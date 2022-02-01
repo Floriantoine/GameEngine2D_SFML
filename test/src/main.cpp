@@ -42,31 +42,31 @@ TEST_CASE("ComponentManager")
         }
         SECTION("basic add component")
         {
-            CompM.addComponent<rtype::ForceComponent>(1, json["force"]);
+            CompM.addComponent<components::ForceComponent>(1, json["force"]);
             REQUIRE(CompM.getComponentCount() == 1);
-            CompM.addComponent<rtype::ForceComponent>(2, json["force"]);
+            CompM.addComponent<components::ForceComponent>(2, json["force"]);
             REQUIRE(CompM.getComponentCount() == 2);
         }
 
         SECTION("basic add range")
         {
-            CompM.addComponentRange<rtype::ForceComponent>(
+            CompM.addComponentRange<components::ForceComponent>(
                 0, 10, json["force"]);
             REQUIRE(CompM.getComponentCount() == 10);
         }
 
         SECTION("hasComponent")
         {
-            CompM.addComponent<rtype::ForceComponent>(1, json["force"]);
-            REQUIRE(CompM.hasComponent<rtype::ForceComponent>(1) == true);
-            REQUIRE(CompM.hasComponent<rtype::ForceComponent>(2) == false);
+            CompM.addComponent<components::ForceComponent>(1, json["force"]);
+            REQUIRE(CompM.hasComponent<components::ForceComponent>(1) == true);
+            REQUIRE(CompM.hasComponent<components::ForceComponent>(2) == false);
         }
 
         SECTION("throws")
         {
-            CompM.addComponent<rtype::ForceComponent>(1, json["force"]);
-            REQUIRE_THROWS(
-                CompM.addComponent<rtype::ForceComponent>(1, json["force"]));
+            CompM.addComponent<components::ForceComponent>(1, json["force"]);
+            REQUIRE_THROWS(CompM.addComponent<components::ForceComponent>(
+                1, json["force"]));
             REQUIRE(CompM.getComponentCount() == 1);
         }
 
@@ -74,25 +74,32 @@ TEST_CASE("ComponentManager")
         {
             SECTION("Basique")
             {
-                CompM.addComponent<rtype::ForceComponent>(1, json["force"]);
+                CompM.addComponent<components::ForceComponent>(
+                    1, json["force"]);
                 REQUIRE(CompM.getComponentCount() == 1);
-                CompM.removeComponent<rtype::ForceComponent>(1);
+                CompM.removeComponent<components::ForceComponent>(1);
                 REQUIRE(CompM.getComponentCount() == 0);
             }
             SECTION("All")
             {
-                CompM.addComponent<rtype::ForceComponent>(1, json["force"]);
-                CompM.addComponent<rtype::HealthComponent>(1, json["lifeTime"]);
+                CompM.addComponent<components::ForceComponent>(
+                    1, json["force"]);
+                CompM.addComponent<components::HealthComponent>(
+                    1, json["lifeTime"]);
                 REQUIRE(CompM.getComponentCount() == 2);
                 CompM.removeAllComponents(1);
                 REQUIRE(CompM.getComponentCount() == 0);
             }
             SECTION("Clear")
             {
-                CompM.addComponent<rtype::ForceComponent>(1, json["force"]);
-                CompM.addComponent<rtype::HealthComponent>(1, json["lifeTime"]);
-                CompM.addComponent<rtype::HealthComponent>(2, json["lifeTime"]);
-                CompM.addComponent<rtype::HealthComponent>(3, json["lifeTime"]);
+                CompM.addComponent<components::ForceComponent>(
+                    1, json["force"]);
+                CompM.addComponent<components::HealthComponent>(
+                    1, json["lifeTime"]);
+                CompM.addComponent<components::HealthComponent>(
+                    2, json["lifeTime"]);
+                CompM.addComponent<components::HealthComponent>(
+                    3, json["lifeTime"]);
                 REQUIRE(CompM.getComponentCount() == 4);
                 CompM.clear();
                 REQUIRE(CompM.getComponentCount() == 0);
@@ -100,7 +107,7 @@ TEST_CASE("ComponentManager")
             SECTION("throws")
             {
                 REQUIRE_THROWS_WITH(
-                    CompM.removeComponent<rtype::ForceComponent>(1),
+                    CompM.removeComponent<components::ForceComponent>(1),
                     "Entity does not have component");
             }
         }
@@ -113,8 +120,8 @@ TEST_CASE("ComponentForce")
 
     if (json != nlohmann::json::value_t::discarded && !json.is_discarded()) {
         rtype::ComponentManager CompM;
-        CompM.addComponent<rtype::ForceComponent>(1, json["force"]);
-        auto forceComp = CompM.getComponent<rtype::ForceComponent>(1);
+        CompM.addComponent<components::ForceComponent>(1, json["force"]);
+        auto forceComp = CompM.getComponent<components::ForceComponent>(1);
 
         SECTION("init")
         {
@@ -141,8 +148,8 @@ TEST_CASE("ComponentLifeTime")
 
     if (json != nlohmann::json::value_t::discarded && !json.is_discarded()) {
         rtype::ComponentManager CompM;
-        CompM.addComponent<rtype::HealthComponent>(1, json["lifeTime"]);
-        auto LifeComp = CompM.getComponent<rtype::HealthComponent>(1);
+        CompM.addComponent<components::HealthComponent>(1, json["lifeTime"]);
+        auto LifeComp = CompM.getComponent<components::HealthComponent>(1);
 
         SECTION("init")
         {
@@ -162,8 +169,9 @@ TEST_CASE("ComponentMasse")
 
     if (json != nlohmann::json::value_t::discarded && !json.is_discarded()) {
         rtype::ComponentManager CompM;
-        CompM.addComponent<rtype::MasseComponent>(1, json["masse"]["init"]);
-        auto MasseComp = CompM.getComponent<rtype::MasseComponent>(1);
+        CompM.addComponent<components::MasseComponent>(
+            1, json["masse"]["init"]);
+        auto MasseComp = CompM.getComponent<components::MasseComponent>(1);
 
         SECTION("init")
         {
@@ -178,8 +186,8 @@ TEST_CASE("ComponentPos")
 
     if (json != nlohmann::json::value_t::discarded && !json.is_discarded()) {
         rtype::ComponentManager CompM;
-        CompM.addComponent<rtype::PosComponent>(1, json["pos"]);
-        auto forceComp = CompM.getComponent<rtype::PosComponent>(1);
+        CompM.addComponent<components::PosComponent>(1, json["pos"]);
+        auto forceComp = CompM.getComponent<components::PosComponent>(1);
 
         SECTION("init")
         {
