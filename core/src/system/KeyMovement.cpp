@@ -13,6 +13,12 @@ KeyMovement::KeyMovement() : ASystem()
             if (event.key == sf::Keyboard::Right) {
                 this->_direction = std::string("Right");
             }
+            if (event.key == sf::Keyboard::Up) {
+                this->_direction = std::string("Up");
+            }
+            if (event.key == sf::Keyboard::Down) {
+                this->_direction = std::string("Down");
+            }
         },
     };
     Game::Game::getInstance().getObserverManager().addObserver(&_observers);
@@ -27,16 +33,22 @@ void KeyMovement::update(long elapsedTime)
             auto array = this->componentManager_
                              ->getComponentList<components::KeyMovement>();
             for (auto it = array.begin(); it != array.end(); ++it) {
-                components::PosComponent *PosC =
-                    this->componentManager_
-                        ->getComponent<components::PosComponent>(it->first);
+                components::SpawnPos *PosC =
+                    this->componentManager_->getComponent<components::SpawnPos>(
+                        it->first);
+                if (!PosC)
+                    return;
                 if (this->_direction == "Left") {
-                    std::cout << "init Pos: " << PosC->_initPos.x << std::endl;
                     PosC->_initPos.x -= 20;
-                    std::cout << "after Pos: " << PosC->_initPos.x << std::endl;
                 }
                 if (this->_direction == "Right") {
                     PosC->_initPos.x += 20;
+                }
+                if (this->_direction == "Up") {
+                    PosC->_initPos.y -= 20;
+                }
+                if (this->_direction == "Down") {
+                    PosC->_initPos.y += 20;
                 }
             }
             this->_direction = "";

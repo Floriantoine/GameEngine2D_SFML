@@ -11,9 +11,13 @@ void ParticleManager::setParticleRange(int min, int max)
     if (_json["force"] != nullptr)
         this->_componentManager.addComponentRange<components::ForceComponent>(
             min, max, _json["force"]);
-    if (_json["pos"] != nullptr)
+    if (_json["pos"] != nullptr) {
+        this->_componentManager.addComponentRange<components::SpawnPos>(
+            min, max, _json["pos"]);
+
         this->_componentManager.addComponentRange<components::PosComponent>(
             min, max, _json["pos"]);
+    }
     if (_json["size"] != nullptr)
         this->setParticleSize(_json["size"]);
     if (_json["type"] != nullptr) {
@@ -159,8 +163,8 @@ void ParticleManager::update(long elapsedTime)
         fileDialog.Open();
     // this->_jsonEditor.update();
 
-    components::PosComponent *posComp =
-        this->_componentManager.getComponent<components::PosComponent>(0);
+    components::SpawnPos *posComp =
+        this->_componentManager.getComponent<components::SpawnPos>(0);
     components::ForceComponent *forceComp =
         this->_componentManager.getComponent<components::ForceComponent>(0);
     components::HealthComponent *LifeComp =
@@ -196,23 +200,23 @@ void ParticleManager::update(long elapsedTime)
             posComp->_rangeMax.y};
         if (ImGui::SliderFloat("X", &tempo[0], 0, 1920) ||
             ImGui::SliderFloat("Y", &tempo[1], 0, 1920)) {
-            _componentManager.apply<components::PosComponent>(
-                [&](components::PosComponent *component) {
+            _componentManager.apply<components::SpawnPos>(
+                [&](components::SpawnPos *component) {
                     component->_initPos = sf::Vector2f(tempo[0], tempo[1]);
                 });
         }
 
         if (ImGui::SliderFloat("Min X", &tempo[2], 0, 1000) ||
             ImGui::SliderFloat("Min Y", &tempo[3], 0, 1000)) {
-            _componentManager.apply<components::PosComponent>(
-                [&](components::PosComponent *component) {
+            _componentManager.apply<components::SpawnPos>(
+                [&](components::SpawnPos *component) {
                     component->_rangeMin = sf::Vector2f(tempo[2], tempo[3]);
                 });
         }
         if (ImGui::SliderFloat("Max X", &tempo[4], 0, 1000) ||
             ImGui::SliderFloat("Max Y", &tempo[5], 0, 1000)) {
-            _componentManager.apply<components::PosComponent>(
-                [&](components::PosComponent *component) {
+            _componentManager.apply<components::SpawnPos>(
+                [&](components::SpawnPos *component) {
                     component->_rangeMax = sf::Vector2f(tempo[4], tempo[5]);
                 });
         }

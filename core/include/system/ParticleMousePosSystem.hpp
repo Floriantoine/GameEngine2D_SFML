@@ -38,8 +38,8 @@ class ParticleMousePosSystem : public ASystem {
     {
         if (this->_haveMove) {
             this->_haveMove = false;
-            this->componentManager_->apply<components::PosComponent>(
-                [&](components::PosComponent *component) {
+            this->componentManager_->apply<components::SpawnPos>(
+                [&](components::SpawnPos *component) {
                     component->_initPos = _mousePos;
                 });
         }

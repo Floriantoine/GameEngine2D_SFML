@@ -10,4 +10,5 @@
 #include "components/KeyMovement.hpp"
 #include "components/MasseComponent.hpp"
 #include "components/PosComponent.hpp"
+#include "components/SpawnPosComponent.hpp"
 #include "components/particle/ParticleIdentityComponent.hpp"

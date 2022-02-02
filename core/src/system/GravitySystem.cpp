@@ -31,7 +31,7 @@ void GravitySystem::update(long elapsedTime)
                 it->first);
 
         if (PosC) {
-            gravityC->_cur_S[1] = PosC->pos;
+            gravityC->_cur_S[1] = PosC->_pos;
         }
         gravityC->_prior_S = gravityC->_cur_S;
         gravityC->_S_derivs[0] =
@@ -43,7 +43,7 @@ void GravitySystem::update(long elapsedTime)
             gravityC->_prior_S, gravityC->_S_derivs, delta_t);
 
         if (PosC)
-            PosC->pos = gravityC->_cur_S[1];
+            PosC->_pos = gravityC->_cur_S[1];
     }
 }
 } // namespace systems
