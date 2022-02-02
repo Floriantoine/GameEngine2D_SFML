@@ -1,12 +1,11 @@
-#include "system/ResetSystem.hpp"
+#include "system/ParticlesSystem.hpp"
 
 namespace systems {
-void ResetSystem::reset(int index)
+
+void ParticlesSystem::reset(int index)
 {
     components::Gravity *gravityC =
         this->componentManager_->getComponent<components::Gravity>(index);
-    if (gravityC == nullptr)
-        return;
     components::HealthComponent *compLife =
         this->componentManager_->getComponent<components::HealthComponent>(
             index);
@@ -33,23 +32,33 @@ void ResetSystem::reset(int index)
 
     float masse = (MasseComp ? MasseComp->masse : 0);
     sf::Vector2f force = (ForceComp ? ForceComp->force : sf::Vector2f(0, 0));
-    gravityC->_cur_S[0] = masse * force;
-    gravityC->_cur_S[1] = sf::Vector2f(PosComp->pos.x, PosComp->pos.y);
+    if (gravityC && PosComp) {
+        gravityC->_cur_S[0] = masse * force;
+        gravityC->_cur_S[1] = sf::Vector2f(PosComp->pos.x, PosComp->pos.y);
+    }
 }
 
-void ResetSystem::update(long elapsedTime)
+void ParticlesSystem::update(long elapsedTime)
 {
     auto array = this->componentManager_
-                     ->getComponentList<components::HealthComponent>();
+                     ->getComponentList<components::ParticleIdentity>();
+
     for (auto it = array.begin(); it != array.end(); ++it) {
-        components::HealthComponent *Comp =
-            static_cast<components::HealthComponent *>(it->second);
-        if (Comp == nullptr)
+        components::PosComponent *PosC =
+            this->componentManager_->getComponent<components::PosComponent>(
+                it->first);
+        if (PosC == nullptr)
             break;
-        if (Comp && Comp->health <= 0) {
+
+        components::HealthComponent *compLife =
+            this->componentManager_->getComponent<components::HealthComponent>(
+                it->first);
+        if (!compLife || compLife->health > 0) {
+            (*_vertexArray)[it->first].position =
+                sf::Vector2f(PosC->pos.x, PosC->pos.y);
+        } else if (compLife && compLife->health <= 0) {
             reset(it->first);
         }
     }
 }
-
 } // namespace systems

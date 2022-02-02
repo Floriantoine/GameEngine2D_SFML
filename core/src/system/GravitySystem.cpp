@@ -26,7 +26,13 @@ void GravitySystem::update(long elapsedTime)
         components::MasseComponent *MasseComponent =
             this->componentManager_->getComponent<components::MasseComponent>(
                 it->first);
+        components::PosComponent *PosC =
+            this->componentManager_->getComponent<components::PosComponent>(
+                it->first);
 
+        if (PosC) {
+            gravityC->_cur_S[1] = PosC->pos;
+        }
         gravityC->_prior_S = gravityC->_cur_S;
         gravityC->_S_derivs[0] =
             (forceComponent ? forceComponent->force : sf::Vector2f(0, 0));
@@ -36,12 +42,8 @@ void GravitySystem::update(long elapsedTime)
         ExplicitEuler(gravityC->_cur_S.size(), &gravityC->_cur_S,
             gravityC->_prior_S, gravityC->_S_derivs, delta_t);
 
-        components::HealthComponent *compLife =
-            this->componentManager_->getComponent<components::HealthComponent>(
-                it->first);
-        if (compLife && compLife->health > 0) {
-            (*_vertexArray)[it->first].position = gravityC->_cur_S[1];
-        }
+        if (PosC)
+            PosC->pos = gravityC->_cur_S[1];
     }
 }
 } // namespace systems

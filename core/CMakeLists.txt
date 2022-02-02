@@ -28,11 +28,12 @@ set(SRCS
         sprite/Sprite.cpp
         sprite/SpriteManager.cpp
         sprite/dynamicSprite.cpp
-        particle/ParticleSystem.cpp
+        particle/ParticleManager.cpp
         component/ComponentManager.cpp
         system/GravitySystem.cpp
-        system/ResetSystem.cpp
         system/FormSystem.cpp
+        system/KeyMovement.cpp
+        system/ParticlesSystem.cpp
 )
 
 list(TRANSFORM SRCS PREPEND ${SRC_DIR})

@@ -1,12 +1,12 @@
-#include "particle/ParticleSystem.hpp"
+#include "particle/ParticleManager.hpp"
 #include "Game.hpp"
 
-void ParticleSystem::display()
+void ParticleManager::display()
 {
     Game::Game::getInstance().getWindow()->draw(_vertexArray);
 }
 
-void ParticleSystem::setParticleRange(int min, int max)
+void ParticleManager::setParticleRange(int min, int max)
 {
     if (_json["force"] != nullptr)
         this->_componentManager.addComponentRange<components::ForceComponent>(
@@ -33,11 +33,15 @@ void ParticleSystem::setParticleRange(int min, int max)
         this->setColor(_json["color"]);
     }
 
+    this->_componentManager.addComponentRange<components::ParticleIdentity>(
+        min, max);
+    this->_componentManager.addComponentRange<components::KeyMovement>(
+        min, max);
     this->_componentManager.addComponentRange<components::MasseComponent>(
         min, max, this->_initMasse);
     this->_componentManager.addComponentRange<components::Gravity>(min, max);
 
-    // Test Form Component
+    // Test Form Components
     // auto array =
     //     this->_componentManager.getComponentList<components::PosComponent>();
     // components::PosComponent *PosC = nullptr;
@@ -48,7 +52,7 @@ void ParticleSystem::setParticleRange(int min, int max)
     // }
 }
 
-void ParticleSystem::loadConfig(std::string string)
+void ParticleManager::loadConfig(std::string string)
 {
     this->_componentManager.clear();
     this->_systemManager.clear();
@@ -82,14 +86,15 @@ void ParticleSystem::loadConfig(std::string string)
     }
 
     if (this->_vertexArray.getPrimitiveType() == sf::PrimitiveType::Points) {
-        _systemManager.createSystem<systems::GravitySystem>(&_vertexArray);
+        _systemManager.createSystem<systems::GravitySystem>();
     }
     // _systemManager.createSystem<systems::FormSystem>();
-    _systemManager.createSystem<systems::ResetSystem>();
     _systemManager.createSystem<rtype::ParticleTimeLifeSystem>();
+    _systemManager.createSystem<systems::KeyMovement>();
+    _systemManager.createSystem<systems::ParticlesSystem>(&_vertexArray);
 }
 
-void ParticleSystem::setPrimitiveType(sf::PrimitiveType primType)
+void ParticleManager::setPrimitiveType(sf::PrimitiveType primType)
 {
     if (this->_vertexArray.getPrimitiveType() == primType)
         return;
@@ -108,11 +113,11 @@ void ParticleSystem::setPrimitiveType(sf::PrimitiveType primType)
     // this->resetAll();
 }
 
-void ParticleSystem::reset(int index)
+void ParticleManager::reset(int index)
 {
 }
 
-ParticleSystem::ParticleSystem(ObserverManager &observerManager)
+ParticleManager::ParticleManager(ObserverManager &observerManager)
     : _vertexArray(sf::Points, 1000), _componentManager(),
       _observerManager(observerManager), _systemManager(_componentManager),
       fileDialog()
@@ -143,11 +148,11 @@ ParticleSystem::ParticleSystem(ObserverManager &observerManager)
     _observerManager.addObserver(&_observers);
 }
 
-ParticleSystem::~ParticleSystem()
+ParticleManager::~ParticleManager()
 {
 }
 
-void ParticleSystem::update(long elapsedTime)
+void ParticleManager::update(long elapsedTime)
 {
     ImGui::Begin("test");
     if (ImGui::Button("open config file (core->json->particle)"))
@@ -186,29 +191,29 @@ void ParticleSystem::update(long elapsedTime)
     ImGui::Separator();
     ImGui::LabelText("", "Pos");
     if (posComp != nullptr) {
-        int tempo[6] = {posComp->_initPos.x, posComp->_initPos.y,
+        float tempo[6] = {posComp->_initPos.x, posComp->_initPos.y,
             posComp->_rangeMin.x, posComp->_rangeMin.y, posComp->_rangeMax.x,
             posComp->_rangeMax.y};
-        if (ImGui::SliderInt("X", &tempo[0], 0, 1920) ||
-            ImGui::SliderInt("Y", &tempo[1], 0, 1920)) {
+        if (ImGui::SliderFloat("X", &tempo[0], 0, 1920) ||
+            ImGui::SliderFloat("Y", &tempo[1], 0, 1920)) {
             _componentManager.apply<components::PosComponent>(
                 [&](components::PosComponent *component) {
-                    component->_initPos = sf::Vector2i(tempo[0], tempo[1]);
+                    component->_initPos = sf::Vector2f(tempo[0], tempo[1]);
                 });
         }
 
-        if (ImGui::SliderInt("Min X", &tempo[2], 0, 1000) ||
-            ImGui::SliderInt("Min Y", &tempo[3], 0, 1000)) {
+        if (ImGui::SliderFloat("Min X", &tempo[2], 0, 1000) ||
+            ImGui::SliderFloat("Min Y", &tempo[3], 0, 1000)) {
             _componentManager.apply<components::PosComponent>(
                 [&](components::PosComponent *component) {
-                    component->_rangeMin = sf::Vector2i(tempo[2], tempo[3]);
+                    component->_rangeMin = sf::Vector2f(tempo[2], tempo[3]);
                 });
         }
-        if (ImGui::SliderInt("Max X", &tempo[4], 0, 1000) ||
-            ImGui::SliderInt("Max Y", &tempo[5], 0, 1000)) {
+        if (ImGui::SliderFloat("Max X", &tempo[4], 0, 1000) ||
+            ImGui::SliderFloat("Max Y", &tempo[5], 0, 1000)) {
             _componentManager.apply<components::PosComponent>(
                 [&](components::PosComponent *component) {
-                    component->_rangeMax = sf::Vector2i(tempo[4], tempo[5]);
+                    component->_rangeMax = sf::Vector2f(tempo[4], tempo[5]);
                 });
         }
     }
@@ -266,7 +271,7 @@ void ParticleSystem::update(long elapsedTime)
     this->_systemManager.update(elapsedTime);
 }
 
-void ParticleSystem::init()
+void ParticleManager::init()
 {
     this->resetAll();
 }

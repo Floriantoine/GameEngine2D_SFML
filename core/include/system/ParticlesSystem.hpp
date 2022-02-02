@@ -3,15 +3,13 @@
 #include "ASystem.hpp"
 #include "Components.hpp"
 #include "tools/random.hpp"
-#include <vector>
+#include <SFML/Graphics/VertexArray.hpp>
 
 namespace systems {
 
-class ResetSystem : public rtype::ASystem {
+class ParticlesSystem : public rtype::ASystem {
   private:
-  public:
-    ResetSystem() : ASystem(){};
-    ~ResetSystem() = default;
+    sf::VertexArray *_vertexArray;
 
     template <class T>
     void generateProprietyRange(T *value, T initValue, T rangeMin, T rangeMax)
@@ -31,6 +29,11 @@ class ResetSystem : public rtype::ASystem {
     }
 
     void reset(int index);
+
+  public:
+    ParticlesSystem(sf::VertexArray *vertexArray)
+        : _vertexArray(vertexArray), ASystem(){};
+    ~ParticlesSystem() = default;
 
     void update(long elapsedTime) override;
 };

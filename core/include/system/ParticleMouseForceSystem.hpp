@@ -12,8 +12,8 @@ namespace rtype {
 class ParticleMouseForceSystem : public ASystem {
   public:
     Observer _observers;
-    sf::Vector2i _mousePos{0, 0};
     ObserverManager &_observerManager;
+    sf::Vector2i _mousePos{0, 0};
     sf::Vector2f _mouseVector{0, 0};
 
     ParticleMouseForceSystem(ObserverManager &observerManager)

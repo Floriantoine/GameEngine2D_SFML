@@ -12,7 +12,8 @@ namespace rtype {
 
 class ParticleMousePosSystem : public ASystem {
   public:
-    sf::Vector2i _mousePos{-100, -100};
+    sf::Vector2f _mousePos{-100, -100};
+    bool _haveMove = false;
     Observer _observers;
     ObserverManager &_observerManager;
 
@@ -21,7 +22,8 @@ class ParticleMousePosSystem : public ASystem {
     {
         _observers = Observer{
             [&](MouseMove const &mouse) {
-                _mousePos = sf::Vector2i(mouse.x, mouse.y);
+                _mousePos = sf::Vector2f(mouse.x, mouse.y);
+                this->_haveMove = true;
             },
         };
 
@@ -34,8 +36,13 @@ class ParticleMousePosSystem : public ASystem {
 
     void update(long elapsedTime) override
     {
-        this->componentManager_->apply<components::PosComponent>(
-            [&](components::PosComponent *component) { component->_initPos = _mousePos; });
+        if (this->_haveMove) {
+            this->_haveMove = false;
+            this->componentManager_->apply<components::PosComponent>(
+                [&](components::PosComponent *component) {
+                    component->_initPos = _mousePos;
+                });
+        }
     };
 };
 } // namespace rtype

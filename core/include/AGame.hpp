@@ -2,7 +2,7 @@
 
 #include "observer/Observer.hpp"
 #include "observer/ObserverManager.hpp"
-#include "particle/ParticleSystem.hpp"
+#include "particle/ParticleManager.hpp"
 #include "scene/SceneManager.hpp"
 #include "sprite/SpriteManager.hpp"
 #include "texture/TextureManager.hpp"
@@ -20,7 +20,7 @@ class AGame {
     parallax::ParallaxSystem _parallax;
     flowEngine::TextureManager _textureManager;
     flowEngine::SpriteManager _spriteManager;
-    ParticleSystem _particleSystem;
+    ParticleManager _particleSystem;
 
     AGame()
         : _observerManager(), _textureManager(), _spriteManager(),
