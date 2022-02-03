@@ -63,6 +63,16 @@ void Game::onInit()
     this->_parallax.clear();
     this->_sceneManager.loadScene("../core/json/scene1.json");
 
+    // _systemManager.createSystem<systems::FormSystem>();
+    _systemManager.createSystem<rtype::ParticleMousePosSystem>(
+        Game::Game::getInstance().getObserverManager());
+    _systemManager.createSystem<rtype::ParticleTimeLifeSystem>();
+    _systemManager.createSystem<systems::KeyMovement>();
+    _systemManager.createSystem<systems::ParticlesSystem>();
+    _systemManager.createSystem<systems::CollisionSystem>();
+    _systemManager.createSystem<systems::DisplayShape>();
+    _systemManager.createSystem<systems::CollisionColor>();
+
     ImGui::SFML::Init(*this->_window);
     // Start Test Zone Temporary
     // auto texture =

@@ -27,8 +27,8 @@ class ParticleManager {
     std::shared_ptr<PointParticleAlphaSystem> _PointParticleAlphaSystem;
     std::shared_ptr<rtype::ParticleMousePosSystem> _ParticleMousePosSystem;
 
-    rtype::ComponentManager _componentManager;
-    rtype::SystemManager _systemManager;
+    rtype::ComponentManager &_componentManager;
+    rtype::SystemManager &_systemManager;
 
     sf::VertexArray _vertexArray;
     std::vector<ParticleInf> _particleInf;
@@ -48,7 +48,9 @@ class ParticleManager {
 
   public:
     void init();
-    ParticleManager(ObserverManager &observerManager);
+    ParticleManager(ObserverManager &observerManager,
+        rtype::ComponentManager &componentManager,
+        rtype::SystemManager &systemManager);
     ~ParticleManager();
     void loadConfig(std::string string);
     void setParticleRange(int min, int max);

@@ -11,7 +11,8 @@
         "rangeMin": [2, 0.1],
         "rangeMax": [0, 0.1]
     },
-    "pos": {
+    "pos": [0 , 0],
+    "spawnPos": {
         "init": [0 , 0],
         "rangeMin": [0, 0],
         "rangeMax": [2000, 0]

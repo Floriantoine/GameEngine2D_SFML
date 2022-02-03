@@ -55,8 +55,11 @@ class ComponentManager {
     template <class T, typename... Args>
     void addComponent(id_t entityId, Args &&...args)
     {
-        if (this->hasComponent<T>(entityId) != false)
-            throw std::overflow_error("Entity already has component");
+        if (this->hasComponent<T>(entityId) != false) {
+            std::cout << "Entity already has component" << std::endl;
+            return;
+            // throw std::overflow_error("Entity already has component");
+        }
         T *component = new T(std::forward<Args>(args)...);
         this->getComponentList<T>()[entityId] =
             static_cast<ComponentBase *>(component);
@@ -68,8 +71,11 @@ class ComponentManager {
         if (endId < startId)
             assert("Bad Range");
         for (startId; startId < endId; startId++) {
-            if (this->hasComponent<T>(startId) != false)
-                throw std::overflow_error("Entity already has component");
+            if (this->hasComponent<T>(startId) != false) {
+                std::cout << "Entity already has component" << std::endl;
+                return;
+                // throw std::overflow_error("Entity already has component");
+            }
             T *component = new T(std::forward<Args>(args)...);
             this->getComponentList<T>()[startId] =
                 static_cast<ComponentBase *>(component);

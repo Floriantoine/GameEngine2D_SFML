@@ -10,6 +10,7 @@ namespace systems {
 class GravitySystem : public rtype::ASystem {
   private:
     float delta_t = 0.2;
+    long _elapsedtime = 0;
 
     void ExplicitEuler(int N, std::vector<sf::Vector2f> *cur_S,
         std::vector<sf::Vector2f> prior_S, std::vector<sf::Vector2f> S_derivs,

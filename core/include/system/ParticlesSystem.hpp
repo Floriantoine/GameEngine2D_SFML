@@ -9,7 +9,8 @@ namespace systems {
 
 class ParticlesSystem : public rtype::ASystem {
   private:
-    sf::VertexArray *_vertexArray;
+    sf::VertexArray _vertexArray;
+    long _elapsedTime;
 
     template <class T>
     void generateProprietyRange(T *value, T initValue, T rangeMin, T rangeMax)
@@ -31,8 +32,7 @@ class ParticlesSystem : public rtype::ASystem {
     void reset(int index);
 
   public:
-    ParticlesSystem(sf::VertexArray *vertexArray)
-        : _vertexArray(vertexArray), ASystem(){};
+    ParticlesSystem() : _vertexArray(sf::Points, 0), ASystem(){};
     ~ParticlesSystem() = default;
 
     void update(long elapsedTime) override;

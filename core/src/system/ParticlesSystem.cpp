@@ -1,4 +1,5 @@
 #include "system/ParticlesSystem.hpp"
+#include "Game.hpp"
 
 namespace systems {
 
@@ -42,8 +43,15 @@ void ParticlesSystem::reset(int index)
 
 void ParticlesSystem::update(long elapsedTime)
 {
+    _elapsedTime += elapsedTime;
+    if (_elapsedTime < 16)
+        return;
+    _elapsedTime = 0;
     auto array = this->componentManager_
                      ->getComponentList<components::ParticleIdentity>();
+
+    if (array.size() != _vertexArray.getVertexCount())
+        _vertexArray.resize(array.size());
 
     for (auto it = array.begin(); it != array.end(); ++it) {
         components::PosComponent *PosC =
@@ -56,11 +64,12 @@ void ParticlesSystem::update(long elapsedTime)
             this->componentManager_->getComponent<components::HealthComponent>(
                 it->first);
         if (!compLife || compLife->health > 0) {
-            (*_vertexArray)[it->first].position =
+            _vertexArray[it->first].position =
                 sf::Vector2f(PosC->_pos.x, PosC->_pos.y);
         } else if (compLife && compLife->health <= 0) {
             reset(it->first);
         }
     }
+    Game::Game::getInstance().getWindow()->draw(_vertexArray);
 }
 } // namespace systems

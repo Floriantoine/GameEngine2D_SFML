@@ -16,6 +16,7 @@ class ParticleMousePosSystem : public ASystem {
     bool _haveMove = false;
     Observer _observers;
     ObserverManager &_observerManager;
+    long _elapsedTime;
 
     ParticleMousePosSystem(ObserverManager &observerManager)
         : ASystem(), _observerManager(observerManager)
@@ -36,6 +37,11 @@ class ParticleMousePosSystem : public ASystem {
 
     void update(long elapsedTime) override
     {
+        _elapsedTime += elapsedTime;
+        if (_elapsedTime < 16) {
+            return;
+        }
+        _elapsedTime = 0;
         if (this->_haveMove) {
             this->_haveMove = false;
             this->componentManager_->apply<components::SpawnPos>(

@@ -3,7 +3,6 @@
 
 void ParticleManager::display()
 {
-    Game::Game::getInstance().getWindow()->draw(_vertexArray);
 }
 
 void ParticleManager::setParticleRange(int min, int max)
@@ -12,11 +11,12 @@ void ParticleManager::setParticleRange(int min, int max)
         this->_componentManager.addComponentRange<components::ForceComponent>(
             min, max, _json["force"]);
     if (_json["pos"] != nullptr) {
-        this->_componentManager.addComponentRange<components::SpawnPos>(
-            min, max, _json["pos"]);
-
         this->_componentManager.addComponentRange<components::PosComponent>(
             min, max, _json["pos"]);
+    }
+    if (_json["spawnPos"] != nullptr) {
+        this->_componentManager.addComponentRange<components::SpawnPos>(
+            min, max, _json["spawnPos"]);
     }
     if (_json["size"] != nullptr)
         this->setParticleSize(_json["size"]);
@@ -39,11 +39,11 @@ void ParticleManager::setParticleRange(int min, int max)
 
     this->_componentManager.addComponentRange<components::ParticleIdentity>(
         min, max);
-    this->_componentManager.addComponentRange<components::KeyMovement>(
-        min, max);
     this->_componentManager.addComponentRange<components::MasseComponent>(
         min, max, this->_initMasse);
     this->_componentManager.addComponentRange<components::Gravity>(min, max);
+    // this->_componentManager.addComponentRange<components::SolidBlock>(min,
+    // max);
 
     // Test Form Components
     // auto array =
@@ -58,8 +58,12 @@ void ParticleManager::setParticleRange(int min, int max)
 
 void ParticleManager::loadConfig(std::string string)
 {
-    this->_componentManager.clear();
-    this->_systemManager.clear();
+    auto array = this->_componentManager
+                     .getComponentList<components::ParticleIdentity>();
+    for (auto it = array.begin(); it != array.end(); ++it) {
+        this->_componentManager.removeAllComponents(it->first);
+    }
+
     this->_json = json::loadJson(string);
 
     if (_json == nlohmann::json::value_t::discarded || _json.is_discarded()) {
@@ -75,11 +79,6 @@ void ParticleManager::loadConfig(std::string string)
             _systemManager.createSystem<rtype::ParticleMouseForceSystem>(
                 Game::Game::getInstance().getObserverManager());
         }
-        if (_json["mousePos"] != nullptr && _json["mousePos"] == true) {
-            _ParticleMousePosSystem =
-                _systemManager.createSystem<rtype::ParticleMousePosSystem>(
-                    Game::Game::getInstance().getObserverManager());
-        }
         if (_json["targetMouse"] != nullptr && _json["targetMouse"] == true) {
             _systemManager.createSystem<rtype::ParticleMouseTargetSystem>(
                 Game::Game::getInstance().getObserverManager(), &_vertexArray);
@@ -92,10 +91,6 @@ void ParticleManager::loadConfig(std::string string)
     if (this->_vertexArray.getPrimitiveType() == sf::PrimitiveType::Points) {
         _systemManager.createSystem<systems::GravitySystem>();
     }
-    // _systemManager.createSystem<systems::FormSystem>();
-    _systemManager.createSystem<rtype::ParticleTimeLifeSystem>();
-    _systemManager.createSystem<systems::KeyMovement>();
-    _systemManager.createSystem<systems::ParticlesSystem>(&_vertexArray);
 }
 
 void ParticleManager::setPrimitiveType(sf::PrimitiveType primType)
@@ -121,22 +116,17 @@ void ParticleManager::reset(int index)
 {
 }
 
-ParticleManager::ParticleManager(ObserverManager &observerManager)
-    : _vertexArray(sf::Points, 1000), _componentManager(),
-      _observerManager(observerManager), _systemManager(_componentManager),
+ParticleManager::ParticleManager(ObserverManager &observerManager,
+    rtype::ComponentManager &componentManager,
+    rtype::SystemManager &systemManager)
+    : _vertexArray(sf::Points, 1000), _componentManager(componentManager),
+      _observerManager(observerManager), _systemManager(systemManager),
       fileDialog()
 {
     fileDialog.SetTitle("Load config");
     fileDialog.SetTypeFilters({".json"});
     _observers = Observer{
         [&](KeyPressed const &key) {
-            // if (key.key == sf::Keyboard::X) {
-            //     if (this->_vertexArray.getPrimitiveType() ==
-            //         sf::PrimitiveType::Points)
-            //         this->setPrimitiveType(sf::Quads);
-            //     else
-            //         this->setPrimitiveType(sf::Points);
-            // }
             if (key.key == sf::Keyboard::Up)
                 this->setParticleSize(this->getSize() + 1);
             if (key.key == sf::Keyboard::Down)
@@ -167,6 +157,8 @@ void ParticleManager::update(long elapsedTime)
         this->_componentManager.getComponent<components::SpawnPos>(0);
     components::ForceComponent *forceComp =
         this->_componentManager.getComponent<components::ForceComponent>(0);
+    components::MasseComponent *masseComp =
+        this->_componentManager.getComponent<components::MasseComponent>(0);
     components::HealthComponent *LifeComp =
         this->_componentManager.getComponent<components::HealthComponent>(0);
     // rtype::SizeComponent *SizeComp =
@@ -193,45 +185,74 @@ void ParticleManager::update(long elapsedTime)
     }
 
     ImGui::Separator();
-    ImGui::LabelText("", "Pos");
-    if (posComp != nullptr) {
-        float tempo[6] = {posComp->_initPos.x, posComp->_initPos.y,
-            posComp->_rangeMin.x, posComp->_rangeMin.y, posComp->_rangeMax.x,
-            posComp->_rangeMax.y};
-        if (ImGui::SliderFloat("X", &tempo[0], 0, 1920) ||
-            ImGui::SliderFloat("Y", &tempo[1], 0, 1920)) {
-            _componentManager.apply<components::SpawnPos>(
-                [&](components::SpawnPos *component) {
-                    component->_initPos = sf::Vector2f(tempo[0], tempo[1]);
-                });
-        }
+    if (ImGui::CollapsingHeader("Position")) {
+        if (posComp != nullptr) {
+            float tempo[6] = {posComp->_initPos.x, posComp->_initPos.y,
+                posComp->_rangeMin.x, posComp->_rangeMin.y,
+                posComp->_rangeMax.x, posComp->_rangeMax.y};
+            if (ImGui::SliderFloat("X", &tempo[0], 0, 1920) ||
+                ImGui::SliderFloat("Y", &tempo[1], 0, 1920)) {
+                _componentManager.apply<components::SpawnPos>(
+                    [&](components::SpawnPos *component) {
+                        component->_initPos = sf::Vector2f(tempo[0], tempo[1]);
+                    });
+            }
 
-        if (ImGui::SliderFloat("Min X", &tempo[2], 0, 1000) ||
-            ImGui::SliderFloat("Min Y", &tempo[3], 0, 1000)) {
-            _componentManager.apply<components::SpawnPos>(
-                [&](components::SpawnPos *component) {
-                    component->_rangeMin = sf::Vector2f(tempo[2], tempo[3]);
-                });
-        }
-        if (ImGui::SliderFloat("Max X", &tempo[4], 0, 1000) ||
-            ImGui::SliderFloat("Max Y", &tempo[5], 0, 1000)) {
-            _componentManager.apply<components::SpawnPos>(
-                [&](components::SpawnPos *component) {
-                    component->_rangeMax = sf::Vector2f(tempo[4], tempo[5]);
-                });
+            if (ImGui::SliderFloat("Min X", &tempo[2], 0, 1000) ||
+                ImGui::SliderFloat("Min Y", &tempo[3], 0, 1000)) {
+                _componentManager.apply<components::SpawnPos>(
+                    [&](components::SpawnPos *component) {
+                        component->_rangeMin = sf::Vector2f(tempo[2], tempo[3]);
+                    });
+            }
+            if (ImGui::SliderFloat("Max X", &tempo[4], 0, 1000) ||
+                ImGui::SliderFloat("Max Y", &tempo[5], 0, 1000)) {
+                _componentManager.apply<components::SpawnPos>(
+                    [&](components::SpawnPos *component) {
+                        component->_rangeMax = sf::Vector2f(tempo[4], tempo[5]);
+                    });
+            }
         }
     }
+
     ImGui::Separator();
-    ImGui::LabelText("", "Force");
-    if (forceComp != nullptr) {
-        float tempo[2] = {forceComp->_initForce.x, forceComp->_initForce.y};
-        ImGui::SliderFloat2("Force", tempo, -100.0f, 100.0f);
-        if (forceComp->_initForce.x != tempo[0] ||
-            forceComp->_initForce.y != tempo[1]) {
-            _componentManager.apply<components::ForceComponent>(
-                [&](components::ForceComponent *component) {
-                    component->_initForce = sf::Vector2f(tempo[0], tempo[1]);
-                });
+
+    if (ImGui::CollapsingHeader("Force")) {
+        if (forceComp != nullptr) {
+            float tempo[2] = {forceComp->_initForce.x, forceComp->_initForce.y};
+            ImGui::SliderFloat2("Force Slider", tempo, -20.0f, 20.0f);
+            if (ImGui::Button("Reset")) {
+                tempo[0] = 0.00f;
+                tempo[1] = 0.00f;
+            }
+            if (forceComp->_initForce.x != tempo[0] ||
+                forceComp->_initForce.y != tempo[1]) {
+                _componentManager.apply<components::ForceComponent>(
+                    [&](components::ForceComponent *component) {
+                        component->_initForce =
+                            sf::Vector2f(tempo[0], tempo[1]);
+                        component->force = sf::Vector2f(tempo[0], tempo[1]);
+                    });
+            }
+        }
+    }
+
+    ImGui::Separator();
+
+    if (ImGui::CollapsingHeader("Masse")) {
+        if (masseComp != nullptr) {
+            int tempo = masseComp->_initMasse;
+            ImGui::SliderInt("Masse Slider", &tempo, -20, 20);
+            if (ImGui::Button("Reset Masse")) {
+                tempo = 0;
+            }
+            if (masseComp->_initMasse != tempo) {
+                _componentManager.apply<components::MasseComponent>(
+                    [&](components::MasseComponent *component) {
+                        component->_initMasse = tempo;
+                        component->masse = tempo;
+                    });
+            }
         }
     }
 

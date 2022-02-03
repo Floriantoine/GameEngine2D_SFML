@@ -29,7 +29,8 @@ class Observer : public IObserver {
         : handler{[... handlers = std::move(handlers)](Event const &event) {
               std::visit(
                   Overloaded{handlers...,
-                      [](auto const &) { std::cout << "Default case\n"; }},
+                      [](auto const
+                              &) { /* std::cout << "Default case\n"; */ }},
                   event);
           }}
     {

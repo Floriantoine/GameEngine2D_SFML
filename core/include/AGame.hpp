@@ -1,10 +1,13 @@
 #pragma once
 
+#include "component/ComponentManager.hpp"
+#include "factory/PlayerFactory.hpp"
 #include "observer/Observer.hpp"
 #include "observer/ObserverManager.hpp"
 #include "particle/ParticleManager.hpp"
 #include "scene/SceneManager.hpp"
 #include "sprite/SpriteManager.hpp"
+#include "system/SystemManager.hpp"
 #include "texture/TextureManager.hpp"
 #include <./EventSystem.hpp>
 #include <chrono>
@@ -14,6 +17,8 @@ class AGame {
     bool isRunning{false};
     double _framerateLimit{60};
 
+    rtype::ComponentManager _componentManager;
+    rtype::SystemManager _systemManager;
     SceneManager _sceneManager;
     Game::EventSystem _eventSys;
     ObserverManager _observerManager;
@@ -21,12 +26,15 @@ class AGame {
     flowEngine::TextureManager _textureManager;
     flowEngine::SpriteManager _spriteManager;
     ParticleManager _particleSystem;
+    factory::PlayerFactory _playerFactory;
 
     AGame()
-        : _observerManager(), _textureManager(), _spriteManager(),
+        : _componentManager(), _systemManager(_componentManager),
+          _observerManager(), _textureManager(), _spriteManager(),
           _eventSys(_observerManager), _parallax(_observerManager),
           _sceneManager(_parallax, _textureManager),
-          _particleSystem(_observerManager)
+          _particleSystem(_observerManager, _componentManager, _systemManager),
+          _playerFactory(_observerManager, _componentManager, _systemManager)
     {
     }
     virtual ~AGame() = default;

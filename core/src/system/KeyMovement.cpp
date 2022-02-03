@@ -33,22 +33,22 @@ void KeyMovement::update(long elapsedTime)
             auto array = this->componentManager_
                              ->getComponentList<components::KeyMovement>();
             for (auto it = array.begin(); it != array.end(); ++it) {
-                components::SpawnPos *PosC =
-                    this->componentManager_->getComponent<components::SpawnPos>(
-                        it->first);
+                components::PosComponent *PosC =
+                    this->componentManager_
+                        ->getComponent<components::PosComponent>(it->first);
                 if (!PosC)
                     return;
                 if (this->_direction == "Left") {
-                    PosC->_initPos.x -= 20;
+                    PosC->_pos.x -= 20;
                 }
                 if (this->_direction == "Right") {
-                    PosC->_initPos.x += 20;
+                    PosC->_pos.x += 20;
                 }
                 if (this->_direction == "Up") {
-                    PosC->_initPos.y -= 20;
+                    PosC->_pos.y -= 20;
                 }
                 if (this->_direction == "Down") {
-                    PosC->_initPos.y += 20;
+                    PosC->_pos.y += 20;
                 }
             }
             this->_direction = "";

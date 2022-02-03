@@ -1,5 +1,5 @@
 {
-    "count": 1000,
+    "count": 20,
     "lifeTime": {
         "init": 6000,
         "rangeMin": 3000,
@@ -11,7 +11,8 @@
         "rangeMin": [1, 1],
         "rangeMax": [1, 1]
     },
-    "pos": [0 , 0],
+    "pos": [100 , 100],
+    "spawnPos": [100 , 100],
     "masse": 1,
     "color": "green",
     "mousePos": true,

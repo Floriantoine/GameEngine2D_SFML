@@ -1,5 +1,8 @@
 #pragma once
 
+#include "system/CollisionColor.hpp"
+#include "system/CollisionSystem.hpp"
+#include "system/DisplayShape.hpp"
 #include "system/FormSystem.hpp"
 #include "system/GravitySystem.hpp"
 #include "system/KeyMovement.hpp"

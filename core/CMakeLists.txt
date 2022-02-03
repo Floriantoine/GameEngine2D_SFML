@@ -5,7 +5,6 @@ project("R-type's client" LANGUAGES CXX)
 set(SRC_DIR src/)
 
 
-
 set(WARNING_FLAG
         -Wall
         -Wextra
@@ -34,6 +33,10 @@ set(SRCS
         system/FormSystem.cpp
         system/KeyMovement.cpp
         system/ParticlesSystem.cpp
+        system/DisplayShape.cpp
+        system/CollisionSystem.cpp
+        system/CollisionColor.cpp
+        factory/PlayerFactory.cpp
 )
 
 list(TRANSFORM SRCS PREPEND ${SRC_DIR})
