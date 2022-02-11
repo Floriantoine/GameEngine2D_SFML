@@ -1,5 +1,7 @@
 # MyHunter_Sfml
 
+[![CodeFactor](https://www.codefactor.io/repository/github/floriantoine/myhunter_sfml/badge)](https://www.codefactor.io/repository/github/floriantoine/myhunter_sfml)
+
 ### Creation d'un engine de jeu video en SFML
 ### qui a pour but de developer un jeu du type Hunter, Comme le Duck Hunt
 ![Drag Racing](https://miro.medium.com/max/1000/1*CHpGqF5_AjZCgQokepOIHQ.jpeg)
