@@ -15,3 +15,4 @@
 #include "components/SolidBlock.hpp"
 #include "components/SpawnPosComponent.hpp"
 #include "components/particle/ParticleIdentityComponent.hpp"
+#include "components/systemActivator/SpawnMousePos.hpp"

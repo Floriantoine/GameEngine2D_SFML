@@ -21,6 +21,8 @@ set(SRCS
         parallax/ParallaxObj.cpp
         tools/random.cpp
         tools/jsonTools.cpp
+        tools/Spooky.cpp
+        tools/Chrono.cpp
         scene/SceneManager.cpp
         texture/Texture.cpp
         texture/TextureManager.cpp

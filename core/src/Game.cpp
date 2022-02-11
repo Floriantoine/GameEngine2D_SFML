@@ -72,6 +72,7 @@ void Game::onInit()
     _systemManager.createSystem<systems::CollisionSystem>();
     _systemManager.createSystem<systems::DisplayShape>();
     _systemManager.createSystem<systems::CollisionColor>();
+    _systemManager.createSystem<systems::GravitySystem>();
 
     ImGui::SFML::Init(*this->_window);
     // Start Test Zone Temporary

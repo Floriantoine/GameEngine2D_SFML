@@ -93,6 +93,17 @@ class ComponentManager {
         return static_cast<T *>(this->getComponent(T::getTypeId(), entityId));
     }
 
+    template <class T> void removeComponentRange(id_t startId, id_t endId)
+    {
+        if (endId < startId)
+            assert("Bad Range");
+        for (startId; startId < endId; startId++) {
+            if (this->hasComponent<T>(startId) == false)
+                throw std::overflow_error("Entity does not have component");
+            this->removeComponent(T::getTypeId(), startId);
+        }
+    }
+
     template <class T> void removeComponent(id_t entityId)
     {
         if (this->hasComponent<T>(entityId) == false)

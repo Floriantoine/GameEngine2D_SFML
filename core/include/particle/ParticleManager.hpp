@@ -6,6 +6,7 @@
 #include "tools/random.hpp"
 #include <SFML/Graphics/VertexArray.hpp>
 
+#include "../tools/Chrono.hpp"
 #include "../tools/jsonTools.hpp"
 #include "imgui-SFML.h"
 #include "imgui.h"

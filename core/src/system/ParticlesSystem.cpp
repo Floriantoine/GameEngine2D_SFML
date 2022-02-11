@@ -35,14 +35,15 @@ void ParticlesSystem::reset(int index)
 
     float masse = (MasseComp ? MasseComp->masse : 0);
     sf::Vector2f force = (ForceComp ? ForceComp->force : sf::Vector2f(0, 0));
-    if (gravityC && PosComp) {
-        gravityC->_cur_S[0] = masse * force;
-        gravityC->_cur_S[1] = sf::Vector2f(PosComp->_pos.x, PosComp->_pos.y);
+    if (gravityC) {
+        gravityC->_cur_S = masse * force;
     }
 }
 
 void ParticlesSystem::update(long elapsedTime)
 {
+    tools::Chrono::start();
+
     _elapsedTime += elapsedTime;
     if (_elapsedTime < 16)
         return;
@@ -54,22 +55,23 @@ void ParticlesSystem::update(long elapsedTime)
         _vertexArray.resize(array.size());
 
     for (auto it = array.begin(); it != array.end(); ++it) {
-        components::PosComponent *PosC =
-            this->componentManager_->getComponent<components::PosComponent>(
-                it->first);
-        if (PosC == nullptr)
-            break;
-
         components::HealthComponent *compLife =
             this->componentManager_->getComponent<components::HealthComponent>(
                 it->first);
         if (!compLife || compLife->health > 0) {
-            _vertexArray[it->first].position =
-                sf::Vector2f(PosC->_pos.x, PosC->_pos.y);
+            components::PosComponent *PosC =
+                this->componentManager_->getComponent<components::PosComponent>(
+                    it->first);
+            if (PosC != nullptr) {
+                _vertexArray[it->first].position =
+                    sf::Vector2f(PosC->_pos.x, PosC->_pos.y);
+            }
         } else if (compLife && compLife->health <= 0) {
             reset(it->first);
         }
     }
     Game::Game::getInstance().getWindow()->draw(_vertexArray);
+
+    tools::Chrono::end("particleSystem");
 }
 } // namespace systems
