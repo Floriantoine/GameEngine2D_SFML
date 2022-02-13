@@ -141,11 +141,11 @@ class AGame {
      */
     void update(long elapsed)
     {
-        ImGui::Begin("test2");
         this->_particleSystem.update(elapsed);
         this->_parallax.update(elapsed);
         this->_eventSys.update(elapsed);
-        ImGui::End();
+
+        tools::Chrono::display();
     }
 
     /**

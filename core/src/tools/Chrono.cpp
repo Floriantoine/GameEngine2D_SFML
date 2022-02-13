@@ -16,10 +16,12 @@ bool Chrono::isRegistered(uint64 typeId)
 {
     return (_values.find(typeId) != _values.end());
 }
-std::vector<float> *Chrono::GetValuesList(uint64 id)
+ImplotPerfInf *Chrono::GetValuesList(std::string name)
 {
+    uint64 id = nameToId(name);
+
     if (isRegistered(id) == false) {
-        _values[id] = std::vector<float>();
+        _values[id] = ImplotPerfInf(name);
     }
     const auto &it = _values.find(id);
     if (it == _values.end())
@@ -29,28 +31,54 @@ std::vector<float> *Chrono::GetValuesList(uint64 id)
 
 Chrono::Chrono(/* args */)
 {
-    Chrono::_start = std::chrono::high_resolution_clock::now();
+}
+Chrono::~Chrono(/* args */)
+{
+    _values.clear();
+}
+
+void Chrono::display()
+{
+    static ImPlotAxisFlags flags = ImPlotAxisFlags_NoTickLabels;
+    t += ImGui::GetIO().DeltaTime;
+    static float history = 10.0f;
+
+    ImGui::Begin("PlotLineTest");
+
+    ImGui::SliderFloat("History", &history, 1, 30, "%.1f s");
+    ImPlot::BeginPlot("plotTest");
+    ImPlot::SetupAxes("", "Time [ms]");
+    ImPlot::SetupAxisLimits(ImAxis_Y1, 0, 50);
+    ImPlot::SetNextFillStyle(IMPLOT_AUTO_COL, 0.5f);
+
+    for (auto &it: _values) {
+        ImPlot::SetupAxisLimits(ImAxis_X1, t - history, t, ImGuiCond_Always);
+        ImPlot::PlotShaded(it.second._name.c_str(), &it.second.Data[0].x,
+            &it.second.Data[0].y, it.second.Data.size(), 0, it.second.Offset,
+            2 * sizeof(float));
+        // ImPlot::PlotLine(it.second._name.c_str(), &it.second.Data[0].x,
+        //     &it.second.Data[0].y, it.second.Data.size(), it.second.Offset,
+        //     2 * sizeof(float));
+    }
+    ImPlot::EndPlot();
+    ImGui::End();
 }
 
 void Chrono::start()
 {
-    _start = std::chrono::high_resolution_clock::now();
+    _starts.push_back(std::chrono::high_resolution_clock::now());
 }
 void Chrono::end(std::string name)
 {
     auto end = std::chrono::high_resolution_clock::now();
-    auto int_s =
-        std::chrono::duration_cast<std::chrono::milliseconds>(end - _start);
-    uint64 id = nameToId(name);
-    auto list = GetValuesList(id);
-    list->push_back(int_s.count());
-    if (list->size() > 100)
-        list->erase(list->begin());
-    auto it = std::max_element(list->begin(), list->end());
-    ImGui::Begin("PlotLineTest");
+    std::chrono::_V2::system_clock::time_point start =
+        _starts[_starts.size() - 1];
+    _starts.pop_back();
 
-    ImGui::PlotHistogram("", &(*list)[0], list->size(), 0, name.c_str(), 0, *it,
-        ImVec2(400, 100));
-    ImGui::End();
+    auto int_s =
+        std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    auto list = GetValuesList(name);
+    std::cout << "point: " << list->Data.size() + list->Offset << std::endl;
+    list->AddPoint(t, int_s.count());
 }
 } // namespace tools

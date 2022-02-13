@@ -8,6 +8,7 @@ namespace components {
 
 class ParticleIdentity : public rtype::Component<ParticleIdentity> {
   public:
+    bool _isInit = false;
     ParticleIdentity(){};
 };
 } // namespace components

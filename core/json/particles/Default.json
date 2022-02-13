@@ -1,5 +1,6 @@
 {
-    "count": 20,
+    "count": 1000,
+    "lifeType": "loop",
     "lifeTime": {
         "init": 6000,
         "rangeMin": 3000,

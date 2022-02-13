@@ -55,19 +55,34 @@ void ParticlesSystem::update(long elapsedTime)
         _vertexArray.resize(array.size());
 
     for (auto it = array.begin(); it != array.end(); ++it) {
-        components::HealthComponent *compLife =
-            this->componentManager_->getComponent<components::HealthComponent>(
-                it->first);
-        if (!compLife || compLife->health > 0) {
-            components::PosComponent *PosC =
-                this->componentManager_->getComponent<components::PosComponent>(
-                    it->first);
-            if (PosC != nullptr) {
-                _vertexArray[it->first].position =
-                    sf::Vector2f(PosC->_pos.x, PosC->_pos.y);
-            }
-        } else if (compLife && compLife->health <= 0) {
+        components::ParticleIdentity *identity =
+            static_cast<components::ParticleIdentity *>(it->second);
+
+        if (identity->_isInit == false) {
             reset(it->first);
+            identity->_isInit = true;
+        } else {
+            components::HealthComponent *compLife =
+                this->componentManager_
+                    ->getComponent<components::HealthComponent>(it->first);
+            if (!compLife || compLife->health > 0) {
+                components::PosComponent *PosC =
+                    this->componentManager_
+                        ->getComponent<components::PosComponent>(it->first);
+                if (PosC != nullptr) {
+                    _vertexArray[it->first].position =
+                        sf::Vector2f(PosC->_pos.x, PosC->_pos.y);
+                }
+            } else if (compLife && compLife->health <= 0) {
+                components::LoopLife *loopLife =
+                    this->componentManager_->getComponent<components::LoopLife>(
+                        it->first);
+                if (loopLife) {
+                    reset(it->first);
+                } else {
+                    this->componentManager_->removeAllComponents(it->first);
+                }
+            }
         }
     }
     Game::Game::getInstance().getWindow()->draw(_vertexArray);

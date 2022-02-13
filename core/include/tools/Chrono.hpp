@@ -5,24 +5,66 @@
 #include <algorithm>
 #include <chrono>
 #include <iostream>
+#include <vector>
 
 namespace tools {
 
+struct ImplotPerfInf
+{
+    int MaxSize;
+    int Offset;
+    ImVector<ImVec2> Data;
+    std::string _name;
+    ImplotPerfInf(std::string name, int max_size = 2000)
+    {
+        MaxSize = max_size;
+        Offset = 0;
+        Data.reserve(MaxSize);
+        _name = name;
+    }
+    ImplotPerfInf(int max_size = 2000)
+    {
+        MaxSize = max_size;
+        Offset = 0;
+        Data.reserve(MaxSize);
+        _name = std::string("#");
+    }
+    void AddPoint(float x, float y)
+    {
+        if (Data.size() < MaxSize)
+            Data.push_back(ImVec2(x, y));
+        else {
+            Data[Offset] = ImVec2(x, y);
+            Offset = (Offset + 1) % MaxSize;
+        }
+    }
+    void Erase()
+    {
+        if (Data.size() > 0) {
+            Data.shrink(0);
+            Offset = 0;
+        }
+    }
+};
+
 class Chrono {
   private:
-    static inline std::chrono::_V2::system_clock::time_point _start;
-    static inline std::unordered_map<uint64, std::vector<float>> _values;
+    static inline float t = 0;
+    static inline std::vector<std::chrono::_V2::system_clock::time_point>
+        _starts;
+    static inline std::unordered_map<uint64, ImplotPerfInf> _values;
 
   public:
     static void start();
     static void end(std::string name);
     static void end();
+    static void display();
 
     Chrono(/* args */);
-    ~Chrono() = default;
+    ~Chrono();
     static uint64 nameToId(std::string name);
     static uint64 nameToId(const char *name, size_t length);
-    static std::vector<float> *GetValuesList(uint64 id);
+    static ImplotPerfInf *GetValuesList(std::string name);
     static bool isRegistered(uint64 id);
 };
 

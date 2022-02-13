@@ -21,6 +21,8 @@ set(SRCS
         parallax/ParallaxObj.cpp
         tools/random.cpp
         tools/jsonTools.cpp
+        tools/imgui/implot.cpp
+        tools/imgui/implot_items.cpp
         tools/Spooky.cpp
         tools/Chrono.cpp
         scene/SceneManager.cpp
@@ -53,6 +55,7 @@ target_include_directories( r-type_client PRIVATE
         ./src/sprite
         ./src/observer
         ./include
+        ./include/imgui
 )
 
 target_link_libraries(r-type_client PRIVATE
