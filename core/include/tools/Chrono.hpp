@@ -15,12 +15,14 @@ struct ImplotPerfInf
     int Offset;
     ImVector<ImVec2> Data;
     std::string _name;
+    int Plt;
     ImplotPerfInf(std::string name, int max_size = 2000)
     {
         MaxSize = max_size;
         Offset = 0;
         Data.reserve(MaxSize);
         _name = name;
+        Plt = 0;
     }
     ImplotPerfInf(int max_size = 2000)
     {
