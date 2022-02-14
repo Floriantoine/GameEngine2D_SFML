@@ -8,18 +8,22 @@ PlayerFactory::PlayerFactory(ObserverManager &observerManager,
     : _observerManager(observerManager), _componentManager(componentManager),
       _systemManager(systemManager)
 {
-    int arrayPos[2] = {200, 400};
-    _componentManager.addComponent<components::PosComponent>(10000, arrayPos);
-    _componentManager.addComponent<components::Color>(10000, sf::Color::Blue);
-    _componentManager.addComponent<components::SolidBlock>(10000);
-    _componentManager.addComponent<components::RectangleShape>(10000);
-    _componentManager.addComponent<components::KeyMovement>(10000);
+    _componentManager.addComponent<components::PosComponent>(
+        20000, sf::Vector2f(200, 400));
+    _componentManager.addComponent<components::Color>(20000, sf::Color::Blue);
+    _componentManager.addComponent<components::SolidBlock>(20000);
+    _componentManager.addComponent<components::RectangleShape>(20000);
+    _componentManager.addComponent<components::KeyMovement>(20000);
+    _componentManager.addComponent<components::Size>(
+        20000, sf::Vector2f(10, 10));
 
-    arrayPos[0] = 220;
-    _componentManager.addComponent<components::PosComponent>(10001, arrayPos);
-    _componentManager.addComponent<components::Color>(10001, sf::Color::Blue);
-    _componentManager.addComponent<components::SolidBlock>(10001);
-    _componentManager.addComponent<components::RectangleShape>(10001);
+    _componentManager.addComponent<components::PosComponent>(
+        20001, sf::Vector2f(220, 400));
+    _componentManager.addComponent<components::Color>(20001, sf::Color::Blue);
+    _componentManager.addComponent<components::SolidBlock>(20001);
+    _componentManager.addComponent<components::RectangleShape>(20001);
+    _componentManager.addComponent<components::Size>(
+        20001, sf::Vector2f(10, 10));
 }
 
 PlayerFactory::~PlayerFactory()

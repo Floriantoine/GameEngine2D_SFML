@@ -16,6 +16,8 @@ struct ImplotPerfInf
     ImVector<ImVec2> Data;
     std::string _name;
     int Plt;
+    float _maxValue = 0;
+    float _minValue = 0;
     ImplotPerfInf(std::string name, int max_size = 2000)
     {
         MaxSize = max_size;
@@ -33,6 +35,10 @@ struct ImplotPerfInf
     }
     void AddPoint(float x, float y)
     {
+        if (y > _maxValue)
+            _maxValue = y;
+        if (y < _minValue)
+            _minValue = y;
         if (Data.size() < MaxSize)
             Data.push_back(ImVec2(x, y));
         else {

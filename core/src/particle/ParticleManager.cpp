@@ -40,6 +40,11 @@ void ParticleManager::setParticleRange(int min, int max)
     if (_json["color"] != nullptr) {
         this->setColor(_json["color"]);
     }
+    if (_json["isSolidBlock"] == true) {
+        this->_componentManager.addComponentRange<components::SolidBlock>(
+            min, max);
+        this->_componentManager.addComponentRange<components::Color>(min, max);
+    }
 
     this->_componentManager.addComponentRange<components::ParticleIdentity>(
         min, max);
@@ -48,8 +53,6 @@ void ParticleManager::setParticleRange(int min, int max)
     this->_componentManager.addComponentRange<components::Gravity>(min, max);
     this->_componentManager.addComponentRange<components::SpawnMousePos>(
         min, max);
-    // this->_componentManager.addComponentRange<components::SolidBlock>(min,
-    // max);
 
     // Test Form Components
     // auto array =

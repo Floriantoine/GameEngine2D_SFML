@@ -72,6 +72,12 @@ void ParticlesSystem::update(long elapsedTime)
                 if (PosC != nullptr) {
                     _vertexArray[it->first].position =
                         sf::Vector2f(PosC->_pos.x, PosC->_pos.y);
+                    components::Color *colorC =
+                        this->componentManager_
+                            ->getComponent<components::Color>(it->first);
+                    if (colorC != nullptr) {
+                        _vertexArray[it->first].color = colorC->_color;
+                    }
                 }
             } else if (compLife && compLife->health <= 0) {
                 components::LoopLife *loopLife =

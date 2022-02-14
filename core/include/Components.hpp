@@ -13,6 +13,7 @@
 #include "components/MasseComponent.hpp"
 #include "components/PosComponent.hpp"
 #include "components/RectangleShape.hpp"
+#include "components/Size.hpp"
 #include "components/SolidBlock.hpp"
 #include "components/SpawnPosComponent.hpp"
 #include "components/particle/ParticleIdentityComponent.hpp"

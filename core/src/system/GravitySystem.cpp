@@ -39,8 +39,12 @@ void GravitySystem::update(long elapsedTime)
             sf::Vector2f _prior_S0 = gravityC->_cur_S;
             sf::Vector2f _S_derivs0 =
                 (forceComponent ? forceComponent->force : sf::Vector2f(0, 0));
-            sf::Vector2f _S_derivs1 =
-                _prior_S0 / (float)(MasseComponent ? MasseComponent->masse : 1);
+            sf::Vector2f _S_derivs1(0, 0);
+            if (MasseComponent && MasseComponent->masse != 0) {
+                _S_derivs1 = _prior_S0 / (float)MasseComponent->masse;
+            } else {
+                _S_derivs1 = _prior_S0 / 1.0f;
+            }
 
             // ExplicitEuler
             float delta = delta_t * (_elapsedtime / 16.0f);

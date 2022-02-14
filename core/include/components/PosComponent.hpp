@@ -23,5 +23,8 @@ class PosComponent : public rtype::Component<PosComponent> {
             _pos = sf::Vector2f(config[0], config[1]);
         }
     }
+    PosComponent(sf::Vector2f pos) : _pos(pos)
+    {
+    }
 };
 } // namespace components
