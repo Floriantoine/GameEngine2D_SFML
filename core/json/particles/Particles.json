@@ -5,7 +5,12 @@
         "rangeMin": 3000,
         "rangeMax": 3000
     },
-    "type": "points",
+    "type": "quads",
+    "size": {
+        "init": [ 10, 10],
+        "rangeMin": [10, 10],
+        "rangeMax": [10, 10]
+    },
     "force": {
         "init": [ 0, 0],
         "rangeMin": [1, 1],

@@ -18,6 +18,8 @@ void ParticlesSystem::reset(int index)
             index);
     components::PosComponent *PosComp =
         this->componentManager_->getComponent<components::PosComponent>(index);
+    components::Size *SizeComp =
+        this->componentManager_->getComponent<components::Size>(index);
     components::SpawnPos *SpawnPosC =
         this->componentManager_->getComponent<components::SpawnPos>(index);
     if (MasseComp)
@@ -31,6 +33,10 @@ void ParticlesSystem::reset(int index)
     if (PosComp && SpawnPosC) {
         generateVectorProprietyRange(&PosComp->_pos, SpawnPosC->_initPos,
             SpawnPosC->_rangeMin, SpawnPosC->_rangeMax);
+    }
+    if (SizeComp) {
+        generateVectorProprietyRange(&SizeComp->_size, SizeComp->_initSize,
+            SizeComp->_rangeMin, SizeComp->_rangeMax);
     }
 
     float masse = (MasseComp ? MasseComp->masse : 0);
@@ -51,9 +57,25 @@ void ParticlesSystem::update(long elapsedTime)
     auto array = this->componentManager_
                      ->getComponentList<components::ParticleIdentity>();
 
-    if (array.size() != _vertexArray.getVertexCount())
-        _vertexArray.resize(array.size());
+    if (array.size() != _vertexArray.getVertexCount()) {
+        if (array.size() == 0) {
+            _vertexArray.clear();
+        } else {
+            components::ParticleIdentity *identity =
+                this->componentManager_
+                    ->getComponent<components::ParticleIdentity>(
+                        array.begin()->first);
+            if (!identity || identity->_type == sf::PrimitiveType::Points) {
+                _vertexArray.resize(array.size());
+                _vertexArray.setPrimitiveType(sf::PrimitiveType::Points);
+            } else if (identity->_type == sf::PrimitiveType::Quads) {
+                _vertexArray.setPrimitiveType(sf::PrimitiveType::Quads);
+                _vertexArray.resize(array.size() * 4);
+            }
+        }
+    }
 
+    int i = 0;
     for (auto it = array.begin(); it != array.end(); ++it) {
         components::ParticleIdentity *identity =
             static_cast<components::ParticleIdentity *>(it->second);
@@ -70,13 +92,36 @@ void ParticlesSystem::update(long elapsedTime)
                     this->componentManager_
                         ->getComponent<components::PosComponent>(it->first);
                 if (PosC != nullptr) {
-                    _vertexArray[it->first].position =
-                        sf::Vector2f(PosC->_pos.x, PosC->_pos.y);
                     components::Color *colorC =
                         this->componentManager_
                             ->getComponent<components::Color>(it->first);
-                    if (colorC != nullptr) {
-                        _vertexArray[it->first].color = colorC->_color;
+                    if (identity->_type != sf::PrimitiveType::Quads) {
+                        _vertexArray[i].position =
+                            sf::Vector2f(PosC->_pos.x, PosC->_pos.y);
+                        if (colorC != nullptr) {
+                            _vertexArray[i].color = colorC->_color;
+                        }
+                    } else if (identity->_type == sf::PrimitiveType::Quads) {
+                        components::Size *sizeC =
+                            this->componentManager_
+                                ->getComponent<components::Size>(it->first);
+                        sf::Vector2f size =
+                            (sizeC ? sizeC->_size : sf::Vector2f(1, 1));
+                        int index = i * 4;
+                        _vertexArray[index].position =
+                            sf::Vector2f(PosC->_pos.x, PosC->_pos.y);
+                        _vertexArray[index + 1].position =
+                            sf::Vector2f(PosC->_pos.x + size.x, PosC->_pos.y);
+                        _vertexArray[index + 2].position = sf::Vector2f(
+                            PosC->_pos.x + size.x, PosC->_pos.y + size.y);
+                        _vertexArray[index + 3].position =
+                            sf::Vector2f(PosC->_pos.x, PosC->_pos.y + size.y);
+                        if (colorC != nullptr) {
+                            _vertexArray[index].color = colorC->_color;
+                            _vertexArray[index + 1].color = colorC->_color;
+                            _vertexArray[index + 2].color = colorC->_color;
+                            _vertexArray[index + 3].color = colorC->_color;
+                        }
                     }
                 }
             } else if (compLife && compLife->health <= 0) {
@@ -89,6 +134,7 @@ void ParticlesSystem::update(long elapsedTime)
                     this->componentManager_->removeAllComponents(it->first);
                 }
             }
+            i++;
         }
     }
     Game::Game::getInstance().getWindow()->draw(_vertexArray);

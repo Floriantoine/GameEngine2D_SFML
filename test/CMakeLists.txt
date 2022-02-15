@@ -38,4 +38,6 @@ target_link_libraries(r-type_test PRIVATE
   Catch2::Catch2WithMain
   nlohmann_json::nlohmann_json
   sfml-graphics
+    ImGui-SFML::ImGui-SFML
+
 )

@@ -4,6 +4,7 @@
 #include "../assert.hpp"
 #include "../types.hpp"
 #include "./ComponentBase.hpp"
+#include "tools/Chrono.hpp"
 
 #include <cassert>
 #include <functional>
@@ -57,6 +58,7 @@ class ComponentManager {
     {
         if (this->hasComponent<T>(entityId) != false) {
             std::cout << "Entity already has component" << std::endl;
+            tools::Chrono::event("alreadyComponent");
             return;
             // throw std::overflow_error("Entity already has component");
         }
@@ -71,14 +73,7 @@ class ComponentManager {
         if (endId < startId)
             assert("Bad Range");
         for (startId; startId < endId; startId++) {
-            if (this->hasComponent<T>(startId) != false) {
-                std::cout << "Entity already has component" << std::endl;
-                return;
-                // throw std::overflow_error("Entity already has component");
-            }
-            T *component = new T(std::forward<Args>(args)...);
-            this->getComponentList<T>()[startId] =
-                static_cast<ComponentBase *>(component);
+            addComponent<T>(startId, std::forward<Args>(args)...);
         }
     }
 
@@ -98,8 +93,6 @@ class ComponentManager {
         if (endId < startId)
             assert("Bad Range");
         for (startId; startId < endId; startId++) {
-            if (this->hasComponent<T>(startId) == false)
-                throw std::overflow_error("Entity does not have component");
             this->removeComponent(T::getTypeId(), startId);
         }
     }

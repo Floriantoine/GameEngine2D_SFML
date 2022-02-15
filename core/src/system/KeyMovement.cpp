@@ -9,15 +9,19 @@ KeyMovement::KeyMovement() : ASystem()
         [&](KeyPressed const &event) {
             if (event.key == sf::Keyboard::Left) {
                 this->_direction = std::string("Left");
+                tools::Chrono::event("KeyMovement-Input");
             }
             if (event.key == sf::Keyboard::Right) {
                 this->_direction = std::string("Right");
+                tools::Chrono::event("KeyMovement-Input");
             }
             if (event.key == sf::Keyboard::Up) {
                 this->_direction = std::string("Up");
+                tools::Chrono::event("KeyMovement-Input");
             }
             if (event.key == sf::Keyboard::Down) {
                 this->_direction = std::string("Down");
+                tools::Chrono::event("KeyMovement-Input");
             }
         },
     };
@@ -27,9 +31,8 @@ KeyMovement::KeyMovement() : ASystem()
 void KeyMovement::update(long elapsedTime)
 {
     this->_elapsedTime += elapsedTime;
-    if (this->_elapsedTime >= 200) {
+    if (this->_elapsedTime >= 16) {
         if (this->_direction != "") {
-            this->_elapsedTime = 0;
             auto array = this->componentManager_
                              ->getComponentList<components::KeyMovement>();
             for (auto it = array.begin(); it != array.end(); ++it) {
@@ -38,21 +41,20 @@ void KeyMovement::update(long elapsedTime)
                         ->getComponent<components::PosComponent>(it->first);
                 if (!PosC)
                     return;
+                int step = 4 * _elapsedTime / 16;
                 if (this->_direction == "Left") {
-                    PosC->_pos.x -= 20;
-                }
-                if (this->_direction == "Right") {
-                    PosC->_pos.x += 20;
-                }
-                if (this->_direction == "Up") {
-                    PosC->_pos.y -= 20;
-                }
-                if (this->_direction == "Down") {
-                    PosC->_pos.y += 20;
+                    PosC->_pos.x -= step;
+                } else if (this->_direction == "Right") {
+                    PosC->_pos.x += step;
+                } else if (this->_direction == "Up") {
+                    PosC->_pos.y -= step;
+                } else if (this->_direction == "Down") {
+                    PosC->_pos.y += step;
                 }
             }
             this->_direction = "";
         }
+        this->_elapsedTime = 0;
     }
 };
 

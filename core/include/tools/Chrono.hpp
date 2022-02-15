@@ -18,13 +18,14 @@ struct ImplotPerfInf
     int Plt;
     float _maxValue = 0;
     float _minValue = 0;
+    bool isPlot = false;
     ImplotPerfInf(std::string name, int max_size = 2000)
     {
         MaxSize = max_size;
         Offset = 0;
         Data.reserve(MaxSize);
         _name = name;
-        Plt = 0;
+        Plt = -1;
     }
     ImplotPerfInf(int max_size = 2000)
     {
@@ -32,6 +33,7 @@ struct ImplotPerfInf
         Offset = 0;
         Data.reserve(MaxSize);
         _name = std::string("#");
+        Plt = -1;
     }
     void AddPoint(float x, float y)
     {
@@ -66,6 +68,7 @@ class Chrono {
     static void start();
     static void end(std::string name);
     static void end();
+    static void event(std::string name);
     static void display();
 
     Chrono(/* args */);

@@ -12,3 +12,4 @@
 #include "system/ParticleTimeLifeSystem.hpp"
 #include "system/ParticlesSystem.hpp"
 #include "system/PointParticleAlphaSystem.hpp"
+#include "system/SpriteSystem.hpp"

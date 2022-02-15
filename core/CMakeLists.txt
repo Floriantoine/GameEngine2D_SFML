@@ -14,6 +14,8 @@ set(WARNING_FLAG
 set(SRCS
         Game.cpp
         EventSystem.cpp
+        components/Size.cpp
+        components/Sprite.cpp
         parallax/AParallax.cpp
         parallax/layerBackground.cpp
         parallax/ParallaxSystem.cpp
@@ -34,6 +36,7 @@ set(SRCS
         particle/ParticleManager.cpp
         component/ComponentManager.cpp
         system/GravitySystem.cpp
+        system/SpriteSystem.cpp
         system/FormSystem.cpp
         system/KeyMovement.cpp
         system/ParticlesSystem.cpp

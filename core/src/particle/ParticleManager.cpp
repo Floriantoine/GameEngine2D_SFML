@@ -19,12 +19,16 @@ void ParticleManager::setParticleRange(int min, int max)
             min, max, _json["spawnPos"]);
     }
     if (_json["size"] != nullptr)
-        this->setParticleSize(_json["size"]);
+        this->_componentManager.addComponentRange<components::Size>(
+            min, max, _json["size"]);
     if (_json["type"] != nullptr) {
         if (_json["type"] == "quads")
-            this->setPrimitiveType(sf::Quads);
-        if (_json["type"] == "points")
-            this->setPrimitiveType(sf::Points);
+            this->_componentManager
+                .addComponentRange<components::ParticleIdentity>(
+                    min, max, sf::PrimitiveType::Quads);
+        else
+            this->_componentManager
+                .addComponentRange<components::ParticleIdentity>(min, max);
     }
     if (_json["lifeTime"] != nullptr) {
         this->_componentManager.addComponentRange<components::HealthComponent>(
@@ -46,8 +50,6 @@ void ParticleManager::setParticleRange(int min, int max)
         this->_componentManager.addComponentRange<components::Color>(min, max);
     }
 
-    this->_componentManager.addComponentRange<components::ParticleIdentity>(
-        min, max);
     this->_componentManager.addComponentRange<components::MasseComponent>(
         min, max, this->_initMasse);
     this->_componentManager.addComponentRange<components::Gravity>(min, max);
@@ -80,6 +82,7 @@ void ParticleManager::loadConfig(std::string string)
         std::cout << "Json Config Error" << std::endl;
         return;
     } else {
+        tools::Chrono::event("loadJson");
         if (_json["alphaGradient"] != nullptr &&
             _json["alphaGradient"] == true) {
             _systemManager.createSystem<PointParticleAlphaSystem>(

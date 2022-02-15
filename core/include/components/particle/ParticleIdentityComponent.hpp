@@ -8,7 +8,9 @@ namespace components {
 
 class ParticleIdentity : public rtype::Component<ParticleIdentity> {
   public:
+    sf::PrimitiveType _type = sf::PrimitiveType::Points;
     bool _isInit = false;
-    ParticleIdentity(){};
+    ParticleIdentity() = default;
+    ParticleIdentity(sf::PrimitiveType type) : _type(type){};
 };
 } // namespace components

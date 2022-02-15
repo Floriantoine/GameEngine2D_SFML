@@ -74,7 +74,6 @@ void Game::onInit()
     _systemManager.createSystem<systems::CollisionColor>();
     _systemManager.createSystem<systems::GravitySystem>();
 
-    ImGui::CreateContext();
     ImPlot::CreateContext();
     ImGui::SFML::Init(*this->_window);
     // Start Test Zone Temporary
@@ -108,7 +107,6 @@ Game::~Game()
 {
     ImGui::SFML::Shutdown();
     ImPlot::DestroyContext();
-    ImGui::DestroyContext();
 }
 
 } // namespace Game
