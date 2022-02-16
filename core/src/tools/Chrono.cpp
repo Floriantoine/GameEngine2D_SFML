@@ -187,9 +187,9 @@ void Chrono::event(std::string name)
 {
     auto list = GetValuesList(name);
     list->isPlot = true;
-    if (list->Data.size() > 0 && list->Data.back().x - t < 100)
+    if (list->Data.size() > 0 && t - list->Data.back().x < 0.5) {
         list->Data.back().y += 1;
-    else
+    } else
         list->AddPoint(t, 1);
 }
 

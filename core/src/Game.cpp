@@ -64,6 +64,8 @@ void Game::onInit()
     this->_sceneManager.loadScene("../core/json/scene1.json");
 
     // _systemManager.createSystem<systems::FormSystem>();
+    _systemManager.createSystem<systems::SpriteSystem>(
+        "../core/json/SpriteSystem.json");
     _systemManager.createSystem<rtype::ParticleMousePosSystem>(
         Game::Game::getInstance().getObserverManager());
     _systemManager.createSystem<rtype::ParticleTimeLifeSystem>();

@@ -10,10 +10,11 @@ namespace components {
 class Sprite : public rtype::Component<Sprite> {
   public:
     sf::Sprite _sprite;
-    sf::Texture _texture;
+    std::string _textureName;
+    int _isInit = false;
 
   public:
-    Sprite();
+    Sprite(std::string textureName) : _textureName(textureName){};
     ~Sprite() = default;
 };
 } // namespace components

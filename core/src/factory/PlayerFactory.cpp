@@ -10,10 +10,12 @@ PlayerFactory::PlayerFactory(ObserverManager &observerManager,
 {
     _componentManager.addComponent<components::PosComponent>(
         20000, sf::Vector2f(200, 400));
-    _componentManager.addComponent<components::Color>(20000, sf::Color::Blue);
+    // _componentManager.addComponent<components::Color>(20000,
+    // sf::Color::Blue);
     _componentManager.addComponent<components::SolidBlock>(20000);
-    _componentManager.addComponent<components::RectangleShape>(20000);
+    // _componentManager.addComponent<components::RectangleShape>(20000);
     _componentManager.addComponent<components::KeyMovement>(20000);
+    _componentManager.addComponent<components::Sprite>(20000, "texture1");
     _componentManager.addComponent<components::Size>(
         20000, sf::Vector2f(10, 10));
 

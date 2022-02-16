@@ -1,0 +1,12 @@
+{
+    "textures": [
+        {
+            "path": "../core/resources/spaceShip.png",
+            "name": "texture1"
+        },
+        {
+            "path": "../core/resources/spaceShip.png",
+            "name": "texture2"
+        }
+    ]
+}
