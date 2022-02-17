@@ -5,11 +5,8 @@
 
 namespace components {
 
-class Gravity : public rtype::Component<Gravity> {
+class MouseForce : public rtype::Component<MouseForce> {
   public:
-    sf::Vector2f _cur_S;
-
-  public:
-    Gravity() = default;
+    MouseForce() = default;
 };
 } // namespace components

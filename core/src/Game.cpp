@@ -67,7 +67,7 @@ void Game::onInit()
     _systemManager.createSystem<systems::SpriteSystem>(
         "../core/json/SpriteSystem.json");
     _systemManager.createSystem<rtype::ParticleMousePosSystem>(
-        Game::Game::getInstance().getObserverManager());
+        _observerManager);
     _systemManager.createSystem<rtype::ParticleTimeLifeSystem>();
     _systemManager.createSystem<systems::KeyMovement>();
     _systemManager.createSystem<systems::ParticlesSystem>();
@@ -75,6 +75,10 @@ void Game::onInit()
     _systemManager.createSystem<systems::DisplayShape>();
     _systemManager.createSystem<systems::CollisionColor>();
     _systemManager.createSystem<systems::GravitySystem>();
+    _systemManager.createSystem<systems::DiesLeavesScreen>();
+    _systemManager.createSystem<systems::CollisionDamage>();
+    _systemManager.createSystem<systems::HealthSystem>();
+    _systemManager.createSystem<rtype::MouseForceSystem>(_observerManager);
 
     ImPlot::CreateContext();
     ImGui::SFML::Init(*this->_window);

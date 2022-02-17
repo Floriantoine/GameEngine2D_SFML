@@ -20,5 +20,7 @@
     "masse": 1,
     "color": "green",
     "mousePos": false,
-    "mouseForce": false
+    "mouseForce": false,
+    "haveGravity": true
+
 }

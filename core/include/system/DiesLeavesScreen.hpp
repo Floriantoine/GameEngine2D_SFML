@@ -5,11 +5,11 @@
 
 namespace systems {
 
-class HealthSystem : public rtype::ASystem {
+class DiesLeavesScreen : public rtype::ASystem {
   public:
     long _elapsedtime = 0;
-    HealthSystem() : ASystem(){};
-    ~HealthSystem() = default;
+    DiesLeavesScreen() : ASystem(){};
+    ~DiesLeavesScreen() = default;
 
     void update(long elapsedTime) override;
 };

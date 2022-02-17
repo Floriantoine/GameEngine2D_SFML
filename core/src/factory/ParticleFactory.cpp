@@ -1,11 +1,11 @@
-#include "particle/ParticleManager.hpp"
+#include "factory/ParticleFactory.hpp"
 #include "Game.hpp"
 
-void ParticleManager::display()
+void ParticleFactory::display()
 {
 }
 
-void ParticleManager::setParticleRange(int min, int max)
+void ParticleFactory::setParticleRange(int min, int max)
 {
     if (_json["force"] != nullptr)
         this->_componentManager.addComponentRange<components::ForceComponent>(
@@ -33,6 +33,8 @@ void ParticleManager::setParticleRange(int min, int max)
     if (_json["lifeTime"] != nullptr) {
         this->_componentManager.addComponentRange<components::HealthComponent>(
             min, max, _json["lifeTime"]);
+        this->_componentManager.addComponentRange<components::LifeTime>(
+            min, max);
     }
     if (_json["lifeType"] != nullptr && _json["lifeType"] == "loop") {
         this->_componentManager.addComponentRange<components::LoopLife>(
@@ -44,17 +46,25 @@ void ParticleManager::setParticleRange(int min, int max)
     if (_json["color"] != nullptr) {
         this->setColor(_json["color"]);
     }
+    if (_json["mouseForce"] != nullptr && _json["mouseForce"] == true) {
+        this->_componentManager.addComponentRange<components::MouseForce>(
+            min, max);
+    }
     if (_json["isSolidBlock"] == true) {
         this->_componentManager.addComponentRange<components::SolidBlock>(
             min, max);
         this->_componentManager.addComponentRange<components::Color>(min, max);
     }
 
+    if (_json["haveGravity"] != nullptr && _json["haveGravity"] == true) {
+        this->_componentManager.addComponentRange<components::Gravity>(
+            min, max);
+    }
     this->_componentManager.addComponentRange<components::MasseComponent>(
         min, max, this->_initMasse);
-    this->_componentManager.addComponentRange<components::Gravity>(min, max);
     this->_componentManager.addComponentRange<components::SpawnMousePos>(
         min, max);
+    this->_componentManager.addComponentRange<components::Damage>(min, max, 1);
 
     // Test Form Components
     // auto array =
@@ -67,7 +77,7 @@ void ParticleManager::setParticleRange(int min, int max)
     // }
 }
 
-void ParticleManager::loadConfig(std::string string)
+void ParticleFactory::loadConfig(std::string string)
 {
     tools::Chrono::start();
     auto array = this->_componentManager
@@ -88,10 +98,6 @@ void ParticleManager::loadConfig(std::string string)
             _systemManager.createSystem<PointParticleAlphaSystem>(
                 &_vertexArray);
         }
-        if (_json["mouseForce"] != nullptr && _json["mouseForce"] == true) {
-            _systemManager.createSystem<rtype::ParticleMouseForceSystem>(
-                Game::Game::getInstance().getObserverManager());
-        }
         if (_json["targetMouse"] != nullptr && _json["targetMouse"] == true) {
             _systemManager.createSystem<rtype::ParticleMouseTargetSystem>(
                 Game::Game::getInstance().getObserverManager(), &_vertexArray);
@@ -104,7 +110,7 @@ void ParticleManager::loadConfig(std::string string)
     tools::Chrono::end("load Particle config");
 }
 
-void ParticleManager::setPrimitiveType(sf::PrimitiveType primType)
+void ParticleFactory::setPrimitiveType(sf::PrimitiveType primType)
 {
     if (this->_vertexArray.getPrimitiveType() == primType)
         return;
@@ -123,11 +129,11 @@ void ParticleManager::setPrimitiveType(sf::PrimitiveType primType)
     // this->resetAll();
 }
 
-void ParticleManager::reset(int index)
+void ParticleFactory::reset(int index)
 {
 }
 
-ParticleManager::ParticleManager(ObserverManager &observerManager,
+ParticleFactory::ParticleFactory(ObserverManager &observerManager,
     rtype::ComponentManager &componentManager,
     rtype::SystemManager &systemManager)
     : _vertexArray(sf::Points, 1000), _componentManager(componentManager),
@@ -153,11 +159,11 @@ ParticleManager::ParticleManager(ObserverManager &observerManager,
     _observerManager.addObserver(&_observers);
 }
 
-ParticleManager::~ParticleManager()
+ParticleFactory::~ParticleFactory()
 {
 }
 
-void ParticleManager::update(long elapsedTime)
+void ParticleFactory::update(long elapsedTime)
 {
     tools::Chrono::start();
     ImGui::Begin("test");
@@ -398,7 +404,7 @@ void ParticleManager::update(long elapsedTime)
     tools::Chrono::end("Particle M - Update");
 }
 
-void ParticleManager::init()
+void ParticleFactory::init()
 {
     this->resetAll();
 }

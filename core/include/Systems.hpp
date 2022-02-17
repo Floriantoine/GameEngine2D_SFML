@@ -1,12 +1,15 @@
 #pragma once
 
 #include "system/CollisionColor.hpp"
+#include "system/CollisionDamage.hpp"
 #include "system/CollisionSystem.hpp"
+#include "system/DiesLeavesScreen.hpp"
 #include "system/DisplayShape.hpp"
 #include "system/FormSystem.hpp"
 #include "system/GravitySystem.hpp"
+#include "system/HealthSystem.hpp"
 #include "system/KeyMovement.hpp"
-#include "system/ParticleMouseForceSystem.hpp"
+#include "system/MouseForceSystem.hpp"
 #include "system/ParticleMousePosSystem.hpp"
 #include "system/ParticleMouseTargetSystem.hpp"
 #include "system/ParticleTimeLifeSystem.hpp"

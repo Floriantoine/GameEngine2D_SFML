@@ -35,6 +35,9 @@ sf::Texture *SpriteSystem::getTexture(const std::string name)
     uint64 id = nameToId(name);
 
     if (isRegistered(id) == false) {
+        const auto &it = _texturesMap.find(nameToId("missingTexture"));
+        if (it != _texturesMap.end())
+            return &it->second;
         return nullptr;
     }
     const auto &it = _texturesMap.find(id);
@@ -59,6 +62,10 @@ bool SpriteSystem::createTexture(const std::string name, const std::string path)
 SpriteSystem::SpriteSystem(std::string const &filePath)
 {
     nlohmann::json json = json::loadJson(filePath);
+
+    if (!createTexture(
+            "missingTexture", "../core/resources/MissingTexture.jpeg"))
+        throw std::overflow_error("load missingTexture error");
 
     if (json == nlohmann::json::value_t::discarded || json.is_discarded()) {
         std::cout << "Json Config Error: " << filePath << std::endl;
@@ -101,7 +108,7 @@ void SpriteSystem::update(long elapsedTime)
                 if (PosC)
                     SpriteC->_sprite.setPosition(PosC->_pos);
                 // if (SizeC)
-                // SpriteC->_sprite.setScale(SizeC->_size);
+                // SpriteC->_sprite.scale(SizeC->_size);
                 window->draw(SpriteC->_sprite);
             }
         }

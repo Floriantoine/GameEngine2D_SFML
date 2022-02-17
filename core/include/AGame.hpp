@@ -1,10 +1,10 @@
 #pragma once
 
 #include "component/ComponentManager.hpp"
+#include "factory/ParticleFactory.hpp"
 #include "factory/PlayerFactory.hpp"
 #include "observer/Observer.hpp"
 #include "observer/ObserverManager.hpp"
-#include "particle/ParticleManager.hpp"
 #include "scene/SceneManager.hpp"
 #include "sprite/SpriteManager.hpp"
 #include "system/SystemManager.hpp"
@@ -25,7 +25,7 @@ class AGame {
     parallax::ParallaxSystem _parallax;
     flowEngine::TextureManager _textureManager;
     flowEngine::SpriteManager _spriteManager;
-    ParticleManager _particleSystem;
+    ParticleFactory _particleSystem;
     factory::PlayerFactory _playerFactory;
 
     AGame()

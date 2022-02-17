@@ -16,7 +16,7 @@
 #include <iostream>
 #include <vector>
 
-class ParticleManager {
+class ParticleFactory {
   private:
     struct ParticleInf
     {
@@ -49,10 +49,10 @@ class ParticleManager {
 
   public:
     void init();
-    ParticleManager(ObserverManager &observerManager,
+    ParticleFactory(ObserverManager &observerManager,
         rtype::ComponentManager &componentManager,
         rtype::SystemManager &systemManager);
-    ~ParticleManager();
+    ~ParticleFactory();
     void loadConfig(std::string string);
     void setParticleRange(int min, int max);
 

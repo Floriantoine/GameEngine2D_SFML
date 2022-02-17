@@ -4,6 +4,8 @@
 #pragma once
 
 #include "components/Color.hpp"
+#include "components/Damage.hpp"
+#include "components/DiesLeavesScreen.hpp"
 #include "components/ForceComponent.hpp"
 #include "components/FormComponent.hpp"
 #include "components/GravityComponent.hpp"
@@ -11,6 +13,7 @@
 #include "components/KeyMovement.hpp"
 #include "components/LoopLife.hpp"
 #include "components/MasseComponent.hpp"
+#include "components/MouseForce.hpp"
 #include "components/PosComponent.hpp"
 #include "components/RectangleShape.hpp"
 #include "components/Size.hpp"
@@ -18,4 +21,6 @@
 #include "components/SpawnPosComponent.hpp"
 #include "components/Sprite.hpp"
 #include "components/particle/ParticleIdentityComponent.hpp"
+#include "components/systemActivator/HaveCollisionDamage.hpp"
+#include "components/systemActivator/LifeTime.hpp"
 #include "components/systemActivator/SpawnMousePos.hpp"

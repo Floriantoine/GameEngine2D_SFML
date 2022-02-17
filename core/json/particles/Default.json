@@ -19,6 +19,6 @@
     "color": "green",
     "mousePos": true,
     "mouseForce": false,
-    "targetMouse": false,
-    "isSolidBlock": true
+    "isSolidBlock": true,
+    "haveGravity": true
 }

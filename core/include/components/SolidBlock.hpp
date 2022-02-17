@@ -8,6 +8,7 @@ namespace components {
 class SolidBlock : public rtype::Component<SolidBlock> {
   public:
     bool _haveCollision;
+    int _targetId;
 
     SolidBlock() : _haveCollision(false){};
     ~SolidBlock() = default;

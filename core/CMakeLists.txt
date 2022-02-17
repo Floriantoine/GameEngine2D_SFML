@@ -33,9 +33,11 @@ set(SRCS
         sprite/Sprite.cpp
         sprite/SpriteManager.cpp
         sprite/dynamicSprite.cpp
-        particle/ParticleManager.cpp
+        factory/ParticleFactory.cpp
         component/ComponentManager.cpp
+        system/CollisionDamage.cpp
         system/GravitySystem.cpp
+        system/HealthSystem.cpp
         system/SpriteSystem.cpp
         system/FormSystem.cpp
         system/KeyMovement.cpp
@@ -43,6 +45,7 @@ set(SRCS
         system/DisplayShape.cpp
         system/CollisionSystem.cpp
         system/CollisionColor.cpp
+        system/DiesLeavesScreen.cpp
         factory/PlayerFactory.cpp
 )
 

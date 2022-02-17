@@ -14,6 +14,9 @@ class HealthComponent : public rtype::Component<HealthComponent> {
 
   public:
     HealthComponent() = default;
+    HealthComponent(int inputHealth) : health(inputHealth)
+    {
+    }
     HealthComponent(nlohmann::json config)
     {
         if (config["init"] != nullptr) {

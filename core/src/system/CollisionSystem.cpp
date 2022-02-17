@@ -8,7 +8,8 @@ void CollisionSystem::update(long elapsedTime)
     this->_elapsedtime += elapsedTime;
     if (this->_elapsedtime >= 16) {
         this->_elapsedtime = 0;
-        std::vector<std::pair<sf::FloatRect, bool *>> _rects;
+        std::vector<std::pair<collisStruct, bool *>> _rects;
+        collisStruct inf;
 
         auto array =
             this->componentManager_->getComponentList<components::SolidBlock>();
@@ -26,21 +27,19 @@ void CollisionSystem::update(long elapsedTime)
                 components::Size *sizeC =
                     this->componentManager_->getComponent<components::Size>(
                         it->first);
-                _rects.push_back(std::pair<sf::FloatRect, bool *>(
-                    sf::FloatRect(
-                        posC->_pos, sizeC ? sizeC->_size : sf::Vector2f(1, 1)),
-                    &solidC->_haveCollision));
+                inf.id = it->first;
+                inf.targetId = &solidC->_targetId;
+                inf._floatRect = sf::FloatRect(
+                    posC->_pos, sizeC ? sizeC->_size : sf::Vector2f(1, 1));
+                _rects.push_back(std::pair<collisStruct, bool *>(
+                    inf, &solidC->_haveCollision));
             }
         }
         for (auto it = _rects.begin(); it != _rects.end(); ++it) {
             for (auto it2 = std::next(it); it2 != _rects.end(); ++it2) {
-                if (it->first.intersects(it2->first)) {
-                    // std::cout << std::endl;
-                    // std::cout << it->first.left << " - " << it->first.top
-                    //           << std::endl;
-                    // std::cout << it2->first.left << " - " << it2->first.top
-                    //           << std::endl;
-                    // std::cout << std::endl;
+                if (it->first._floatRect.intersects(it2->first._floatRect)) {
+                    *(it->first.targetId) = it2->first.id;
+                    *(it2->first.targetId) = it->first.id;
                     *(it->second) = true;
                     *(it2->second) = true;
                 }

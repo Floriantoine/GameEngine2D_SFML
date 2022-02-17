@@ -6,6 +6,13 @@
 
 namespace systems {
 
+struct collisStruct
+{
+    sf::FloatRect _floatRect;
+    int id;
+    int *targetId;
+};
+
 class CollisionSystem : public rtype::ASystem {
   public:
     long _elapsedtime = 0;

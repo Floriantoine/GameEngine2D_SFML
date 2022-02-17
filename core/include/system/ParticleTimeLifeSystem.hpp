@@ -12,16 +12,28 @@ class ParticleTimeLifeSystem : public ASystem {
   public:
     ParticleTimeLifeSystem() : ASystem(){};
     ~ParticleTimeLifeSystem() = default;
+    long _elapsedtime = 0;
 
     void update(long elapsedTime) override
     {
         tools::Chrono::start();
-        this->componentManager_->apply<components::HealthComponent>(
-            [&](components::HealthComponent *component) {
-                if (component->health > 0) {
-                    component->health -= elapsedTime;
+
+        this->_elapsedtime += elapsedTime;
+        if (this->_elapsedtime >= 16) {
+            auto array = this->componentManager_
+                             ->getComponentList<components::LifeTime>();
+            for (auto it = array.begin(); it != array.end(); ++it) {
+                components::HealthComponent *healthC =
+                    this->componentManager_
+                        ->getComponent<components::HealthComponent>(it->first);
+                if (healthC == nullptr)
+                    break;
+                if (healthC->health > 0) {
+                    healthC->health -= elapsedTime;
                 }
-            });
+            }
+            this->_elapsedtime = 0;
+        }
         tools::Chrono::end("ParticleTimeLifeSystem");
     };
 

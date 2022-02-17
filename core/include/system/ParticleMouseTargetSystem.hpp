@@ -63,8 +63,6 @@ class ParticleMouseTargetSystem : public ASystem {
                             compLife->health),
                         -(((*_vertexArray)[i].position.y - _mousePos.y) /
                             compLife->health));
-                    std::cout << "force: " << compForce->force.x << " - "
-                              << compForce->force.y << std::endl;
                 }
             }
         }
