@@ -46,15 +46,15 @@ class MouseForceSystem : public ASystem {
 
             auto array = this->componentManager_
                              ->getComponentList<components::MouseForce>();
-            for (auto it = array.begin(); it != array.end(); ++it) {
+            for (auto &it: array) {
                 components::MouseForce *mouseForceC =
-                    static_cast<components::MouseForce *>(it->second);
+                    static_cast<components::MouseForce *>(it.second);
                 if (mouseForceC == nullptr)
                     break;
 
                 components::ForceComponent *forceC =
                     this->componentManager_
-                        ->getComponent<components::ForceComponent>(it->first);
+                        ->getComponent<components::ForceComponent>(it.first);
 
                 forceC->_initForce = sf::Vector2f(-speedX, -speedY);
                 _mouseVector = sf::Vector2f(0, 0);

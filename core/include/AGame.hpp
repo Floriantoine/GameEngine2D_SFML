@@ -49,6 +49,10 @@ class AGame {
     {
         return _observerManager;
     }
+    rtype::ComponentManager &getComponentManager()
+    {
+        return _componentManager;
+    }
 
     /**
      * Paces the game loop to match [getFrequency] updates per second

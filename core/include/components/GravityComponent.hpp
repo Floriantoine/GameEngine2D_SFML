@@ -11,5 +11,6 @@ class Gravity : public rtype::Component<Gravity> {
 
   public:
     Gravity() = default;
+    // factory(id_t entityId, )
 };
 } // namespace components

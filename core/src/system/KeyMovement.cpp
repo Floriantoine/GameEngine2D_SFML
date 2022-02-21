@@ -35,10 +35,10 @@ void KeyMovement::update(long elapsedTime)
         if (this->_direction != "") {
             auto array = this->componentManager_
                              ->getComponentList<components::KeyMovement>();
-            for (auto it = array.begin(); it != array.end(); ++it) {
+            for (auto &it: array) {
                 components::PosComponent *PosC =
                     this->componentManager_
-                        ->getComponent<components::PosComponent>(it->first);
+                        ->getComponent<components::PosComponent>(it.first);
                 if (!PosC)
                     return;
                 int step = 4 * _elapsedTime / 16;

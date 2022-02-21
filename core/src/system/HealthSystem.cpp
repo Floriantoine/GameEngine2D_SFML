@@ -7,17 +7,17 @@ void HealthSystem::update(long elapsedTime)
     if (this->_elapsedtime >= 16) {
         auto array = this->componentManager_
                          ->getComponentList<components::HealthComponent>();
-        for (auto it = array.begin(); it != array.end(); ++it) {
+        for (auto &it: array) {
             components::HealthComponent *lifeC =
-                static_cast<components::HealthComponent *>(it->second);
+                static_cast<components::HealthComponent *>(it.second);
             if (lifeC == nullptr)
                 break;
             if (lifeC->health <= 0) {
                 components::LoopLife *loopC =
                     this->componentManager_->getComponent<components::LoopLife>(
-                        it->first);
+                        it.first);
                 if (!loopC)
-                    this->componentManager_->removeAllComponents(it->first);
+                    this->componentManager_->removeAllComponents(it.first);
             }
         }
         this->_elapsedtime = 0;

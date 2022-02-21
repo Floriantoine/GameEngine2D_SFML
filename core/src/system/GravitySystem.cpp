@@ -19,23 +19,23 @@ void GravitySystem::update(long elapsedTime)
     if (this->_elapsedtime >= 16) {
         auto array =
             this->componentManager_->getComponentList<components::Gravity>();
-        for (auto it = array.begin(); it != array.end(); ++it) {
+        for (auto &it: array) {
             components::Gravity *gravityC =
-                static_cast<components::Gravity *>(it->second);
+                static_cast<components::Gravity *>(it.second);
             if (gravityC == nullptr)
                 break;
             components::PosComponent *PosC =
                 this->componentManager_->getComponent<components::PosComponent>(
-                    it->first);
+                    it.first);
             if (PosC == nullptr) {
                 break;
             }
             components::ForceComponent *forceComponent =
                 this->componentManager_
-                    ->getComponent<components::ForceComponent>(it->first);
+                    ->getComponent<components::ForceComponent>(it.first);
             components::MasseComponent *MasseComponent =
                 this->componentManager_
-                    ->getComponent<components::MasseComponent>(it->first);
+                    ->getComponent<components::MasseComponent>(it.first);
             sf::Vector2f _prior_S0 = gravityC->_cur_S;
             sf::Vector2f _S_derivs0 =
                 (forceComponent ? forceComponent->force : sf::Vector2f(0, 0));

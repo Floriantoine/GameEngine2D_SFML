@@ -76,25 +76,25 @@ void ParticlesSystem::update(long elapsedTime)
     }
 
     int i = 0;
-    for (auto it = array.begin(); it != array.end(); ++it) {
+    for (auto &it: array) {
         components::ParticleIdentity *identity =
-            static_cast<components::ParticleIdentity *>(it->second);
+            static_cast<components::ParticleIdentity *>(it.second);
 
         if (identity->_isInit == false) {
-            reset(it->first);
+            reset(it.first);
             identity->_isInit = true;
         } else {
             components::HealthComponent *compLife =
                 this->componentManager_
-                    ->getComponent<components::HealthComponent>(it->first);
+                    ->getComponent<components::HealthComponent>(it.first);
             if (!compLife || compLife->health > 0) {
                 components::PosComponent *PosC =
                     this->componentManager_
-                        ->getComponent<components::PosComponent>(it->first);
+                        ->getComponent<components::PosComponent>(it.first);
                 if (PosC != nullptr) {
                     components::Color *colorC =
                         this->componentManager_
-                            ->getComponent<components::Color>(it->first);
+                            ->getComponent<components::Color>(it.first);
                     if (identity->_type != sf::PrimitiveType::Quads) {
                         _vertexArray[i].position =
                             sf::Vector2f(PosC->_pos.x, PosC->_pos.y);
@@ -104,7 +104,7 @@ void ParticlesSystem::update(long elapsedTime)
                     } else if (identity->_type == sf::PrimitiveType::Quads) {
                         components::Size *sizeC =
                             this->componentManager_
-                                ->getComponent<components::Size>(it->first);
+                                ->getComponent<components::Size>(it.first);
                         sf::Vector2f size =
                             (sizeC ? sizeC->_size : sf::Vector2f(1, 1));
                         int index = i * 4;
@@ -127,11 +127,11 @@ void ParticlesSystem::update(long elapsedTime)
             } else if (compLife && compLife->health <= 0) {
                 components::LoopLife *loopLife =
                     this->componentManager_->getComponent<components::LoopLife>(
-                        it->first);
+                        it.first);
                 if (loopLife) {
-                    reset(it->first);
+                    reset(it.first);
                 } else {
-                    this->componentManager_->removeAllComponents(it->first);
+                    this->componentManager_->removeAllComponents(it.first);
                 }
             }
             i++;

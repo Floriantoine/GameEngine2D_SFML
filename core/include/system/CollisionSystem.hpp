@@ -11,6 +11,7 @@ struct collisStruct
     sf::FloatRect _floatRect;
     int id;
     int *targetId;
+    bool *_haveCollision;
 };
 
 class CollisionSystem : public rtype::ASystem {

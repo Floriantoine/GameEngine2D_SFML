@@ -15,7 +15,7 @@ set(SRCS
         Game.cpp
         EventSystem.cpp
         components/Size.cpp
-        components/Sprite.cpp
+        components/HealthComponent.cpp
         parallax/AParallax.cpp
         parallax/layerBackground.cpp
         parallax/ParallaxSystem.cpp

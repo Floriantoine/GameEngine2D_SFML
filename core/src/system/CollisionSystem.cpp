@@ -8,7 +8,7 @@ void CollisionSystem::update(long elapsedTime)
     this->_elapsedtime += elapsedTime;
     if (this->_elapsedtime >= 16) {
         this->_elapsedtime = 0;
-        std::vector<std::pair<collisStruct, bool *>> _rects;
+        std::vector<collisStruct> _infs;
         collisStruct inf;
 
         auto array =
@@ -16,32 +16,34 @@ void CollisionSystem::update(long elapsedTime)
         if (array.size() <= 1) {
             return;
         }
-        for (auto it = array.begin(); it != array.end(); ++it) {
+        for (auto &it: array) {
             components::SolidBlock *solidC =
-                static_cast<components::SolidBlock *>(it->second);
+                static_cast<components::SolidBlock *>(it.second);
+            if (solidC == nullptr)
+                break;
             components::PosComponent *posC =
                 this->componentManager_->getComponent<components::PosComponent>(
-                    it->first);
-            if (posC && solidC) {
+                    it.first);
+            if (posC) {
                 solidC->_haveCollision = false;
                 components::Size *sizeC =
                     this->componentManager_->getComponent<components::Size>(
-                        it->first);
-                inf.id = it->first;
+                        it.first);
+                inf.id = it.first;
                 inf.targetId = &solidC->_targetId;
                 inf._floatRect = sf::FloatRect(
                     posC->_pos, sizeC ? sizeC->_size : sf::Vector2f(1, 1));
-                _rects.push_back(std::pair<collisStruct, bool *>(
-                    inf, &solidC->_haveCollision));
+                inf._haveCollision = &solidC->_haveCollision;
+                _infs.push_back(inf);
             }
         }
-        for (auto it = _rects.begin(); it != _rects.end(); ++it) {
-            for (auto it2 = std::next(it); it2 != _rects.end(); ++it2) {
-                if (it->first._floatRect.intersects(it2->first._floatRect)) {
-                    *(it->first.targetId) = it2->first.id;
-                    *(it2->first.targetId) = it->first.id;
-                    *(it->second) = true;
-                    *(it2->second) = true;
+        for (auto it = _infs.begin(); it != _infs.end(); ++it) {
+            for (auto it2 = std::next(it); it2 != _infs.end(); ++it2) {
+                if (it->_floatRect.intersects(it2->_floatRect)) {
+                    *(it->targetId) = it2->id;
+                    *(it2->targetId) = it->id;
+                    *(it->_haveCollision) = true;
+                    *(it2->_haveCollision) = true;
                 }
             }
         }

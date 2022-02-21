@@ -22,10 +22,10 @@ class ParticleTimeLifeSystem : public ASystem {
         if (this->_elapsedtime >= 16) {
             auto array = this->componentManager_
                              ->getComponentList<components::LifeTime>();
-            for (auto it = array.begin(); it != array.end(); ++it) {
+            for (auto &it: array) {
                 components::HealthComponent *healthC =
                     this->componentManager_
-                        ->getComponent<components::HealthComponent>(it->first);
+                        ->getComponent<components::HealthComponent>(it.first);
                 if (healthC == nullptr)
                     break;
                 if (healthC->health > 0) {

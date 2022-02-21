@@ -2,7 +2,7 @@
 
 #include "component/Component.hpp"
 #include "nlohmann/json.hpp"
-
+#include <iostream>
 namespace components {
 
 class HealthComponent : public rtype::Component<HealthComponent> {
@@ -30,5 +30,12 @@ class HealthComponent : public rtype::Component<HealthComponent> {
             _rangeMax = config["rangeMax"];
         }
     }
+    HealthComponent(int initHealth, int rangeMin, int rangeMax)
+        : _initHealth(initHealth), _rangeMin(rangeMin), _rangeMax(rangeMax),
+          health(initHealth)
+    {
+        std::cout << "health: " << health << std::endl;
+    }
+    static void factory(id_t entityId, nlohmann::json config);
 };
 } // namespace components

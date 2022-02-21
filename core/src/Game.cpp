@@ -63,6 +63,9 @@ void Game::onInit()
     this->_parallax.clear();
     this->_sceneManager.loadScene("../core/json/scene1.json");
 
+    _componentManager.registerComponentName(
+        "HealthComponent", components::HealthComponent::factory);
+
     // _systemManager.createSystem<systems::FormSystem>();
     _systemManager.createSystem<systems::SpriteSystem>(
         "../core/json/SpriteSystem.json");

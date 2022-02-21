@@ -89,9 +89,9 @@ void SpriteSystem::update(long elapsedTime)
         sf::RenderWindow *window = Game::Game::getInstance().getWindow();
         auto array =
             this->componentManager_->getComponentList<components::Sprite>();
-        for (auto it = array.begin(); it != array.end(); ++it) {
+        for (auto &it: array) {
             components::Sprite *SpriteC =
-                static_cast<components::Sprite *>(it->second);
+                static_cast<components::Sprite *>(it.second);
             if (!SpriteC->_isInit) {
                 sf::Texture *texture = this->getTexture(SpriteC->_textureName);
                 if (texture != nullptr) {
@@ -101,7 +101,7 @@ void SpriteSystem::update(long elapsedTime)
             } else {
                 components::PosComponent *PosC =
                     this->componentManager_
-                        ->getComponent<components::PosComponent>(it->first);
+                        ->getComponent<components::PosComponent>(it.first);
                 // components::Size *SizeC =
                 // this->componentManager_->getComponent<components::Size>(
                 // it->first);

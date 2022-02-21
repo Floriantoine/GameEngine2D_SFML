@@ -7,14 +7,14 @@ void DisplayShape::update(long elapsedTime)
 {
     auto array =
         this->componentManager_->getComponentList<components::RectangleShape>();
-    for (auto it = array.begin(); it != array.end(); ++it) {
+    for (auto &it: array) {
         components::RectangleShape *rectShapeC =
-            static_cast<components::RectangleShape *>(it->second);
+            static_cast<components::RectangleShape *>(it.second);
         components::PosComponent *posC =
             this->componentManager_->getComponent<components::PosComponent>(
-                it->first);
+                it.first);
         components::Color *colorC =
-            this->componentManager_->getComponent<components::Color>(it->first);
+            this->componentManager_->getComponent<components::Color>(it.first);
         if (!posC || !rectShapeC)
             return;
         rectShapeC->_shape.setSize(rectShapeC->_size);

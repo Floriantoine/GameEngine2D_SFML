@@ -46,10 +46,10 @@ class ParticleMousePosSystem : public ASystem {
             this->_haveMove = false;
             auto array = this->componentManager_
                              ->getComponentList<components::SpawnMousePos>();
-            for (auto it = array.begin(); it != array.end(); ++it) {
+            for (auto &it: array) {
                 components::SpawnPos *spawnPos =
                     this->componentManager_->getComponent<components::SpawnPos>(
-                        it->first);
+                        it.first);
                 if (spawnPos) {
                     spawnPos->_initPos = _mousePos;
                 }

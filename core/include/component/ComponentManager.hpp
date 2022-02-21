@@ -5,7 +5,7 @@
 #include "../types.hpp"
 #include "./ComponentBase.hpp"
 #include "tools/Chrono.hpp"
-
+#include "tools/jsonTools.hpp"
 #include <cassert>
 #include <functional>
 #include <iostream>
@@ -17,8 +17,11 @@ namespace rtype {
 
 class ComponentManager {
   private:
+    typedef std::function<void(id_t entityId, const nlohmann::json &)>
+        component_factory_t;
     std::unordered_map<id_t, std::unordered_map<id_t, ComponentBase *>>
         _componentLists;
+    std::unordered_map<std::string, component_factory_t> _componentNamesList;
 
     bool isComponentTypeRegistered(id_t typeId) const;
 
@@ -53,12 +56,43 @@ class ComponentManager {
         return this->getComponentList(T::getTypeId());
     }
 
+    std::vector<std::string> getRegisterComponentNameList()
+    {
+        std::vector<std::string> nameList;
+        for (auto &it: this->_componentNamesList) {
+            nameList.push_back(it.first);
+        }
+        return nameList;
+    }
+
+    void registerComponentName(
+        const std::string &name, component_factory_t factory)
+    {
+        auto it = this->_componentNamesList.find(name);
+        if (it != this->_componentNamesList.end()) {
+            std::cout << "component already register for: " << name
+                      << std::endl;
+            return;
+        }
+        this->_componentNamesList[name] = factory;
+    }
+
+    template <typename... Args>
+    void addComponent(std::string name, id_t entityId, Args &&...args)
+    {
+        auto it = this->_componentNamesList.find(name);
+        if (it == this->_componentNamesList.end()) {
+            std::cout << "No Component register for: " << name << std::endl;
+            return;
+        }
+        it->second(entityId, std::forward<Args>(args)...);
+    }
+
     template <class T, typename... Args>
     void addComponent(id_t entityId, Args &&...args)
     {
         if (this->hasComponent<T>(entityId) != false) {
             std::cout << "Entity already has component" << std::endl;
-            tools::Chrono::event("alreadyComponent");
             return;
             // throw std::overflow_error("Entity already has component");
         }
