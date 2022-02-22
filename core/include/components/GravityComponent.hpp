@@ -1,6 +1,7 @@
 #pragma once
 
 #include "component/Component.hpp"
+#include "nlohmann/json.hpp"
 #include <SFML/System/Vector2.hpp>
 
 namespace components {
@@ -11,6 +12,7 @@ class Gravity : public rtype::Component<Gravity> {
 
   public:
     Gravity() = default;
-    // factory(id_t entityId, )
+    ~Gravity() = default;
+    static void factory(id_t entityId, nlohmann::json config);
 };
 } // namespace components

@@ -2,6 +2,7 @@
 
 #include "component/Component.hpp"
 #include "nlohmann/json.hpp"
+#include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/System/Vector2.hpp>
 
 namespace components {
@@ -12,5 +13,6 @@ class ParticleIdentity : public rtype::Component<ParticleIdentity> {
     bool _isInit = false;
     ParticleIdentity() = default;
     ParticleIdentity(sf::PrimitiveType type) : _type(type){};
+    static void factory(id_t entityId, nlohmann::json config);
 };
 } // namespace components

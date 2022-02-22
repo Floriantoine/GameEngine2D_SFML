@@ -7,29 +7,39 @@ void ParticleFactory::display()
 
 void ParticleFactory::setParticleRange(int min, int max)
 {
-    if (_json["force"] != nullptr)
-        this->_componentManager.addComponentRange<components::ForceComponent>(
-            min, max, _json["force"]);
-    if (_json["pos"] != nullptr) {
-        this->_componentManager.addComponentRange<components::PosComponent>(
-            min, max, _json["pos"]);
+    for (auto it = _json.begin(); it != _json.end(); ++it) {
+        if (this->_componentManager.componentNameIsRegister(it.key())) {
+            for (int iter = min; iter < max; ++iter) {
+                this->_componentManager.addComponent(
+                    it.key(), iter, it.value());
+            }
+        } else {
+            std::cout << "Component: " << it.key() << " undefined" << std::endl;
+        }
     }
-    if (_json["spawnPos"] != nullptr) {
-        this->_componentManager.addComponentRange<components::SpawnPos>(
-            min, max, _json["spawnPos"]);
-    }
-    if (_json["size"] != nullptr)
-        this->_componentManager.addComponentRange<components::Size>(
-            min, max, _json["size"]);
-    if (_json["type"] != nullptr) {
-        if (_json["type"] == "quads")
-            this->_componentManager
-                .addComponentRange<components::ParticleIdentity>(
-                    min, max, sf::PrimitiveType::Quads);
-        else
-            this->_componentManager
-                .addComponentRange<components::ParticleIdentity>(min, max);
-    }
+    // if (_json["force"] != nullptr)
+    //     this->_componentManager.addComponentRange<components::ForceComponent>(
+    //         min, max, _json["force"]);
+    // if (_json["pos"] != nullptr) {
+    //     this->_componentManager.addComponentRange<components::PosComponent>(
+    //         min, max, _json["pos"]);
+    // }
+    // if (_json["spawnPos"] != nullptr) {
+    //     this->_componentManager.addComponentRange<components::SpawnPos>(
+    //         min, max, _json["spawnPos"]);
+    // }
+    // if (_json["size"] != nullptr)
+    //     this->_componentManager.addComponentRange<components::Size>(
+    //         min, max, _json["size"]);
+    // if (_json["type"] != nullptr) {
+    //     if (_json["type"] == "quads")
+    //         this->_componentManager
+    //             .addComponentRange<components::ParticleIdentity>(
+    //                 min, max, sf::PrimitiveType::Quads);
+    //     else
+    //         this->_componentManager
+    //             .addComponentRange<components::ParticleIdentity>(min, max);
+    // }
     if (_json["lifeTime"] != nullptr) {
         this->_componentManager.addComponentRange<components::HealthComponent>(
             min, max, _json["lifeTime"]);
@@ -40,28 +50,29 @@ void ParticleFactory::setParticleRange(int min, int max)
         this->_componentManager.addComponentRange<components::LoopLife>(
             min, max);
     }
-    if (_json["masse"] != nullptr) {
-        this->setMasse(_json["masse"]);
-    }
-    if (_json["color"] != nullptr) {
-        this->setColor(_json["color"]);
-    }
+    // if (_json["masse"] != nullptr) {
+    //     this->setMasse(_json["masse"]);
+    // }
+    // if (_json["color"] != nullptr) {
+    //     this->setColor(_json["color"]);
+    // }
     if (_json["mouseForce"] != nullptr && _json["mouseForce"] == true) {
         this->_componentManager.addComponentRange<components::MouseForce>(
             min, max);
     }
-    if (_json["isSolidBlock"] == true) {
-        this->_componentManager.addComponentRange<components::SolidBlock>(
-            min, max);
-        this->_componentManager.addComponentRange<components::Color>(min, max);
-    }
+    // if (_json["isSolidBlock"] == true) {
+    //     this->_componentManager.addComponentRange<components::SolidBlock>(
+    //         min, max);
+    //     this->_componentManager.addComponentRange<components::Color>(min,
+    //     max);
+    // }
 
-    if (_json["haveGravity"] != nullptr && _json["haveGravity"] == true) {
-        this->_componentManager.addComponentRange<components::Gravity>(
-            min, max);
-    }
-    this->_componentManager.addComponentRange<components::MasseComponent>(
-        min, max, this->_initMasse);
+    // if (_json["haveGravity"] != nullptr && _json["haveGravity"] == true) {
+    //     this->_componentManager.addComponentRange<components::Gravity>(
+    //         min, max);
+    // }
+    // this->_componentManager.addComponentRange<components::MasseComponent>(
+    // min, max, this->_initMasse);
     this->_componentManager.addComponentRange<components::SpawnMousePos>(
         min, max);
     this->_componentManager.addComponentRange<components::Damage>(min, max, 1);

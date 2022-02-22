@@ -26,7 +26,7 @@ PlayerFactory::PlayerFactory(ObserverManager &observerManager,
     _componentManager.addComponent<components::SolidBlock>(20001);
     _componentManager.addComponent<components::RectangleShape>(20001);
     _componentManager.addComponent<components::HaveCollisionDamage>(20001);
-    // _componentManager.addComponent<components::HealthComponent>(20001, 10);
+    _componentManager.addComponent<components::HealthComponent>(20001, 10);
     _componentManager.addComponent<components::Size>(
         20001, sf::Vector2f(10, 10));
 }

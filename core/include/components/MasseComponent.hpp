@@ -1,6 +1,7 @@
 #pragma once
 
 #include "component/Component.hpp"
+#include "nlohmann/json.hpp"
 
 namespace components {
 
@@ -14,5 +15,6 @@ class MasseComponent : public rtype::Component<MasseComponent> {
     MasseComponent(int masse) : masse{masse}, _initMasse{masse}
     {
     }
+    static void factory(id_t entityId, nlohmann::json config);
 };
 } // namespace components

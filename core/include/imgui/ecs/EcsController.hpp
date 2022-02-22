@@ -5,10 +5,11 @@ namespace imguiTools {
 
 class EcsController {
   private:
-    /* data */
   public:
     EcsController(/* args */);
     ~EcsController();
+    void update(long elapsedtime);
+    void newEntity();
 };
 
 } // namespace imguiTools

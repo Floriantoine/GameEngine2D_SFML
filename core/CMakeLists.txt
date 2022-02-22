@@ -14,8 +14,22 @@ set(WARNING_FLAG
 set(SRCS
         Game.cpp
         EventSystem.cpp
-        components/Size.cpp
+        components/Color.cpp
+        components/ForceComponent.cpp
+        components/GravityComponent.cpp
         components/HealthComponent.cpp
+        components/KeyMovement.cpp
+        components/LoopLife.cpp
+        components/MasseComponent.cpp
+        components/MouseForce.cpp
+        components/ParticleIdentityComponent.cpp
+        components/PosComponent.cpp
+        components/RectangleShape.cpp
+        components/Size.cpp
+        components/SolideBlock.cpp
+        components/SpawnPosComponent.cpp
+        components/Sprite.cpp
+        imgui/ecs/EcsController.cpp
         parallax/AParallax.cpp
         parallax/layerBackground.cpp
         parallax/ParallaxSystem.cpp

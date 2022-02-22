@@ -13,11 +13,13 @@ void DisplayShape::update(long elapsedTime)
         components::PosComponent *posC =
             this->componentManager_->getComponent<components::PosComponent>(
                 it.first);
+        components::Size *sizeC =
+            this->componentManager_->getComponent<components::Size>(it.first);
         components::Color *colorC =
             this->componentManager_->getComponent<components::Color>(it.first);
         if (!posC || !rectShapeC)
             return;
-        rectShapeC->_shape.setSize(rectShapeC->_size);
+        rectShapeC->_shape.setSize(sizeC ? sizeC->_size : sf::Vector2f(1, 1));
         rectShapeC->_shape.setOutlineThickness(rectShapeC->_thickness);
         rectShapeC->_shape.setFillColor(
             colorC ? colorC->_color : sf::Color::White);

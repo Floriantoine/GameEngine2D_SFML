@@ -6,19 +6,19 @@
         "rangeMin": 3000,
         "rangeMax": 3000
     },
-    "type": "quads",
-    "size": 4,
-    "force": {
+    "ParticleIdentity": "quads",
+    "Size": 4,
+    "Force": {
         "init": [ 0, 9.81],
         "rangeMin": [1, 1],
         "rangeMax": [1, 1]
     },
-    "pos": [100 , 100],
-    "spawnPos": [100 , 100],
-    "masse": 1,
-    "color": "green",
+    "Pos": [100 , 100],
+    "SpawnPos": [100 , 100],
+    "Masse": 1,
+    "Color": "green",
     "mousePos": true,
     "mouseForce": false,
     "isSolidBlock": true,
-    "haveGravity": true
+    "Gravity": true
 }

@@ -18,10 +18,10 @@ namespace rtype {
 class ComponentManager {
   private:
     typedef std::function<void(id_t entityId, const nlohmann::json &)>
-        component_factory_t;
+        factory_function_t;
     std::unordered_map<id_t, std::unordered_map<id_t, ComponentBase *>>
         _componentLists;
-    std::unordered_map<std::string, component_factory_t> _componentNamesList;
+    std::unordered_map<std::string, factory_function_t> _componentNamesList;
 
     bool isComponentTypeRegistered(id_t typeId) const;
 
@@ -66,7 +66,7 @@ class ComponentManager {
     }
 
     void registerComponentName(
-        const std::string &name, component_factory_t factory)
+        const std::string &name, factory_function_t factory)
     {
         auto it = this->_componentNamesList.find(name);
         if (it != this->_componentNamesList.end()) {
@@ -75,6 +75,15 @@ class ComponentManager {
             return;
         }
         this->_componentNamesList[name] = factory;
+    }
+
+    bool componentNameIsRegister(const std::string &name)
+    {
+        auto it = this->_componentNamesList.find(name);
+        if (it != this->_componentNamesList.end()) {
+            return true;
+        }
+        return false;
     }
 
     template <typename... Args>

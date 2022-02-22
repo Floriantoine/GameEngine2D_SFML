@@ -14,6 +14,7 @@ class Sprite : public rtype::Component<Sprite> {
     int _isInit = false;
 
   public:
+    static void factory(id_t entityId, nlohmann::json config);
     Sprite(std::string textureName) : _textureName(textureName){};
     ~Sprite() = default;
 };

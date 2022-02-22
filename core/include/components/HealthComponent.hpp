@@ -34,7 +34,6 @@ class HealthComponent : public rtype::Component<HealthComponent> {
         : _initHealth(initHealth), _rangeMin(rangeMin), _rangeMax(rangeMax),
           health(initHealth)
     {
-        std::cout << "health: " << health << std::endl;
     }
     static void factory(id_t entityId, nlohmann::json config);
 };

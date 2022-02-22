@@ -64,7 +64,42 @@ void Game::onInit()
     this->_sceneManager.loadScene("../core/json/scene1.json");
 
     _componentManager.registerComponentName(
-        "HealthComponent", components::HealthComponent::factory);
+        "Color", components::Color::factory);
+    // _componentManager.registerComponentName(
+    // "Damage", components::Damage::factory);
+    // _componentManager.registerComponentName(
+    // "DiesLeavesScreen", components::DiesLeavesScreen::factory);
+    _componentManager.registerComponentName(
+        "Force", components::ForceComponent::factory);
+    _componentManager.registerComponentName(
+        "Gravity", components::Gravity::factory);
+    _componentManager.registerComponentName(
+        "Health", components::HealthComponent::factory);
+    _componentManager.registerComponentName(
+        "KeyMovement", components::KeyMovement::factory);
+    //   _componentManager.registerComponentName(
+    // "LoopLife", components::LifeTime::factory);
+    _componentManager.registerComponentName(
+        "LoopLife", components::LoopLife::factory);
+    _componentManager.registerComponentName(
+        "Masse", components::MasseComponent::factory);
+    _componentManager.registerComponentName(
+        "MouseForce", components::MouseForce::factory);
+    _componentManager.registerComponentName(
+        "ParticleIdentity", components::ParticleIdentity::factory);
+    _componentManager.registerComponentName(
+        "Pos", components::PosComponent::factory);
+    _componentManager.registerComponentName(
+        "RectangleShape", components::RectangleShape::factory);
+    _componentManager.registerComponentName("Size", components::Size::factory);
+    _componentManager.registerComponentName(
+        "isSolidBlock", components::SolidBlock::factory);
+    // _componentManager.registerComponentName("SpawnMousePos",
+    // components::SpawnMousePos::factory);
+    _componentManager.registerComponentName(
+        "SpawnPos", components::SpawnPos::factory);
+    _componentManager.registerComponentName(
+        "Sprite", components::Sprite::factory);
 
     // _systemManager.createSystem<systems::FormSystem>();
     _systemManager.createSystem<systems::SpriteSystem>(

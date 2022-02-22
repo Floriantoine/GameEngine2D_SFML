@@ -1,6 +1,7 @@
 #pragma once
 
 #include "component/Component.hpp"
+#include "nlohmann/json.hpp"
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
 
@@ -10,14 +11,15 @@ class RectangleShape : public rtype::Component<RectangleShape> {
   public:
     RectangleShape()
     {
-        this->_size = sf::Vector2f(10, 10);
         this->_thickness = 1;
     };
     ~RectangleShape() = default;
+    RectangleShape(float thickness) : _thickness(thickness)
+    {
+    }
 
     sf::RectangleShape _shape;
-    sf::Vector2f _size;
-    sf::Color _color;
     float _thickness;
+    static void factory(id_t entityId, nlohmann::json config);
 };
 } // namespace components

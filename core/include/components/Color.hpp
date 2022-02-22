@@ -20,5 +20,6 @@ class Color : public rtype::Component<Color> {
     {
         _color = sf::Color::Red;
     }
+    static void factory(id_t entityId, nlohmann::json config);
 };
 } // namespace components
