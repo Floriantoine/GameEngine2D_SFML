@@ -22,5 +22,6 @@ class Size : public rtype::Component<Size> {
     }
     Size(nlohmann::json config);
     static void factory(id_t entityId, nlohmann::json config);
+    void dislayImGuiPanel() override;
 };
 } // namespace components

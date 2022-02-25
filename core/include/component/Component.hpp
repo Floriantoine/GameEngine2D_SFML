@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "../Imgui.hpp"
 #include "./ComponentBase.hpp"
 
 namespace rtype {

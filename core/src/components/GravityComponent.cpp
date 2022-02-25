@@ -9,4 +9,9 @@ void Gravity::factory(id_t entityId, nlohmann::json config)
         .getComponentManager()
         .addComponent<components::Gravity>(entityId);
 }
+void Gravity::dislayImGuiPanel()
+{
+    if (ImGui::CollapsingHeader("GravityComponent")) {
+    }
+};
 } // namespace components

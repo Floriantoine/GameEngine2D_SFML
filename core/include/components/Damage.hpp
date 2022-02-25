@@ -7,14 +7,12 @@ namespace components {
 
 class Damage : public rtype::Component<Damage> {
   public:
-    int _damage;
-    Damage() : _damage(1){};
+    int _damage = 0;
+    Damage() = default;
     Damage(int damage) : _damage(damage)
     {
     }
-    Damage(nlohmann::json config)
-    {
-        // To do
-    }
+    static void factory(id_t entityId, nlohmann::json config);
+    void dislayImGuiPanel() override;
 };
 } // namespace components

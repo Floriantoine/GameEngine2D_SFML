@@ -15,11 +15,14 @@ set(SRCS
         Game.cpp
         EventSystem.cpp
         components/Color.cpp
+        components/Damage.cpp
+        components/DiesLeavesScreen.cpp
         components/ForceComponent.cpp
         components/GravityComponent.cpp
         components/HealthComponent.cpp
         components/KeyMovement.cpp
         components/LoopLife.cpp
+        components/LifeTime.cpp
         components/MasseComponent.cpp
         components/MouseForce.cpp
         components/ParticleIdentityComponent.cpp
@@ -27,6 +30,7 @@ set(SRCS
         components/RectangleShape.cpp
         components/Size.cpp
         components/SolideBlock.cpp
+        components/SpawnMousePos.cpp
         components/SpawnPosComponent.cpp
         components/Sprite.cpp
         imgui/ecs/EcsController.cpp

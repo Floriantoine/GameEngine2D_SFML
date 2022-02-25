@@ -11,7 +11,7 @@ void HealthSystem::update(long elapsedTime)
             components::HealthComponent *lifeC =
                 static_cast<components::HealthComponent *>(it.second);
             if (lifeC == nullptr)
-                break;
+                continue;
             if (lifeC->health <= 0) {
                 components::LoopLife *loopC =
                     this->componentManager_->getComponent<components::LoopLife>(

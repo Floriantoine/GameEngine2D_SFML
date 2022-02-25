@@ -49,4 +49,10 @@ SpawnPos::SpawnPos(nlohmann::json config)
         _initPos = sf::Vector2f(config[0], config[1]);
     }
 }
+
+void SpawnPos::dislayImGuiPanel()
+{
+    if (ImGui::CollapsingHeader("SpawnPosComponent")) {
+    }
+};
 } // namespace components

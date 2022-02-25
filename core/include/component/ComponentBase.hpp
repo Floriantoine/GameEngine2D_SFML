@@ -23,6 +23,9 @@ class ComponentBase {
     {
         return this->entity_;
     }
+    virtual void dislayImGuiPanel()
+    {
+    }
 };
 
 } // namespace rtype

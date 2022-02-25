@@ -18,5 +18,6 @@ class SpawnPos : public rtype::Component<SpawnPos> {
     static void factory(id_t entityId, nlohmann::json config);
     SpawnPos(sf::Vector2f initPos, sf::Vector2f rangeMin, sf::Vector2f rangeMax)
         : _initPos(initPos), _rangeMin(rangeMin), _rangeMax(rangeMax){};
+    void dislayImGuiPanel() override;
 };
 } // namespace components

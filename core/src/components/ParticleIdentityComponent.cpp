@@ -13,4 +13,9 @@ void ParticleIdentity::factory(id_t entityId, nlohmann::json config)
         .getComponentManager()
         .addComponent<components::ParticleIdentity>(entityId, type);
 }
+void ParticleIdentity::dislayImGuiPanel()
+{
+    if (ImGui::CollapsingHeader("ParticleIdentityComponent")) {
+    }
+};
 } // namespace components

@@ -8,6 +8,19 @@ bool ComponentManager::isComponentTypeRegistered(id_t typeId) const
     return (this->_componentLists.find(typeId) != this->_componentLists.end());
 }
 
+std::vector<ComponentBase *> ComponentManager::getEntityComponentList(
+    id_t entity)
+{
+    std::vector<ComponentBase *> componentList;
+
+    for (auto &item: _componentLists) {
+        auto ref = item.second.find(entity);
+        if (item.second.end() != ref && ref->first == entity)
+            componentList.push_back(ref->second);
+    }
+    return componentList;
+}
+
 std::unordered_map<id_t, ComponentBase *> &ComponentManager::getComponentList(
     id_t typeId)
 {

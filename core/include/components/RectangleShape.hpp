@@ -21,5 +21,6 @@ class RectangleShape : public rtype::Component<RectangleShape> {
     sf::RectangleShape _shape;
     float _thickness;
     static void factory(id_t entityId, nlohmann::json config);
+    void dislayImGuiPanel() override;
 };
 } // namespace components

@@ -14,12 +14,12 @@ void DiesLeavesScreen::update(long elapsedTime)
             components::DiesLeavesScreen *diesLeavesScreenC =
                 static_cast<components::DiesLeavesScreen *>(it.second);
             if (diesLeavesScreenC == nullptr)
-                break;
+                continue;
             components::PosComponent *PosC =
                 this->componentManager_->getComponent<components::PosComponent>(
                     it.first);
             if (PosC == nullptr) {
-                break;
+                continue;
             }
             if (PosC->_pos.x < 0 || PosC->_pos.y < 0) {
                 // Kill Entity

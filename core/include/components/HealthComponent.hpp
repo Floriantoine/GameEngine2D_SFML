@@ -36,5 +36,6 @@ class HealthComponent : public rtype::Component<HealthComponent> {
     {
     }
     static void factory(id_t entityId, nlohmann::json config);
+    void dislayImGuiPanel() override;
 };
 } // namespace components

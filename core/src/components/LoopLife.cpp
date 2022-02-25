@@ -9,4 +9,9 @@ void LoopLife::factory(id_t entityId, nlohmann::json config)
         .getComponentManager()
         .addComponent<components::LoopLife>(entityId);
 }
+void LoopLife::dislayImGuiPanel()
+{
+    if (ImGui::CollapsingHeader("LoopLifeComponent")) {
+    }
+};
 } // namespace components

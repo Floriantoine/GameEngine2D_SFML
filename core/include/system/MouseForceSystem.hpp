@@ -50,7 +50,7 @@ class MouseForceSystem : public ASystem {
                 components::MouseForce *mouseForceC =
                     static_cast<components::MouseForce *>(it.second);
                 if (mouseForceC == nullptr)
-                    break;
+                    continue;
 
                 components::ForceComponent *forceC =
                     this->componentManager_

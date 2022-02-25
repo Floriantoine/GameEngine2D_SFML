@@ -30,4 +30,9 @@ PosComponent::PosComponent(nlohmann::json config)
         _pos = sf::Vector2f(config[0], config[1]);
     }
 }
+void PosComponent::dislayImGuiPanel()
+{
+    if (ImGui::CollapsingHeader("PosComponentComponent")) {
+    }
+};
 } // namespace components

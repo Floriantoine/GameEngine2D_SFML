@@ -14,5 +14,6 @@ class ParticleIdentity : public rtype::Component<ParticleIdentity> {
     ParticleIdentity() = default;
     ParticleIdentity(sf::PrimitiveType type) : _type(type){};
     static void factory(id_t entityId, nlohmann::json config);
+    void dislayImGuiPanel() override;
 };
 } // namespace components

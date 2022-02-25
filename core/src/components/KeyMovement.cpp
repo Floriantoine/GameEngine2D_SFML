@@ -9,4 +9,9 @@ void KeyMovement::factory(id_t entityId, nlohmann::json config)
         .getComponentManager()
         .addComponent<components::KeyMovement>(entityId);
 }
+void KeyMovement::dislayImGuiPanel()
+{
+    if (ImGui::CollapsingHeader("KeyMovementComponent")) {
+    }
+};
 } // namespace components

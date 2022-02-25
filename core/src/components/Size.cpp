@@ -63,4 +63,15 @@ void Size::factory(id_t entityId, nlohmann::json config)
         .getComponentManager()
         .addComponent<components::Size>(entityId, size, rangeMin, rangeMax);
 }
+void Size::dislayImGuiPanel()
+{
+    if (ImGui::CollapsingHeader("SizeComponent")) {
+        ImGui::InputFloat2("CurrentSize##ImGuiComponentModifier", &_size.x);
+        ImGui::InputFloat2("initSize##ImGuiComponentModifier", &_initSize.x);
+        ImGui::SliderFloat2(
+            "rangeMin##ImGuiComponentModifier", &_rangeMin.x, 0, 100);
+        ImGui::SliderFloat2(
+            "rangeMax##ImGuiComponentModifier", &_rangeMax.x, 0, 100);
+    }
+};
 } // namespace components

@@ -9,4 +9,9 @@ void RectangleShape::factory(id_t entityId, nlohmann::json config)
         .getComponentManager()
         .addComponent<components::RectangleShape>(entityId);
 }
+void RectangleShape::dislayImGuiPanel()
+{
+    if (ImGui::CollapsingHeader("RectangleShapeComponent")) {
+    }
+};
 } // namespace components

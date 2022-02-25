@@ -14,5 +14,6 @@ class SolidBlock : public rtype::Component<SolidBlock> {
     SolidBlock() = default;
     ~SolidBlock() = default;
     static void factory(id_t entityId, nlohmann::json config);
+    void dislayImGuiPanel() override;
 };
 } // namespace components

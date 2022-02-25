@@ -9,4 +9,9 @@ void SolidBlock::factory(id_t entityId, nlohmann::json config)
         .getComponentManager()
         .addComponent<components::SolidBlock>(entityId);
 }
+void SolidBlock::dislayImGuiPanel()
+{
+    if (ImGui::CollapsingHeader("SolidBlockComponent")) {
+    }
+};
 }

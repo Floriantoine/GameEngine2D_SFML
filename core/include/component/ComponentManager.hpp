@@ -49,6 +49,7 @@ class ComponentManager {
     void clear();
 
     int getComponentCount() const;
+    std::vector<ComponentBase *> getEntityComponentList(id_t entity);
 
     template <class T>
     std::unordered_map<id_t, ComponentBase *> &getComponentList()

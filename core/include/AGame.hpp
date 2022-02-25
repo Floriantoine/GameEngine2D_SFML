@@ -3,6 +3,7 @@
 #include "component/ComponentManager.hpp"
 #include "factory/ParticleFactory.hpp"
 #include "factory/PlayerFactory.hpp"
+#include "imgui/ecs/EcsController.hpp"
 #include "observer/Observer.hpp"
 #include "observer/ObserverManager.hpp"
 #include "scene/SceneManager.hpp"
@@ -52,6 +53,10 @@ class AGame {
     rtype::ComponentManager &getComponentManager()
     {
         return _componentManager;
+    }
+    rtype::SystemManager &getSystemManager()
+    {
+        return _systemManager;
     }
 
     /**
@@ -149,6 +154,7 @@ class AGame {
         this->_parallax.update(elapsed);
         this->_eventSys.update(elapsed);
 
+        imguiTools::EcsController::update(elapsed);
         tools::Chrono::display();
     }
 
@@ -157,7 +163,6 @@ class AGame {
      */
     virtual void onInit()
     {
-        this->_particleSystem.init();
     }
 
     /**

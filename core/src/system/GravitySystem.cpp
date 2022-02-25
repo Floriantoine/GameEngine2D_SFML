@@ -23,12 +23,12 @@ void GravitySystem::update(long elapsedTime)
             components::Gravity *gravityC =
                 static_cast<components::Gravity *>(it.second);
             if (gravityC == nullptr)
-                break;
+                continue;
             components::PosComponent *PosC =
                 this->componentManager_->getComponent<components::PosComponent>(
                     it.first);
             if (PosC == nullptr) {
-                break;
+                continue;
             }
             components::ForceComponent *forceComponent =
                 this->componentManager_

@@ -20,4 +20,9 @@ void Color::factory(id_t entityId, nlohmann::json config)
         .getComponentManager()
         .addComponent<components::Color>(entityId, color);
 }
+void Color::dislayImGuiPanel()
+{
+    if (ImGui::CollapsingHeader("ColorComponent")) {
+    }
+};
 } // namespace components

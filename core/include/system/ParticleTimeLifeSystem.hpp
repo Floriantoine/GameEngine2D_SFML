@@ -27,7 +27,7 @@ class ParticleTimeLifeSystem : public ASystem {
                     this->componentManager_
                         ->getComponent<components::HealthComponent>(it.first);
                 if (healthC == nullptr)
-                    break;
+                    continue;
                 if (healthC->health > 0) {
                     healthC->health -= elapsedTime;
                 }

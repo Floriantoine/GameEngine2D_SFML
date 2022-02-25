@@ -22,4 +22,15 @@ void HealthComponent::factory(id_t entityId, nlohmann::json config)
         .addComponent<components::HealthComponent>(
             entityId, initHealth, rangeMin, rangeMax);
 }
+void HealthComponent::dislayImGuiPanel()
+{
+    if (ImGui::CollapsingHeader("HealthComponent")) {
+        ImGui::InputInt(
+            "Health##ImGuiHealthComponentModifier", &this->_initHealth);
+        ImGui::SliderInt(
+            "rangeMin##ImGuiHealthComponentModifier", &this->_rangeMin, 0, 100);
+        ImGui::SliderInt(
+            "rangeMax##ImGuiHealthComponentModifier", &this->_rangeMax, 0, 100);
+    }
+};
 } // namespace components

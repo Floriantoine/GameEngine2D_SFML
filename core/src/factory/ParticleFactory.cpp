@@ -17,66 +17,10 @@ void ParticleFactory::setParticleRange(int min, int max)
             std::cout << "Component: " << it.key() << " undefined" << std::endl;
         }
     }
-    // if (_json["force"] != nullptr)
-    //     this->_componentManager.addComponentRange<components::ForceComponent>(
-    //         min, max, _json["force"]);
-    // if (_json["pos"] != nullptr) {
-    //     this->_componentManager.addComponentRange<components::PosComponent>(
-    //         min, max, _json["pos"]);
-    // }
-    // if (_json["spawnPos"] != nullptr) {
-    //     this->_componentManager.addComponentRange<components::SpawnPos>(
-    //         min, max, _json["spawnPos"]);
-    // }
-    // if (_json["size"] != nullptr)
-    //     this->_componentManager.addComponentRange<components::Size>(
-    //         min, max, _json["size"]);
-    // if (_json["type"] != nullptr) {
-    //     if (_json["type"] == "quads")
-    //         this->_componentManager
-    //             .addComponentRange<components::ParticleIdentity>(
-    //                 min, max, sf::PrimitiveType::Quads);
-    //     else
-    //         this->_componentManager
-    //             .addComponentRange<components::ParticleIdentity>(min, max);
-    // }
-    if (_json["lifeTime"] != nullptr) {
-        this->_componentManager.addComponentRange<components::HealthComponent>(
-            min, max, _json["lifeTime"]);
-        this->_componentManager.addComponentRange<components::LifeTime>(
-            min, max);
-    }
-    if (_json["lifeType"] != nullptr && _json["lifeType"] == "loop") {
-        this->_componentManager.addComponentRange<components::LoopLife>(
-            min, max);
-    }
-    // if (_json["masse"] != nullptr) {
-    //     this->setMasse(_json["masse"]);
-    // }
-    // if (_json["color"] != nullptr) {
-    //     this->setColor(_json["color"]);
-    // }
     if (_json["mouseForce"] != nullptr && _json["mouseForce"] == true) {
         this->_componentManager.addComponentRange<components::MouseForce>(
             min, max);
     }
-    // if (_json["isSolidBlock"] == true) {
-    //     this->_componentManager.addComponentRange<components::SolidBlock>(
-    //         min, max);
-    //     this->_componentManager.addComponentRange<components::Color>(min,
-    //     max);
-    // }
-
-    // if (_json["haveGravity"] != nullptr && _json["haveGravity"] == true) {
-    //     this->_componentManager.addComponentRange<components::Gravity>(
-    //         min, max);
-    // }
-    // this->_componentManager.addComponentRange<components::MasseComponent>(
-    // min, max, this->_initMasse);
-    this->_componentManager.addComponentRange<components::SpawnMousePos>(
-        min, max);
-    this->_componentManager.addComponentRange<components::Damage>(min, max, 1);
-
     // Test Form Components
     // auto array =
     //     this->_componentManager.getComponentList<components::PosComponent>();
@@ -91,6 +35,7 @@ void ParticleFactory::setParticleRange(int min, int max)
 void ParticleFactory::loadConfig(std::string string)
 {
     tools::Chrono::start();
+    int count = 0;
     auto array = this->_componentManager
                      .getComponentList<components::ParticleIdentity>();
     for (auto it = array.begin(); it != array.end(); ++it) {
@@ -114,34 +59,11 @@ void ParticleFactory::loadConfig(std::string string)
                 Game::Game::getInstance().getObserverManager(), &_vertexArray);
         }
         if (_json["count"] != nullptr)
-            this->setVertexCount(_json["count"]);
-        this->setParticleRange(0, this->_vertexArray.getVertexCount());
+            count = _json["count"];
+        this->setParticleRange(0, count);
     }
 
     tools::Chrono::end("load Particle config");
-}
-
-void ParticleFactory::setPrimitiveType(sf::PrimitiveType primType)
-{
-    if (this->_vertexArray.getPrimitiveType() == primType)
-        return;
-    int count = _vertexArray.getVertexCount();
-
-    if (primType == sf::PrimitiveType::Quads) {
-        _vertexArray.setPrimitiveType(sf::Quads);
-        _vertexArray.resize(count * 4);
-    }
-    // else if (primType == sf::PrimitiveType::Lines)
-    //     // _vertexArray = sf::VertexArray(sf::Lines, count * 2);
-    else if (primType == sf::PrimitiveType::Points) {
-        _vertexArray.setPrimitiveType(sf::Points);
-        _vertexArray.resize(count / 4);
-    }
-    // this->resetAll();
-}
-
-void ParticleFactory::reset(int index)
-{
 }
 
 ParticleFactory::ParticleFactory(ObserverManager &observerManager,
@@ -155,10 +77,12 @@ ParticleFactory::ParticleFactory(ObserverManager &observerManager,
     fileDialog.SetTypeFilters({".json"});
     _observers = Observer{
         [&](KeyPressed const &key) {
-            if (key.key == sf::Keyboard::Up)
-                this->setParticleSize(this->getSize() + 1);
-            if (key.key == sf::Keyboard::Down)
-                this->setParticleSize(this->getSize() - 1);
+            if (key.key == sf::Keyboard::Up) {
+                // this->setParticleSize(this->getSize() + 1);
+            }
+            if (key.key == sf::Keyboard::Down) {
+                // this->setParticleSize(this->getSize() - 1);
+            }
             if (key.key == sf::Keyboard::R)
                 this->loadConfig("../core/json/particles/Particles.json");
             if (key.key == sf::Keyboard::D) {
@@ -176,7 +100,6 @@ ParticleFactory::~ParticleFactory()
 
 void ParticleFactory::update(long elapsedTime)
 {
-    tools::Chrono::start();
     ImGui::Begin("test");
     if (ImGui::Button("open config file (core->json->particle)"))
         fileDialog.Open();
@@ -192,7 +115,6 @@ void ParticleFactory::update(long elapsedTime)
         if (tempo < particlesArray.size())
             this->_componentManager.removeAllComponentsRange(
                 tempo, particlesArray.size());
-        this->setVertexCount(tempo);
     }
     // this->_jsonEditor.update();
 
@@ -380,10 +302,10 @@ void ParticleFactory::update(long elapsedTime)
         ImGui::Checkbox("Mouse Target ?", &mouseT);
         if (mouseT != tempoMT && mouseT == true) {
             _componentManager.addComponentRange<components::SpawnMousePos>(
-                0, this->_vertexArray.getVertexCount());
+                0, particlesArray.size());
         } else if (mouseT != tempoMT && mouseT == false) {
             _componentManager.removeComponentRange<components::SpawnMousePos>(
-                0, this->_vertexArray.getVertexCount());
+                0, particlesArray.size());
         }
 
         bool lifeLoopT = (LifeLoop != nullptr ? true : false);
@@ -391,10 +313,10 @@ void ParticleFactory::update(long elapsedTime)
         ImGui::Checkbox("ReSpawn ?", &lifeLoopT);
         if (lifeLoopT != tempoLT && lifeLoopT == true) {
             _componentManager.addComponentRange<components::LoopLife>(
-                0, this->_vertexArray.getVertexCount());
+                0, particlesArray.size());
         } else if (lifeLoopT != tempoLT && lifeLoopT == false) {
             _componentManager.removeComponentRange<components::LoopLife>(
-                0, this->_vertexArray.getVertexCount());
+                0, particlesArray.size());
         }
     }
 
@@ -411,11 +333,4 @@ void ParticleFactory::update(long elapsedTime)
     tools::Chrono::start();
     this->_systemManager.update(elapsedTime);
     tools::Chrono::end("Particle - System Update");
-
-    tools::Chrono::end("Particle M - Update");
-}
-
-void ParticleFactory::init()
-{
-    this->resetAll();
 }

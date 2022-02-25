@@ -9,4 +9,9 @@ void MouseForce::factory(id_t entityId, nlohmann::json config)
         .getComponentManager()
         .addComponent<components::MouseForce>(entityId);
 }
+// void MouseForce::dislayImGuiPanel()
+// {
+//     if (ImGui::CollapsingHeader("MouseForceComponent")) {
+//     }
+// };
 } // namespace components

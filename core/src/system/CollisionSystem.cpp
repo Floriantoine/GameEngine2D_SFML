@@ -20,7 +20,7 @@ void CollisionSystem::update(long elapsedTime)
             components::SolidBlock *solidC =
                 static_cast<components::SolidBlock *>(it.second);
             if (solidC == nullptr)
-                break;
+                continue;
             components::PosComponent *posC =
                 this->componentManager_->getComponent<components::PosComponent>(
                     it.first);

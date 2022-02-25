@@ -17,5 +17,6 @@ class PosComponent : public rtype::Component<PosComponent> {
     {
     }
     static void factory(id_t entityId, nlohmann::json config);
+    void dislayImGuiPanel() override;
 };
 } // namespace components

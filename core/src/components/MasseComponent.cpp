@@ -6,7 +6,7 @@ namespace components {
 void MasseComponent::factory(id_t entityId, nlohmann::json config)
 {
     int masse = 1;
-    if (config.type() != nlohmann::json::value_t::object &&
+    if (config != nullptr && config.type() != nlohmann::json::value_t::object &&
         config.type() != nlohmann::json::value_t::array) {
         masse = config;
     }
@@ -15,4 +15,9 @@ void MasseComponent::factory(id_t entityId, nlohmann::json config)
         .getComponentManager()
         .addComponent<components::MasseComponent>(entityId, masse);
 }
+void MasseComponent::dislayImGuiPanel()
+{
+    if (ImGui::CollapsingHeader("MasseComponentComponent")) {
+    }
+};
 } // namespace components

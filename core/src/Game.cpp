@@ -65,10 +65,10 @@ void Game::onInit()
 
     _componentManager.registerComponentName(
         "Color", components::Color::factory);
-    // _componentManager.registerComponentName(
-    // "Damage", components::Damage::factory);
-    // _componentManager.registerComponentName(
-    // "DiesLeavesScreen", components::DiesLeavesScreen::factory);
+    _componentManager.registerComponentName(
+        "Damage", components::Damage::factory);
+    _componentManager.registerComponentName(
+        "DiesLeavesScreen", components::DiesLeavesScreen::factory);
     _componentManager.registerComponentName(
         "Force", components::ForceComponent::factory);
     _componentManager.registerComponentName(
@@ -77,8 +77,8 @@ void Game::onInit()
         "Health", components::HealthComponent::factory);
     _componentManager.registerComponentName(
         "KeyMovement", components::KeyMovement::factory);
-    //   _componentManager.registerComponentName(
-    // "LoopLife", components::LifeTime::factory);
+    _componentManager.registerComponentName(
+        "LifeTime", components::LifeTime::factory);
     _componentManager.registerComponentName(
         "LoopLife", components::LoopLife::factory);
     _componentManager.registerComponentName(
@@ -94,8 +94,8 @@ void Game::onInit()
     _componentManager.registerComponentName("Size", components::Size::factory);
     _componentManager.registerComponentName(
         "isSolidBlock", components::SolidBlock::factory);
-    // _componentManager.registerComponentName("SpawnMousePos",
-    // components::SpawnMousePos::factory);
+    _componentManager.registerComponentName(
+        "SpawnMousePos", components::SpawnMousePos::factory);
     _componentManager.registerComponentName(
         "SpawnPos", components::SpawnPos::factory);
     _componentManager.registerComponentName(

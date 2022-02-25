@@ -10,5 +10,6 @@ class LoopLife : public rtype::Component<LoopLife> {
     static void factory(id_t entityId, nlohmann::json config);
     LoopLife() = default;
     ~LoopLife() = default;
+    void dislayImGuiPanel() override;
 };
 } // namespace components

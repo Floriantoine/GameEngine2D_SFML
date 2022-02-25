@@ -10,5 +10,6 @@ class KeyMovement : public rtype::Component<KeyMovement> {
     KeyMovement() = default;
     ~KeyMovement() = default;
     static void factory(id_t entityId, nlohmann::json config);
+    void dislayImGuiPanel() override;
 };
 } // namespace components

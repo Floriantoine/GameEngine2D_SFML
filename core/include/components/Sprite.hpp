@@ -11,11 +11,12 @@ class Sprite : public rtype::Component<Sprite> {
   public:
     sf::Sprite _sprite;
     std::string _textureName;
-    int _isInit = false;
+    bool _isInit = false;
 
   public:
     static void factory(id_t entityId, nlohmann::json config);
     Sprite(std::string textureName) : _textureName(textureName){};
     ~Sprite() = default;
+    void dislayImGuiPanel() override;
 };
 } // namespace components

@@ -13,4 +13,12 @@ void Sprite::factory(id_t entityId, nlohmann::json config)
         .getComponentManager()
         .addComponent<components::Sprite>(entityId, textureName);
 }
+void Sprite::dislayImGuiPanel()
+{
+    if (ImGui::CollapsingHeader("SpriteComponent")) {
+        ImGui::Checkbox("isInit", &_isInit);
+        ImGui::InputText(
+            "textureName", (char *)_textureName.c_str(), _textureName.size());
+    }
+};
 } // namespace components
