@@ -8,14 +8,18 @@ void HealthComponent::factory(id_t entityId, nlohmann::json config)
     int rangeMin = 0;
     int rangeMax = 0;
 
-    if (config["init"] != nullptr) {
-        initHealth = config["init"];
-    }
-    if (config["rangeMin"] != nullptr) {
-        rangeMin = config["rangeMin"];
-    }
-    if (config["rangeMax"] != nullptr) {
-        rangeMax = config["rangeMax"];
+    if (config.type() == nlohmann::json::value_t::object) {
+        if (config["init"] != nullptr) {
+            initHealth = config["init"];
+        }
+        if (config["rangeMin"] != nullptr) {
+            rangeMin = config["rangeMin"];
+        }
+        if (config["rangeMax"] != nullptr) {
+            rangeMax = config["rangeMax"];
+        }
+    } else if (config.type() == nlohmann::json::value_t::number_unsigned) {
+        initHealth = config;
     }
     Game::Game::getInstance()
         .getComponentManager()

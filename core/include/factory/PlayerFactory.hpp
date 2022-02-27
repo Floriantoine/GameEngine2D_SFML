@@ -19,6 +19,9 @@ class PlayerFactory {
         rtype::ComponentManager &componentManager,
         rtype::SystemManager &systemManager);
     ~PlayerFactory();
+    void createPlayer(std::string path, int id);
+
+    void init();
 };
 
 } // namespace factory

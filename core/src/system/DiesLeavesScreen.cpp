@@ -6,9 +6,9 @@ void DiesLeavesScreen::update(long elapsedTime)
 {
     tools::Chrono::start();
 
-    this->_elapsedtime += elapsedTime;
-    if (this->_elapsedtime >= 16) {
-        auto array = this->componentManager_
+    this->_elapsedTime += elapsedTime;
+    if (this->_elapsedTime >= 16) {
+        auto array = this->_componentManager
                          ->getComponentList<components::DiesLeavesScreen>();
         for (auto &it: array) {
             components::DiesLeavesScreen *diesLeavesScreenC =
@@ -16,25 +16,25 @@ void DiesLeavesScreen::update(long elapsedTime)
             if (diesLeavesScreenC == nullptr)
                 continue;
             components::PosComponent *PosC =
-                this->componentManager_->getComponent<components::PosComponent>(
+                this->_componentManager->getComponent<components::PosComponent>(
                     it.first);
             if (PosC == nullptr) {
                 continue;
             }
             if (PosC->_pos.x < 0 || PosC->_pos.y < 0) {
                 // Kill Entity
-                this->componentManager_->removeAllComponents(it.first);
+                this->_componentManager->removeAllComponents(it.first);
             } else {
                 sf::Vector2u windowSize =
                     Game::Game::getInstance().getWindow()->getSize();
                 if (PosC->_pos.x > windowSize.x ||
                     PosC->_pos.y > windowSize.y) {
                     // kill entity
-                    this->componentManager_->removeAllComponents(it.first);
+                    this->_componentManager->removeAllComponents(it.first);
                 }
             }
         }
-        this->_elapsedtime = 0;
+        this->_elapsedTime = 0;
     }
     tools::Chrono::end("DiesLeavesScreenSystem");
 }

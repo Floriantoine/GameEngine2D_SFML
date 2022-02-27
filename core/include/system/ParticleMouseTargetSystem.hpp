@@ -42,13 +42,13 @@ class ParticleMouseTargetSystem : public ASystem {
 
         for (int i = 0; i < count; i++) {
             components::ForceComponent *compForce =
-                this->componentManager_
+                this->_componentManager
                     ->getComponent<components::ForceComponent>(i);
             components::HealthComponent *compLife =
-                this->componentManager_
+                this->_componentManager
                     ->getComponent<components::HealthComponent>(i);
             components::PosComponent *compPos =
-                this->componentManager_->getComponent<components::PosComponent>(
+                this->_componentManager->getComponent<components::PosComponent>(
                     i);
             if (compLife != nullptr && compPos != nullptr &&
                 compForce != nullptr) {

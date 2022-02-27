@@ -63,6 +63,9 @@ void Game::onInit()
     this->_parallax.clear();
     this->_sceneManager.loadScene("../core/json/scene1.json");
 
+    // -----------------------------------------------------------------------------------------------------------------------------
+    // registerComponent Part
+    // -----------------------------------------------------------------------------------------------------------------------------
     _componentManager.registerComponentName(
         "Color", components::Color::factory);
     _componentManager.registerComponentName(
@@ -100,8 +103,21 @@ void Game::onInit()
         "SpawnPos", components::SpawnPos::factory);
     _componentManager.registerComponentName(
         "Sprite", components::Sprite::factory);
+    _componentManager.registerComponentName(
+        "LinearMovement", components::LinearMovement::factory);
+    _componentManager.registerComponentName(
+        "PresseSpaceMakeEntity", components::PresseSpaceMakeEntity::factory);
+    _componentManager.registerComponentName(
+        "HaveCollisionDamage", components::HaveCollisionDamage::factory);
+    _componentManager.registerComponentName(
+        "TargetEntity", components::TargetEntity::factory);
+    // -----------------------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------------------
 
-    // _systemManager.createSystem<systems::FormSystem>();
+    // -----------------------------------------------------------------------------------------------------------------------------
+    // _systemManager.createSystem<SystemType>();
+    // -----------------------------------------------------------------------------------------------------------------------------
     _systemManager.createSystem<systems::SpriteSystem>(
         "../core/json/SpriteSystem.json");
     _systemManager.createSystem<rtype::ParticleMousePosSystem>(
@@ -116,10 +132,18 @@ void Game::onInit()
     _systemManager.createSystem<systems::DiesLeavesScreen>();
     _systemManager.createSystem<systems::CollisionDamage>();
     _systemManager.createSystem<systems::HealthSystem>();
+    _systemManager.createSystem<systems::MovementSystem>();
+    _systemManager.createSystem<systems::EntityGenerator>();
+    _systemManager.createSystem<systems::KeyHandler>();
     _systemManager.createSystem<rtype::MouseForceSystem>(_observerManager);
+    // -----------------------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------------------
 
     ImPlot::CreateContext();
     ImGui::SFML::Init(*this->_window);
+
+    _playerFactory.init();
     // Start Test Zone Temporary
     // auto texture =
     //     this->_textureManager.getTextureByName("texture2").getSfTexture();

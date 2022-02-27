@@ -1,0 +1,12 @@
+{
+    "Pos": [200, 400],
+    "isSolidBlock": true,
+    "KeyMovement": true,
+    "DiesLeavesScreen": true,
+    "Sprite": "texture1",
+    "Size": [10, 10],
+    "Health": 20,
+    "Damage": 1,
+    "HaveCollisionDamage": true,
+    "PresseSpaceMakeEntity": "../core/json/entity/Missile.json"
+}

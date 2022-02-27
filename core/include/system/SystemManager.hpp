@@ -18,13 +18,13 @@
 namespace rtype {
 class SystemManager {
   private:
-    ComponentManager &componentManager_;
+    ComponentManager &_componentManager;
     std::unordered_multimap<ASystem::system_group_e, std::shared_ptr<ASystem>>
         systemList_;
 
   public:
     SystemManager(ComponentManager &componentManager)
-        : componentManager_{componentManager}
+        : _componentManager{componentManager}
     {
     }
     SystemManager(const SystemManager &) = delete;
@@ -59,7 +59,7 @@ class SystemManager {
     {
         STATIC_ASSERT_IS_SYSTEM(T);
         auto system = std::make_shared<T>(std::forward<Args>(args)...);
-        system->componentManager_ = &this->componentManager_;
+        system->_componentManager = &this->_componentManager;
         this->systemList_.emplace(std::make_pair(system->getGroup(), system));
         return system;
     }

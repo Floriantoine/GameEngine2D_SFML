@@ -7,7 +7,7 @@ namespace systems {
 
 class DiesLeavesScreen : public rtype::ASystem {
   public:
-    long _elapsedtime = 0;
+    long _elapsedTime = 0;
     DiesLeavesScreen() : ASystem(){};
     ~DiesLeavesScreen() = default;
 

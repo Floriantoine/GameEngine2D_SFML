@@ -5,14 +5,14 @@ namespace systems {
 void CollisionSystem::update(long elapsedTime)
 {
     tools::Chrono::start();
-    this->_elapsedtime += elapsedTime;
-    if (this->_elapsedtime >= 16) {
-        this->_elapsedtime = 0;
+    this->_elapsedTime += elapsedTime;
+    if (this->_elapsedTime >= 16) {
+        this->_elapsedTime = 0;
         std::vector<collisStruct> _infs;
         collisStruct inf;
 
         auto array =
-            this->componentManager_->getComponentList<components::SolidBlock>();
+            this->_componentManager->getComponentList<components::SolidBlock>();
         if (array.size() <= 1) {
             return;
         }
@@ -22,12 +22,12 @@ void CollisionSystem::update(long elapsedTime)
             if (solidC == nullptr)
                 continue;
             components::PosComponent *posC =
-                this->componentManager_->getComponent<components::PosComponent>(
+                this->_componentManager->getComponent<components::PosComponent>(
                     it.first);
             if (posC) {
                 solidC->_haveCollision = false;
                 components::Size *sizeC =
-                    this->componentManager_->getComponent<components::Size>(
+                    this->_componentManager->getComponent<components::Size>(
                         it.first);
                 inf.id = it.first;
                 inf.targetId = &solidC->_targetId;

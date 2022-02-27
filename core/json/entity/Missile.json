@@ -1,0 +1,13 @@
+{
+    "Pos": [220, 450],
+    "isSolidBlock": true,
+    "DiesLeavesScreen": true,
+    "RectangleShape": true,
+    "Size": [10, 10],
+    "Color": "blue",
+    "HaveCollisionDamage": true,
+    "Health": 1,
+    "LinearMovement": "right",
+    "TargetEntity": 20001,
+    "Damage": 100
+}

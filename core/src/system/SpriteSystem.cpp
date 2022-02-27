@@ -84,11 +84,11 @@ void SpriteSystem::update(long elapsedTime)
 {
     tools::Chrono::start();
 
-    this->_elapsedtime += elapsedTime;
-    if (this->_elapsedtime >= 16) {
+    this->_elapsedTime += elapsedTime;
+    if (this->_elapsedTime >= 16) {
         sf::RenderWindow *window = Game::Game::getInstance().getWindow();
         auto array =
-            this->componentManager_->getComponentList<components::Sprite>();
+            this->_componentManager->getComponentList<components::Sprite>();
         for (auto &it: array) {
             components::Sprite *SpriteC =
                 static_cast<components::Sprite *>(it.second);
@@ -100,10 +100,10 @@ void SpriteSystem::update(long elapsedTime)
                 }
             } else {
                 components::PosComponent *PosC =
-                    this->componentManager_
+                    this->_componentManager
                         ->getComponent<components::PosComponent>(it.first);
                 // components::Size *SizeC =
-                // this->componentManager_->getComponent<components::Size>(
+                // this->_componentManager->getComponent<components::Size>(
                 // it->first);
                 if (PosC)
                     SpriteC->_sprite.setPosition(PosC->_pos);
@@ -112,7 +112,7 @@ void SpriteSystem::update(long elapsedTime)
                 window->draw(SpriteC->_sprite);
             }
         }
-        this->_elapsedtime = 0;
+        this->_elapsedTime = 0;
     }
     tools::Chrono::end("SpriteSystem");
 }

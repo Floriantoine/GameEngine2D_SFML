@@ -5,12 +5,14 @@
 
 namespace systems {
 
-class HealthSystem : public rtype::ASystem {
+class MovementSystem : public rtype::ASystem {
   public:
-    long _elapsedTime = 0;
-    HealthSystem() : ASystem(){};
-    ~HealthSystem() = default;
+    MovementSystem() = default;
+    ~MovementSystem() = default;
 
     void update(long elapsedTime) override;
+
+  private:
+    long _elapsedTime = 0;
 };
 } // namespace systems

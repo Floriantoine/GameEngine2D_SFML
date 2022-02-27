@@ -33,11 +33,11 @@ void KeyMovement::update(long elapsedTime)
     this->_elapsedTime += elapsedTime;
     if (this->_elapsedTime >= 16) {
         if (this->_direction != "") {
-            auto array = this->componentManager_
+            auto array = this->_componentManager
                              ->getComponentList<components::KeyMovement>();
             for (auto &it: array) {
                 components::PosComponent *PosC =
-                    this->componentManager_
+                    this->_componentManager
                         ->getComponent<components::PosComponent>(it.first);
                 if (!PosC)
                     return;

@@ -4,20 +4,20 @@ namespace systems {
 
 void CollisionDamage::update(long elapsedTime)
 {
-    auto array = this->componentManager_
+    auto array = this->_componentManager
                      ->getComponentList<components::HaveCollisionDamage>();
     for (auto &it: array) {
         components::SolidBlock *solidC =
-            this->componentManager_->getComponent<components::SolidBlock>(
+            this->_componentManager->getComponent<components::SolidBlock>(
                 it.first);
         if (solidC) {
             if (solidC->_haveCollision) {
                 components::Damage *damageC =
-                    this->componentManager_->getComponent<components::Damage>(
+                    this->_componentManager->getComponent<components::Damage>(
                         solidC->_targetId);
                 if (damageC) {
                     components::HealthComponent *healthC =
-                        this->componentManager_
+                        this->_componentManager
                             ->getComponent<components::HealthComponent>(
                                 it.first);
                     if (healthC) {

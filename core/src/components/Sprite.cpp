@@ -4,10 +4,15 @@
 namespace components {
 void Sprite::factory(id_t entityId, nlohmann::json config)
 {
-    std::string textureName;
+    std::string textureName = "";
 
-    if (config["textureName"] != nullptr) {
-        textureName = config["textureName"];
+    if (config != nullptr) {
+        if (config.type() == nlohmann::json::value_t::object &&
+            config["textureName"] != nullptr) {
+            textureName = config["textureName"];
+        } else {
+            textureName = config;
+        }
     }
     Game::Game::getInstance()
         .getComponentManager()

@@ -1,0 +1,10 @@
+{
+    "Pos": [700, 300],
+    "isSolidBlock": true,
+    "DiesLeavesScreen": true,
+    "Sprite": "texture1",
+    "Size": [10, 10],
+    "Health": 20,
+    "HaveCollisionDamage": true,
+    "Damage": 1
+}

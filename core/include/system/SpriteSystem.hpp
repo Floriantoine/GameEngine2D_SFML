@@ -10,7 +10,7 @@ namespace systems {
 class SpriteSystem : public rtype::ASystem {
   private:
     std::unordered_map<uint64, sf::Texture> _texturesMap;
-    long _elapsedtime = 0;
+    long _elapsedTime = 0;
 
   public:
     SpriteSystem(std::string const &filePath);

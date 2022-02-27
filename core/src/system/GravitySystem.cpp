@@ -7,7 +7,7 @@ void GravitySystem::ExplicitEuler(int N, std::vector<sf::Vector2f> *cur_S,
 {
     for (int i = 0; i < N; i++) {
         (*cur_S)[i] =
-            prior_S[i] + (delta_t * (_elapsedtime / 16.0f)) * S_derivs[i];
+            prior_S[i] + (delta_t * (_elapsedTime / 16.0f)) * S_derivs[i];
     }
 }
 
@@ -15,26 +15,26 @@ void GravitySystem::update(long elapsedTime)
 {
     tools::Chrono::start();
 
-    this->_elapsedtime += elapsedTime;
-    if (this->_elapsedtime >= 16) {
+    this->_elapsedTime += elapsedTime;
+    if (this->_elapsedTime >= 16) {
         auto array =
-            this->componentManager_->getComponentList<components::Gravity>();
+            this->_componentManager->getComponentList<components::Gravity>();
         for (auto &it: array) {
             components::Gravity *gravityC =
                 static_cast<components::Gravity *>(it.second);
             if (gravityC == nullptr)
                 continue;
             components::PosComponent *PosC =
-                this->componentManager_->getComponent<components::PosComponent>(
+                this->_componentManager->getComponent<components::PosComponent>(
                     it.first);
             if (PosC == nullptr) {
                 continue;
             }
             components::ForceComponent *forceComponent =
-                this->componentManager_
+                this->_componentManager
                     ->getComponent<components::ForceComponent>(it.first);
             components::MasseComponent *MasseComponent =
-                this->componentManager_
+                this->_componentManager
                     ->getComponent<components::MasseComponent>(it.first);
             sf::Vector2f _prior_S0 = gravityC->_cur_S;
             sf::Vector2f _S_derivs0 =
@@ -47,13 +47,13 @@ void GravitySystem::update(long elapsedTime)
             }
 
             // ExplicitEuler
-            float delta = delta_t * (_elapsedtime / 16.0f);
+            float delta = delta_t * (_elapsedTime / 16.0f);
             gravityC->_cur_S = _prior_S0 + delta * _S_derivs0;
             PosC->_pos = PosC->_pos + delta * _S_derivs1;
             // ExplicitEuler(gravityC->_cur_S.size(), &gravityC->_cur_S,
             //     gravityC->_prior_S, gravityC->_S_derivs, delta_t);
         }
-        this->_elapsedtime = 0;
+        this->_elapsedTime = 0;
     }
     tools::Chrono::end("gravity");
 }

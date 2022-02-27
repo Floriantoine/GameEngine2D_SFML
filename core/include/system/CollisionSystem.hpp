@@ -16,7 +16,7 @@ struct collisStruct
 
 class CollisionSystem : public rtype::ASystem {
   public:
-    long _elapsedtime = 0;
+    long _elapsedTime = 0;
     CollisionSystem() : ASystem(){};
     ~CollisionSystem() = default;
 

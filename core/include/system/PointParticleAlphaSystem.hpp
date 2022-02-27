@@ -20,7 +20,7 @@ class PointParticleAlphaSystem : public rtype::ASystem {
 
         for (int i = 0; i < count; i++) {
             components::HealthComponent *compLife =
-                this->componentManager_
+                this->_componentManager
                     ->getComponent<components::HealthComponent>(i);
             if (compLife) {
                 (*_vertexArray)[i].color.a -= std::max(

@@ -21,7 +21,7 @@ class ASystem {
     system_group_e group_;
 
   protected:
-    ComponentManager *componentManager_;
+    ComponentManager *_componentManager;
 
     ASystem(system_group_e group = UNKNOWN_SYSTEM_GROUP) : group_{group}
     {

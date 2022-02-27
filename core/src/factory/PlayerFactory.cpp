@@ -8,27 +8,30 @@ PlayerFactory::PlayerFactory(ObserverManager &observerManager,
     : _observerManager(observerManager), _componentManager(componentManager),
       _systemManager(systemManager)
 {
-    _componentManager.addComponent<components::PosComponent>(
-        20000, sf::Vector2f(200, 400));
-    // _componentManager.addComponent<components::Color>(20000,
-    // sf::Color::Blue);
-    _componentManager.addComponent<components::SolidBlock>(20000);
-    // _componentManager.addComponent<components::RectangleShape>(20000);
-    _componentManager.addComponent<components::KeyMovement>(20000);
-    _componentManager.addComponent<components::DiesLeavesScreen>(20000);
-    _componentManager.addComponent<components::Sprite>(20000, "texture1");
-    _componentManager.addComponent<components::Size>(
-        20000, sf::Vector2f(10, 10));
+}
 
-    _componentManager.addComponent<components::PosComponent>(
-        20001, sf::Vector2f(220, 400));
-    _componentManager.addComponent<components::Color>(20001, sf::Color::Blue);
-    _componentManager.addComponent<components::SolidBlock>(20001);
-    _componentManager.addComponent<components::RectangleShape>(20001);
-    _componentManager.addComponent<components::HaveCollisionDamage>(20001);
-    _componentManager.addComponent<components::HealthComponent>(20001, 10);
-    _componentManager.addComponent<components::Size>(
-        20001, sf::Vector2f(10, 10));
+void PlayerFactory::createPlayer(std::string path, int id)
+{
+    nlohmann::json _json = json::loadJson(path);
+
+    if (_json == nlohmann::json::value_t::discarded || _json.is_discarded()) {
+        std::cout << "Json Config Error: " << path << std::endl;
+    } else {
+        for (auto it = _json.begin(); it != _json.end(); ++it) {
+            if (this->_componentManager.componentNameIsRegister(it.key())) {
+                this->_componentManager.addComponent(it.key(), id, it.value());
+            } else {
+                std::cout << "Component: " << it.key() << " undefined"
+                          << std::endl;
+            }
+        }
+    }
+}
+
+void PlayerFactory::init()
+{
+    this->createPlayer("../core/json/entity/Player.json", 20000);
+    this->createPlayer("../core/json/entity/Enemy.json", 20001);
 }
 
 PlayerFactory::~PlayerFactory()

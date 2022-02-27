@@ -15,7 +15,7 @@ class MouseForceSystem : public ASystem {
     ObserverManager &_observerManager;
     sf::Vector2i _mousePos{0, 0};
     sf::Vector2f _mouseVector{0, 0};
-    long _elapsedtime = 0;
+    long _elapsedTime = 0;
 
     MouseForceSystem(ObserverManager &observerManager)
         : ASystem(), _observerManager(observerManager)
@@ -37,14 +37,14 @@ class MouseForceSystem : public ASystem {
 
     void update(long elapsedTime) override
     {
-        this->_elapsedtime += elapsedTime;
-        if (this->_elapsedtime >= 16) {
+        this->_elapsedTime += elapsedTime;
+        if (this->_elapsedTime >= 16) {
             float speedX = tools::generate_random_number(
                 _mouseVector.x - 1, _mouseVector.x + 1);
             float speedY = tools::generate_random_number(
                 _mouseVector.y - 1, _mouseVector.y + 1);
 
-            auto array = this->componentManager_
+            auto array = this->_componentManager
                              ->getComponentList<components::MouseForce>();
             for (auto &it: array) {
                 components::MouseForce *mouseForceC =
@@ -53,13 +53,13 @@ class MouseForceSystem : public ASystem {
                     continue;
 
                 components::ForceComponent *forceC =
-                    this->componentManager_
+                    this->_componentManager
                         ->getComponent<components::ForceComponent>(it.first);
 
                 forceC->_initForce = sf::Vector2f(-speedX, -speedY);
                 _mouseVector = sf::Vector2f(0, 0);
             }
-            this->_elapsedtime = 0;
+            this->_elapsedTime = 0;
         }
     };
 };

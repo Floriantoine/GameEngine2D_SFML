@@ -3,9 +3,9 @@
 namespace systems {
 void HealthSystem::update(long elapsedTime)
 {
-    this->_elapsedtime += elapsedTime;
-    if (this->_elapsedtime >= 16) {
-        auto array = this->componentManager_
+    this->_elapsedTime += elapsedTime;
+    if (this->_elapsedTime >= 16) {
+        auto array = this->_componentManager
                          ->getComponentList<components::HealthComponent>();
         for (auto &it: array) {
             components::HealthComponent *lifeC =
@@ -14,13 +14,13 @@ void HealthSystem::update(long elapsedTime)
                 continue;
             if (lifeC->health <= 0) {
                 components::LoopLife *loopC =
-                    this->componentManager_->getComponent<components::LoopLife>(
+                    this->_componentManager->getComponent<components::LoopLife>(
                         it.first);
                 if (!loopC)
-                    this->componentManager_->removeAllComponents(it.first);
+                    this->_componentManager->removeAllComponents(it.first);
             }
         }
-        this->_elapsedtime = 0;
+        this->_elapsedTime = 0;
     }
 }
 } // namespace systems

@@ -5,7 +5,7 @@ namespace systems {
 void FormSystem::update(long elapsedTime)
 {
     auto array =
-        this->componentManager_->getComponentList<components::FormComponent>();
+        this->_componentManager->getComponentList<components::FormComponent>();
     auto it = array.begin();
     components::FormComponent *FormC =
         static_cast<components::FormComponent *>(it->second);

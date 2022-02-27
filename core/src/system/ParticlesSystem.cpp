@@ -6,22 +6,22 @@ namespace systems {
 void ParticlesSystem::reset(int index)
 {
     components::Gravity *gravityC =
-        this->componentManager_->getComponent<components::Gravity>(index);
+        this->_componentManager->getComponent<components::Gravity>(index);
     components::HealthComponent *compLife =
-        this->componentManager_->getComponent<components::HealthComponent>(
+        this->_componentManager->getComponent<components::HealthComponent>(
             index);
     components::MasseComponent *MasseComp =
-        this->componentManager_->getComponent<components::MasseComponent>(
+        this->_componentManager->getComponent<components::MasseComponent>(
             index);
     components::ForceComponent *ForceComp =
-        this->componentManager_->getComponent<components::ForceComponent>(
+        this->_componentManager->getComponent<components::ForceComponent>(
             index);
     components::PosComponent *PosComp =
-        this->componentManager_->getComponent<components::PosComponent>(index);
+        this->_componentManager->getComponent<components::PosComponent>(index);
     components::Size *SizeComp =
-        this->componentManager_->getComponent<components::Size>(index);
+        this->_componentManager->getComponent<components::Size>(index);
     components::SpawnPos *SpawnPosC =
-        this->componentManager_->getComponent<components::SpawnPos>(index);
+        this->_componentManager->getComponent<components::SpawnPos>(index);
     if (MasseComp)
         generateProprietyRange(&MasseComp->masse, MasseComp->_initMasse, 1, 1);
     if (compLife)
@@ -54,7 +54,7 @@ void ParticlesSystem::update(long elapsedTime)
     if (_elapsedTime < 16)
         return;
     _elapsedTime = 0;
-    auto array = this->componentManager_
+    auto array = this->_componentManager
                      ->getComponentList<components::ParticleIdentity>();
 
     if (array.size() != _vertexArray.getVertexCount()) {
@@ -62,7 +62,7 @@ void ParticlesSystem::update(long elapsedTime)
             _vertexArray.clear();
         } else {
             components::ParticleIdentity *identity =
-                this->componentManager_
+                this->_componentManager
                     ->getComponent<components::ParticleIdentity>(
                         array.begin()->first);
             if (!identity || identity->_type == sf::PrimitiveType::Points) {
@@ -85,15 +85,15 @@ void ParticlesSystem::update(long elapsedTime)
             identity->_isInit = true;
         } else {
             components::HealthComponent *compLife =
-                this->componentManager_
+                this->_componentManager
                     ->getComponent<components::HealthComponent>(it.first);
             if (!compLife || compLife->health > 0) {
                 components::PosComponent *PosC =
-                    this->componentManager_
+                    this->_componentManager
                         ->getComponent<components::PosComponent>(it.first);
                 if (PosC != nullptr) {
                     components::Color *colorC =
-                        this->componentManager_
+                        this->_componentManager
                             ->getComponent<components::Color>(it.first);
                     if (identity->_type != sf::PrimitiveType::Quads) {
                         _vertexArray[i].position =
@@ -103,7 +103,7 @@ void ParticlesSystem::update(long elapsedTime)
                         }
                     } else if (identity->_type == sf::PrimitiveType::Quads) {
                         components::Size *sizeC =
-                            this->componentManager_
+                            this->_componentManager
                                 ->getComponent<components::Size>(it.first);
                         sf::Vector2f size =
                             (sizeC ? sizeC->_size : sf::Vector2f(1, 1));
@@ -126,12 +126,12 @@ void ParticlesSystem::update(long elapsedTime)
                 }
             } else if (compLife && compLife->health <= 0) {
                 components::LoopLife *loopLife =
-                    this->componentManager_->getComponent<components::LoopLife>(
+                    this->_componentManager->getComponent<components::LoopLife>(
                         it.first);
                 if (loopLife) {
                     reset(it.first);
                 } else {
-                    this->componentManager_->removeAllComponents(it.first);
+                    this->_componentManager->removeAllComponents(it.first);
                 }
             }
             i++;
