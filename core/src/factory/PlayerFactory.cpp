@@ -32,6 +32,7 @@ void PlayerFactory::init()
 {
     this->createPlayer("../core/json/entity/Player.json", 20000);
     this->createPlayer("../core/json/entity/Enemy.json", 20001);
+    this->createPlayer("../core/json/entity/Protector.json", 20002);
 }
 
 PlayerFactory::~PlayerFactory()

@@ -111,6 +111,8 @@ void Game::onInit()
         "HaveCollisionDamage", components::HaveCollisionDamage::factory);
     _componentManager.registerComponentName(
         "TargetEntity", components::TargetEntity::factory);
+    _componentManager.registerComponentName(
+        "Orbit", components::Orbit::factory);
     // -----------------------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------------------
@@ -136,6 +138,7 @@ void Game::onInit()
     _systemManager.createSystem<systems::EntityGenerator>();
     _systemManager.createSystem<systems::KeyHandler>();
     _systemManager.createSystem<rtype::MouseForceSystem>(_observerManager);
+    _systemManager.createSystem<systems::OrbitSystem>();
     // -----------------------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------------------

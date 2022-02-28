@@ -5,9 +5,10 @@
     "Size": [10, 10],
     "Color": "blue",
     "HaveCollisionDamage": true,
-    "Health": 1,
-    "DiesLeavesScreen": true,
-    "LinearMovement": "right",
-    "TargetEntity": 20001,
+    "Orbit": {
+        "radius": 50, 
+        "pivotPoint": [400, 400]
+    } ,
+    "TargetEntity": 20000,
     "Damage": 100
 }

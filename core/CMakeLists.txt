@@ -27,6 +27,7 @@ set(SRCS
         components/LinearMovement.cpp
         components/MasseComponent.cpp
         components/MouseForce.cpp
+        components/Orbit.cpp
         components/ParticleIdentityComponent.cpp
         components/PosComponent.cpp
         components/PresseSpaceMakeEntity.cpp
@@ -68,6 +69,7 @@ set(SRCS
         system/KeyHandler.cpp
         system/KeyMovement.cpp
         system/MovementSystem.cpp
+        system/OrbitSystem.cpp
         system/ParticlesSystem.cpp
         system/SpriteSystem.cpp
         factory/PlayerFactory.cpp
