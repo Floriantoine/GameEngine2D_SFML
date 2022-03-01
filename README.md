@@ -1,4 +1,4 @@
-# MyHunter_Sfml
+# SFML 2D GAME ENGINE
 
 [![CodeFactor](https://www.codefactor.io/repository/github/floriantoine/myhunter_sfml/badge)](https://www.codefactor.io/repository/github/floriantoine/myhunter_sfml)
 
