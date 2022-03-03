@@ -28,6 +28,7 @@ set(SRCS
         components/MasseComponent.cpp
         components/MouseForce.cpp
         components/Orbit.cpp
+        components/ParentRef.cpp
         components/ParticleIdentityComponent.cpp
         components/PosComponent.cpp
         components/PresseSpaceMakeEntity.cpp
@@ -78,9 +79,9 @@ set(SRCS
 
 list(TRANSFORM SRCS PREPEND ${SRC_DIR})
 
-add_executable(r-type_client ${SRCS})
+add_executable(my_game ${SRCS})
 
-target_include_directories( r-type_client PRIVATE
+target_include_directories(my_game PRIVATE
         ./src
         ./src/parallax
         ./src/tools
@@ -91,7 +92,7 @@ target_include_directories( r-type_client PRIVATE
         ./include/imgui
 )
 
-target_link_libraries(r-type_client PRIVATE
+target_link_libraries(my_game PRIVATE
   nlohmann_json::nlohmann_json
   sfml-graphics
     ImGui-SFML::ImGui-SFML

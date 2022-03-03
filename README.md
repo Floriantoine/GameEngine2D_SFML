@@ -1,56 +1,47 @@
-# MyHunter_Sfml
+# `GameEngine2D_SFML`
 
 [![CodeFactor](https://www.codefactor.io/repository/github/floriantoine/myhunter_sfml/badge)](https://www.codefactor.io/repository/github/floriantoine/myhunter_sfml)
 
-### Creation d'un engine de jeu video en SFML
-### qui a pour but de developer un jeu du type Hunter, Comme le Duck Hunt
+### - Creation of a SFML `Game Engine` 
+### - The goal is to use my own Engin to create a `Hunter-like` game, like Duck Hunt
 ![Drag Racing](https://miro.medium.com/max/1000/1*CHpGqF5_AjZCgQokepOIHQ.jpeg)
 
-
-Pour ce faire je develop un system d'ECS - Des Managers et Factory.
-
-
-## `Build & Lancement`
-
-- `git clone git@github.com:Floriantoine/MyHunter_Sfml.git`
-- `./build.sh` or `./build.sh -t` (Build Test)
-- `cd build`
-- `./core/r-type_client` ( Attention ! Actuellement il est important de lancer le projet du dossier build ! )
-- `./test/r-type-test` ( start Test )
+## `Description`
+- To do this I develop an ECS system - Managers and Factory.
 
 ---
+
+> ## `Build & Launch`
+> 
+> 1. `git clone git@github.com:Floriantoine/MyHunter_Sfml.git`
+> 1. `./build.sh` or `./build.sh -t` (Build Test)
+> 1. `cd build`
+> 1. `./core/my_game` ( Warning ! Currently it is important to launch the project from the build folder!)
+> 1. `./test/my_game_test` ( start Unit Test )
+
 ---
 
-# 1) Système de particule 
-Je travail actuellement sur le développement de l'engine via un système de particule.
+## 1) Advancement 
+- I am currently working on the development of the ECS via a particle system.
 
-Pour configurer les particules aller voir ce [Readme](./core/json/README.md), les fichiers de config sont present dans le dossier:  
-`core/json/particles/`
+- To configure the particles go to [Readme](./core/json/README.md), config files are present in the folder: `core/json/particles/`.
 
-une Fois le Game lancé et une config load, vous aurez la possibilité de modifier en live la configuration de l'engine via la fenêtre créé avec `Imgui`.
+- Once the Game is launched and a config load, you will be able to modify the configuration of the ECS components in live, with `Imgui` window.
+
+- You can `create` a new `Entity` and apply components.
+  
+- You can use the `Implot` graphs to see live performance of different systems.
 
 ## 2) Event
 
-## Key 
-voici un rapide résumé des touches
-> `o` = Mode resize  `(indisponible)`  
-> `e`/`q` = rotate `(indisponible)`  
-> `x` = change Particle Form   
-> `r` = load `Particles.json`   
-> `d` = load default Particles config `Default.json`     
+- key bind
+    > `r` = load `Particles.json`  
+    
+    > `d` = load default Particles config `Default.json`     
 
 ---
 
-## Mouse
-
-> `click` = fix Sprite `(indisponible)`  
-
-
----
----
----
-
-# remerciement
-
-> Merci a `adrienlucbert` pour sont aide dans la réalisation des > concepts, t'elle que l'ECS ou encore different manager !  
-> Merci a `agarof` pour m'avoir montré Imgui et pour m'aider a debug
+> # Acknowledgment
+> 
+> - Thanks to `adrienlucbert` for his help in the realization of the different concepts and systems, such as the ECS. 
+> - Thanks to `agarof` for showing me Imgui and helping to debug
