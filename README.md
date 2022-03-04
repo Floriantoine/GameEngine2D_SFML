@@ -30,7 +30,8 @@
 
 - You can `create` a new `Entity` and apply components.
   
-- You can use the `Implot` graphs to see live performance of different systems.
+- You can use the `Implot` graphs to see live performance of different systems.  
+https://user-images.githubusercontent.com/47173268/156711062-94b2c9b4-2251-4bbb-af3a-dd10afd7b2c8.mp4
 
 ## 2) Event
 
