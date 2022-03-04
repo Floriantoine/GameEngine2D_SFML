@@ -4,6 +4,7 @@
 #include "./Subject.hpp"
 #include "EventType.hpp"
 #include "stdio.h"
+#include "tools/Chrono.hpp"
 
 #include <vector>
 
@@ -18,6 +19,7 @@ class ObserverManager : public IObserver {
 
     void handle(Event const &event) override
     {
+        tools::Chrono::start();
         if (_observerQueue.size() > 0) {
             _observers.insert(
                 _observers.end(), _observerQueue.begin(), _observerQueue.end());
@@ -33,6 +35,7 @@ class ObserverManager : public IObserver {
                 _observers.erase(iterator);
             }
         }
+        tools::Chrono::end("observerSystem");
     }
 
     void clear()

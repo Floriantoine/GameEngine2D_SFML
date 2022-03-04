@@ -2,7 +2,7 @@
     "Pos": [320, 410],
     "isSolidBlock": true,
     "RectangleShape": true,
-    "Size": [10, 10],
+    "Size": [10, 4],
     "Color": "blue",
     "HaveCollisionDamage": true,
     "Health": 1,

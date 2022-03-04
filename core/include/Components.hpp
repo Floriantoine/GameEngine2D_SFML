@@ -20,6 +20,7 @@
 #include "components/Size.hpp"
 #include "components/SolidBlock.hpp"
 #include "components/SpawnPosComponent.hpp"
+#include "components/Speed.hpp"
 #include "components/Sprite.hpp"
 #include "components/TargetEntity.hpp"
 #include "components/particle/ParticleIdentityComponent.hpp"

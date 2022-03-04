@@ -37,6 +37,7 @@ set(SRCS
         components/SolideBlock.cpp
         components/SpawnMousePos.cpp
         components/SpawnPosComponent.cpp
+        components/Speed.cpp
         components/Sprite.cpp
         components/TargetEntity.cpp
         imgui/ecs/EcsController.cpp

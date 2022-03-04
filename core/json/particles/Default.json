@@ -6,7 +6,7 @@
         "rangeMin": 3000,
         "rangeMax": 3000
     },
-    "LifeTime": {},
+    "LifeTime": true,
     "ParticleIdentity": "quads",
     "Size": 4,
     "Force": {

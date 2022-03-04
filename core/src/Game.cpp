@@ -104,6 +104,8 @@ void Game::onInit()
     _componentManager.registerComponentName(
         "Sprite", components::Sprite::factory);
     _componentManager.registerComponentName(
+        "Speed", components::Speed::factory);
+    _componentManager.registerComponentName(
         "LinearMovement", components::LinearMovement::factory);
     _componentManager.registerComponentName(
         "PresseSpaceMakeEntity", components::PresseSpaceMakeEntity::factory);

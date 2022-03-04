@@ -41,7 +41,11 @@ void KeyMovement::update(long elapsedTime)
                         ->getComponent<components::PosComponent>(it.first);
                 if (!PosC)
                     return;
-                int step = 4 * _elapsedTime / 16;
+                components::Speed *speedC =
+                    this->_componentManager->getComponent<components::Speed>(
+                        it.first);
+                float speed = speedC ? speedC->_speed : 4;
+                int step = speed * _elapsedTime / 16;
                 if (this->_direction == "Left") {
                     PosC->_pos.x -= step;
                 } else if (this->_direction == "Right") {

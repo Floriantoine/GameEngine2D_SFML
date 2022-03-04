@@ -16,6 +16,7 @@
 >   | Pos      | obj/array | value for spawn Pos |      [Pos](#pos)      | yes    |
 >   | RectangleShape | bool | Give Rectangle Shape |    --               | no     |
 >   | Size     |   int/obj | Size                |    --                 | yes    |
+>   | Speed    |   int/obj | Speed               |    --                 | yes    |
 >   | SpawnPos |   int/obj | Spawn Pos           |    --                 | yes    |
 >   | Sprite   | string/obj| Add texture         |    --                 | no     |
 >   | TargetEntity |   int | Target Entity       |    --                 | no     |
