@@ -2,7 +2,7 @@
 #include "sprite/SpriteManager.hpp"
 #include "Game.hpp"
 
-namespace flowEngine {
+namespace fa {
 
 void SpriteManager::createSprite(sf::Texture *texture)
 {
@@ -24,4 +24,4 @@ SpriteManager::~SpriteManager()
 {
 }
 
-} // namespace flowEngine
+} // namespace fa

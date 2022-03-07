@@ -5,7 +5,7 @@
 
 namespace systems {
 
-class OrbitSystem : public rtype::ASystem {
+class OrbitSystem : public fa::ASystem {
   public:
     long _elapsedTime = 0;
 

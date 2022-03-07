@@ -5,7 +5,7 @@
 
 namespace components {
 
-class HaveCollisionDamage : public rtype::Component<HaveCollisionDamage> {
+class HaveCollisionDamage : public fa::Component<HaveCollisionDamage> {
   public:
     HaveCollisionDamage() = default;
     ~HaveCollisionDamage() = default;

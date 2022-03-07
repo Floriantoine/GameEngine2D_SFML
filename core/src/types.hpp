@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2020
-** B-CPP-501-BDX-5-1-rtype-albert.corson
+** B-CPP-501-BDX-5-1-fa-albert.corson
 ** File description:
 ** Types
 */
@@ -11,6 +11,6 @@
 
 #include <cstdint>
 
-namespace rtype {
+namespace fa {
 using id_t = ID_TYPE;
 }

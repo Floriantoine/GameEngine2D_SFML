@@ -5,7 +5,7 @@
 
 namespace components {
 
-class PresseSpaceMakeEntity : public rtype::Component<PresseSpaceMakeEntity> {
+class PresseSpaceMakeEntity : public fa::Component<PresseSpaceMakeEntity> {
   public:
     std::string _configPath;
 

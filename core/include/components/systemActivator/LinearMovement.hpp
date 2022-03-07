@@ -5,7 +5,7 @@
 
 namespace components {
 
-class LinearMovement : public rtype::Component<LinearMovement> {
+class LinearMovement : public fa::Component<LinearMovement> {
   public:
     std::string _direction;
 

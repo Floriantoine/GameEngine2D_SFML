@@ -7,7 +7,7 @@
 
 namespace components {
 
-class ParticleIdentity : public rtype::Component<ParticleIdentity> {
+class ParticleIdentity : public fa::Component<ParticleIdentity> {
   public:
     sf::PrimitiveType _type = sf::PrimitiveType::Points;
     bool _isInit = false;

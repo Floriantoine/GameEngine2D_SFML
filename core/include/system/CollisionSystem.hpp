@@ -14,7 +14,7 @@ struct collisStruct
     bool *_haveCollision;
 };
 
-class CollisionSystem : public rtype::ASystem {
+class CollisionSystem : public fa::ASystem {
   public:
     long _elapsedTime = 0;
     CollisionSystem() : ASystem(){};

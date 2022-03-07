@@ -8,7 +8,7 @@
 
 namespace systems {
 
-class GravitySystem : public rtype::ASystem {
+class GravitySystem : public fa::ASystem {
   private:
     float delta_t = 0.2;
     long _elapsedTime = 0;

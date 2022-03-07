@@ -9,5 +9,10 @@
     "Damage": 1,
     "Speed": 10,
     "HaveCollisionDamage": true,
-    "PresseSpaceMakeEntity": "../core/json/entity/Missile.json"
+    "PresseSpaceMakeEntity": "../core/json/entity/Missile.json",
+    "SoundEvent":  {
+        "key": 57,
+        "soundName": "laserBlast",
+        "loop": false
+    }
 }

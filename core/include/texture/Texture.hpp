@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics/Texture.hpp>
 
-namespace flowEngine {
+namespace fa {
 
 class Texture {
   private:
@@ -30,4 +30,4 @@ class Texture {
     };
 };
 
-} // namespace flowEngine
+} // namespace fa

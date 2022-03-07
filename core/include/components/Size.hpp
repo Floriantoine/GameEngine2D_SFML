@@ -7,7 +7,7 @@
 
 namespace components {
 
-class Size : public rtype::Component<Size> {
+class Size : public fa::Component<Size> {
   public:
     sf::Vector2f _size = sf::Vector2f(1, 1);
     sf::Vector2f _initSize = sf::Vector2f(1, 1);

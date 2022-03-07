@@ -6,7 +6,7 @@
 
 namespace components {
 
-class SpawnPos : public rtype::Component<SpawnPos> {
+class SpawnPos : public fa::Component<SpawnPos> {
   public:
     sf::Vector2f _initPos{0, 0};
     sf::Vector2f _rangeMin{0, 0};

@@ -35,6 +35,7 @@ set(SRCS
         components/RectangleShape.cpp
         components/Size.cpp
         components/SolideBlock.cpp
+        components/SoundEvent.cpp
         components/SpawnMousePos.cpp
         components/SpawnPosComponent.cpp
         components/Speed.cpp
@@ -76,6 +77,8 @@ set(SRCS
         system/SpriteSystem.cpp
         factory/PlayerFactory.cpp
         factory/ParticleFactory.cpp
+        sound/SoundBuffer.cpp
+        sound/SoundBufferManager.cpp
 )
 
 list(TRANSFORM SRCS PREPEND ${SRC_DIR})
@@ -96,5 +99,6 @@ target_include_directories(my_game PRIVATE
 target_link_libraries(my_game PRIVATE
   nlohmann_json::nlohmann_json
   sfml-graphics
+  sfml-audio
     ImGui-SFML::ImGui-SFML
 )

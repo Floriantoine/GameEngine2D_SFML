@@ -6,7 +6,7 @@
 
 namespace components {
 
-class Gravity : public rtype::Component<Gravity> {
+class Gravity : public fa::Component<Gravity> {
   public:
     sf::Vector2f _cur_S;
 

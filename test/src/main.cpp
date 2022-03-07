@@ -35,7 +35,7 @@ TEST_CASE("ComponentManager")
     nlohmann::json json = json::loadJson("../test/json/forceComp.json");
 
     if (json != nlohmann::json::value_t::discarded && !json.is_discarded()) {
-        rtype::ComponentManager CompM;
+        fa::ComponentManager CompM;
 
         SECTION("init state")
         {
@@ -120,7 +120,7 @@ TEST_CASE("ComponentForce")
     nlohmann::json json = json::loadJson("../test/json/forceComp.json");
 
     if (json != nlohmann::json::value_t::discarded && !json.is_discarded()) {
-        rtype::ComponentManager CompM;
+        fa::ComponentManager CompM;
         CompM.addComponent<components::ForceComponent>(1, json["force"]);
         auto forceComp = CompM.getComponent<components::ForceComponent>(1);
 
@@ -148,7 +148,7 @@ TEST_CASE("ComponentLifeTime")
     nlohmann::json json = json::loadJson("../test/json/forceComp.json");
 
     if (json != nlohmann::json::value_t::discarded && !json.is_discarded()) {
-        rtype::ComponentManager CompM;
+        fa::ComponentManager CompM;
         CompM.addComponent<components::HealthComponent>(1, json["lifeTime"]);
         auto LifeComp = CompM.getComponent<components::HealthComponent>(1);
 
@@ -169,7 +169,7 @@ TEST_CASE("ComponentMasse")
     nlohmann::json json = json::loadJson("../test/json/forceComp.json");
 
     if (json != nlohmann::json::value_t::discarded && !json.is_discarded()) {
-        rtype::ComponentManager CompM;
+        fa::ComponentManager CompM;
         CompM.addComponent<components::MasseComponent>(
             1, json["masse"]["init"]);
         auto MasseComp = CompM.getComponent<components::MasseComponent>(1);
@@ -186,7 +186,7 @@ TEST_CASE("ComponentPos")
     nlohmann::json json = json::loadJson("../test/json/forceComp.json");
 
     if (json != nlohmann::json::value_t::discarded && !json.is_discarded()) {
-        rtype::ComponentManager CompM;
+        fa::ComponentManager CompM;
         CompM.addComponent<components::SpawnPos>(1, json["pos"]);
         auto posComp = CompM.getComponent<components::SpawnPos>(1);
 

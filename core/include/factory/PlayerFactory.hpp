@@ -11,13 +11,13 @@ namespace factory {
 class PlayerFactory {
   private:
     ObserverManager &_observerManager;
-    rtype::ComponentManager &_componentManager;
-    rtype::SystemManager &_systemManager;
+    fa::ComponentManager &_componentManager;
+    fa::SystemManager &_systemManager;
 
   public:
     PlayerFactory(ObserverManager &observerManager,
-        rtype::ComponentManager &componentManager,
-        rtype::SystemManager &systemManager);
+        fa::ComponentManager &componentManager,
+        fa::SystemManager &systemManager);
     ~PlayerFactory();
     void createPlayer(std::string path, int id);
 

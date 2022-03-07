@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-namespace rtype {
+namespace fa {
 
 class ASystem {
     friend class SystemManager;
@@ -37,4 +37,4 @@ class ASystem {
     }
 };
 
-} // namespace rtype
+} // namespace fa

@@ -5,7 +5,7 @@
 #include <iostream>
 namespace components {
 
-class HealthComponent : public rtype::Component<HealthComponent> {
+class HealthComponent : public fa::Component<HealthComponent> {
   public:
     int health{0};
     int _initHealth{0};

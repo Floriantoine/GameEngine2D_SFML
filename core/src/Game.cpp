@@ -115,6 +115,8 @@ void Game::onInit()
         "TargetEntity", components::TargetEntity::factory);
     _componentManager.registerComponentName(
         "Orbit", components::Orbit::factory);
+    _componentManager.registerComponentName(
+        "SoundEvent", components::SoundEvent::factory);
     // -----------------------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------------------
@@ -124,9 +126,8 @@ void Game::onInit()
     // -----------------------------------------------------------------------------------------------------------------------------
     _systemManager.createSystem<systems::SpriteSystem>(
         "../core/json/SpriteSystem.json");
-    _systemManager.createSystem<rtype::ParticleMousePosSystem>(
-        _observerManager);
-    _systemManager.createSystem<rtype::ParticleTimeLifeSystem>();
+    _systemManager.createSystem<fa::ParticleMousePosSystem>(_observerManager);
+    _systemManager.createSystem<fa::ParticleTimeLifeSystem>();
     _systemManager.createSystem<systems::KeyMovement>();
     _systemManager.createSystem<systems::ParticlesSystem>();
     _systemManager.createSystem<systems::CollisionSystem>();
@@ -139,22 +140,21 @@ void Game::onInit()
     _systemManager.createSystem<systems::MovementSystem>();
     _systemManager.createSystem<systems::EntityGenerator>();
     _systemManager.createSystem<systems::KeyHandler>();
-    _systemManager.createSystem<rtype::MouseForceSystem>(_observerManager);
+    _systemManager.createSystem<fa::MouseForceSystem>(_observerManager);
     _systemManager.createSystem<systems::OrbitSystem>();
+
     // -----------------------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------------------
+    _soundBufferManager.createSoundBuffer(
+        "../core/resources/laserGun.wav", "laserBlast");
+    _soundBufferManager.createSoundBuffer(
+        "../core/resources/gameOver.wav", "gameOver");
 
     ImPlot::CreateContext();
     ImGui::SFML::Init(*this->_window);
 
     _playerFactory.init();
-    // Start Test Zone Temporary
-    // auto texture =
-    //     this->_textureManager.getTextureByName("texture2").getSfTexture();
-    // this->_spriteManager.createSprite(texture);
-    // this->_dynaS.setSprite(&this->_spriteManager.getSprites()[0]);
-    // End  Test Zone Temporary
 }
 
 void Game::onBeforeUpdate()

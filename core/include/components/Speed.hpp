@@ -6,7 +6,7 @@
 
 namespace components {
 
-class Speed : public rtype::Component<Speed> {
+class Speed : public fa::Component<Speed> {
   public:
     float _speed = 0;
     float _initSpeed = 0;

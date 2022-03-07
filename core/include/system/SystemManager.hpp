@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2020
-** B-CPP-501-BDX-5-1-rtype-albert.corson
+** B-CPP-501-BDX-5-1-fa-albert.corson
 ** File description:
 ** System manager class
 */
@@ -15,7 +15,7 @@
 #include <memory>
 #include <unordered_map>
 
-namespace rtype {
+namespace fa {
 class SystemManager {
   private:
     ComponentManager &_componentManager;
@@ -89,4 +89,4 @@ class SystemManager {
     //     return false;
     // }
 };
-} // namespace rtype
+} // namespace fa

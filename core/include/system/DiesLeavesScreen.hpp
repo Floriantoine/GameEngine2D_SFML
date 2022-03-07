@@ -5,7 +5,7 @@
 
 namespace systems {
 
-class DiesLeavesScreen : public rtype::ASystem {
+class DiesLeavesScreen : public fa::ASystem {
   public:
     long _elapsedTime = 0;
     DiesLeavesScreen() : ASystem(){};

@@ -7,6 +7,7 @@
 #include "observer/Observer.hpp"
 #include "observer/ObserverManager.hpp"
 #include "scene/SceneManager.hpp"
+#include "sound/SoundBufferManager.hpp"
 #include "sprite/SpriteManager.hpp"
 #include "system/SystemManager.hpp"
 #include "texture/TextureManager.hpp"
@@ -18,16 +19,17 @@ class AGame {
     bool isRunning{false};
     double _framerateLimit{60};
 
-    rtype::ComponentManager _componentManager;
-    rtype::SystemManager _systemManager;
+    fa::ComponentManager _componentManager;
+    fa::SystemManager _systemManager;
     SceneManager _sceneManager;
     Game::EventSystem _eventSys;
     ObserverManager _observerManager;
     parallax::ParallaxSystem _parallax;
-    flowEngine::TextureManager _textureManager;
-    flowEngine::SpriteManager _spriteManager;
+    fa::TextureManager _textureManager;
+    fa::SpriteManager _spriteManager;
     ParticleFactory _particleSystem;
     factory::PlayerFactory _playerFactory;
+    fa::Sound::SoundBufferManager _soundBufferManager;
 
     AGame()
         : _componentManager(), _systemManager(_componentManager),
@@ -48,15 +50,21 @@ class AGame {
 
     ObserverManager &getObserverManager()
     {
-        return _observerManager;
+        return this->_observerManager;
     }
-    rtype::ComponentManager &getComponentManager()
+
+    fa::ComponentManager &getComponentManager()
     {
-        return _componentManager;
+        return this->_componentManager;
     }
-    rtype::SystemManager &getSystemManager()
+    fa::Sound::SoundBufferManager &getSoundBufferManager()
     {
-        return _systemManager;
+        return this->_soundBufferManager;
+    }
+
+    fa::SystemManager &getSystemManager()
+    {
+        return this->_systemManager;
     }
 
     /**

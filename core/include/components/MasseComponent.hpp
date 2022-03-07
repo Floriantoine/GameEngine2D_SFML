@@ -5,7 +5,7 @@
 
 namespace components {
 
-class MasseComponent : public rtype::Component<MasseComponent> {
+class MasseComponent : public fa::Component<MasseComponent> {
   public:
     int masse{1};
     int _initMasse{1};

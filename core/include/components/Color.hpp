@@ -6,7 +6,7 @@
 
 namespace components {
 
-class Color : public rtype::Component<Color> {
+class Color : public fa::Component<Color> {
   public:
     sf::Color _color;
     Color()

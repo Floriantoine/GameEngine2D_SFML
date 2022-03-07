@@ -7,7 +7,7 @@
 #include "tools/jsonTools.hpp"
 namespace systems {
 
-class SpriteSystem : public rtype::ASystem {
+class SpriteSystem : public fa::ASystem {
   private:
     std::unordered_map<uint64, sf::Texture> _texturesMap;
     long _elapsedTime = 0;

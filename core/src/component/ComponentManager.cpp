@@ -1,7 +1,7 @@
 
 #include "component/ComponentManager.hpp"
 
-namespace rtype {
+namespace fa {
 
 bool ComponentManager::isComponentTypeRegistered(id_t typeId) const
 {
@@ -98,4 +98,4 @@ void ComponentManager::removeAllComponentsRange(id_t startId, id_t endId)
     }
 }
 
-} // namespace rtype
+} // namespace fa

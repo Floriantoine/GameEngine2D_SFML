@@ -7,7 +7,7 @@
 
 namespace components {
 
-class RectangleShape : public rtype::Component<RectangleShape> {
+class RectangleShape : public fa::Component<RectangleShape> {
   public:
     RectangleShape()
     {

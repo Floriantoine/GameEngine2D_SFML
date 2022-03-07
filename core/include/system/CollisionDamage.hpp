@@ -5,7 +5,7 @@
 
 namespace systems {
 
-class CollisionDamage : public rtype::ASystem {
+class CollisionDamage : public fa::ASystem {
   public:
     CollisionDamage() : ASystem(){};
     ~CollisionDamage() = default;

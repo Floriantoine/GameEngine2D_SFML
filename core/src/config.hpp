@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2020
-** B-CPP-501-BDX-5-1-rtype-albert.corson
+** B-CPP-501-BDX-5-1-fa-albert.corson
 ** File description:
 ** Engine configuration
 */

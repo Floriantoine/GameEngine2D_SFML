@@ -5,7 +5,7 @@
 
 namespace components {
 
-class SpawnMousePos : public rtype::Component<SpawnMousePos> {
+class SpawnMousePos : public fa::Component<SpawnMousePos> {
   public:
     SpawnMousePos() = default;
     static void factory(id_t entityId, nlohmann::json config);

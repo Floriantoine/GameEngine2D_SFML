@@ -3,8 +3,7 @@
 namespace factory {
 
 PlayerFactory::PlayerFactory(ObserverManager &observerManager,
-    rtype::ComponentManager &componentManager,
-    rtype::SystemManager &systemManager)
+    fa::ComponentManager &componentManager, fa::SystemManager &systemManager)
     : _observerManager(observerManager), _componentManager(componentManager),
       _systemManager(systemManager)
 {

@@ -6,7 +6,7 @@
 
 namespace components {
 
-class MouseForce : public rtype::Component<MouseForce> {
+class MouseForce : public fa::Component<MouseForce> {
   public:
     MouseForce() = default;
     ~MouseForce() = default;

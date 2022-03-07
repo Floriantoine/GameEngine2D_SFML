@@ -6,7 +6,7 @@
 
 namespace components {
 
-class ParentRef : public rtype::Component<ParentRef> {
+class ParentRef : public fa::Component<ParentRef> {
   public:
     int _parentRef = -1;
 

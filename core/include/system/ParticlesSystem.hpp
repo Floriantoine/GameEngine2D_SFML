@@ -8,7 +8,7 @@
 
 namespace systems {
 
-class ParticlesSystem : public rtype::ASystem {
+class ParticlesSystem : public fa::ASystem {
   private:
     sf::VertexArray _vertexArray;
     long _elapsedTime;

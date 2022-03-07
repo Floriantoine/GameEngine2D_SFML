@@ -7,7 +7,7 @@
 
 namespace systems {
 
-class KeyHandler : public rtype::ASystem {
+class KeyHandler : public fa::ASystem {
   public:
     KeyHandler();
     ~KeyHandler() = default;

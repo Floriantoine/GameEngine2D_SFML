@@ -5,7 +5,7 @@
 
 namespace systems {
 
-class CollisionColor : public rtype::ASystem {
+class CollisionColor : public fa::ASystem {
   public:
     CollisionColor() : ASystem(){};
     ~CollisionColor() = default;

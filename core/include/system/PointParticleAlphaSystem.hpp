@@ -5,7 +5,7 @@
 #include <SFML/Graphics/VertexArray.hpp>
 #include <vector>
 
-class PointParticleAlphaSystem : public rtype::ASystem {
+class PointParticleAlphaSystem : public fa::ASystem {
   private:
     sf::VertexArray *_vertexArray;
 

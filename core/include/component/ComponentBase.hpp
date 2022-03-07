@@ -2,7 +2,7 @@
 
 #include "../../src/types.hpp"
 
-namespace rtype {
+namespace fa {
 
 class Entity;
 
@@ -28,4 +28,4 @@ class ComponentBase {
     }
 };
 
-} // namespace rtype
+} // namespace fa

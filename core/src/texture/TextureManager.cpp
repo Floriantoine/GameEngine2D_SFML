@@ -1,7 +1,7 @@
 
 #include "texture/TextureManager.hpp"
 
-namespace flowEngine {
+namespace fa {
 
 void TextureManager::createTexture(
     std::string const &path, std::string const &name)
@@ -40,4 +40,4 @@ TextureManager::~TextureManager()
 {
 }
 
-} // namespace flowEngine
+} // namespace fa

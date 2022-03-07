@@ -8,7 +8,7 @@
 
 namespace systems {
 
-class KeyMovement : public rtype::ASystem {
+class KeyMovement : public fa::ASystem {
   public:
     KeyMovement();
     ~KeyMovement() = default;

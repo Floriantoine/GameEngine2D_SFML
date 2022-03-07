@@ -6,7 +6,7 @@
 
 namespace systems {
 
-class FormSystem : public rtype::ASystem {
+class FormSystem : public fa::ASystem {
   private:
     int _data;
 

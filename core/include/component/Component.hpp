@@ -4,7 +4,7 @@
 #include "../Imgui.hpp"
 #include "./ComponentBase.hpp"
 
-namespace rtype {
+namespace fa {
 
 template <typename T> class Component : public ComponentBase {
   public:
@@ -15,4 +15,4 @@ template <typename T> class Component : public ComponentBase {
     }
 };
 
-} // namespace rtype
+} // namespace fa

@@ -18,8 +18,8 @@
 
 class ParticleFactory {
   private:
-    rtype::ComponentManager &_componentManager;
-    rtype::SystemManager &_systemManager;
+    fa::ComponentManager &_componentManager;
+    fa::SystemManager &_systemManager;
 
     sf::VertexArray _vertexArray;
 
@@ -30,8 +30,8 @@ class ParticleFactory {
 
   public:
     ParticleFactory(ObserverManager &observerManager,
-        rtype::ComponentManager &componentManager,
-        rtype::SystemManager &systemManager);
+        fa::ComponentManager &componentManager,
+        fa::SystemManager &systemManager);
     ~ParticleFactory();
     void loadConfig(std::string string);
     void setParticleRange(int min, int max);

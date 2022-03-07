@@ -2,7 +2,7 @@
 
 #include "Sprite.hpp"
 
-namespace flowEngine {
+namespace fa {
 
 class SpriteManager {
   private:
@@ -22,4 +22,4 @@ class SpriteManager {
     // Sprite const &getSpriteById(int id);
 };
 
-} // namespace flowEngine
+} // namespace fa

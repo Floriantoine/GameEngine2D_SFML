@@ -21,7 +21,7 @@ void SceneManager::loadScene(std::string const &filePath)
 }
 
 SceneManager::SceneManager(parallax::ParallaxSystem &parallaxManager,
-    flowEngine::TextureManager &textureManager)
+    fa::TextureManager &textureManager)
     : _parallaxManager(parallaxManager), _textureManager(textureManager)
 {
 }

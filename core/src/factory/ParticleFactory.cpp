@@ -55,7 +55,7 @@ void ParticleFactory::loadConfig(std::string string)
                 &_vertexArray);
         }
         if (_json["targetMouse"] != nullptr && _json["targetMouse"] == true) {
-            _systemManager.createSystem<rtype::ParticleMouseTargetSystem>(
+            _systemManager.createSystem<fa::ParticleMouseTargetSystem>(
                 Game::Game::getInstance().getObserverManager(), &_vertexArray);
         }
         if (_json["count"] != nullptr)
@@ -67,8 +67,7 @@ void ParticleFactory::loadConfig(std::string string)
 }
 
 ParticleFactory::ParticleFactory(ObserverManager &observerManager,
-    rtype::ComponentManager &componentManager,
-    rtype::SystemManager &systemManager)
+    fa::ComponentManager &componentManager, fa::SystemManager &systemManager)
     : _vertexArray(sf::Points, 1000), _componentManager(componentManager),
       _observerManager(observerManager), _systemManager(systemManager),
       fileDialog()
@@ -138,14 +137,14 @@ void ParticleFactory::update(long elapsedTime)
         components::LoopLife *LifeLoop =
             _componentManager.getComponent<components::LoopLife>(firstIndex);
 
-        // rtype::SizeComponent *SizeComp =
-        //     this->_componentManager.getComponent<rtype::SizeComponent>(0);
+        // fa::SizeComponent *SizeComp =
+        //     this->_componentManager.getComponent<fa::SizeComponent>(0);
         // if (SizeComp != nullptr) {
         //     float size = SizeComp->_size;
         //     ImGui::SliderFloat("Size", &size, 1, 100);
         //     if (SizeComp->_size != size) {
-        //         _componentManager.apply<rtype::SizeComponent>(
-        //             [&](rtype::SizeComponent *component) {
+        //         _componentManager.apply<fa::SizeComponent>(
+        //             [&](fa::SizeComponent *component) {
         //                 component->_size = size;
         //             });
         //     }

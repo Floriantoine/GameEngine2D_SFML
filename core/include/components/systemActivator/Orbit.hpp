@@ -5,7 +5,7 @@
 
 namespace components {
 
-class Orbit : public rtype::Component<Orbit> {
+class Orbit : public fa::Component<Orbit> {
   public:
     float _angle = 0;
     int _radius = 1;

@@ -5,7 +5,7 @@
 
 namespace systems {
 
-class HealthSystem : public rtype::ASystem {
+class HealthSystem : public fa::ASystem {
   public:
     long _elapsedTime = 0;
     HealthSystem() : ASystem(){};

@@ -6,7 +6,7 @@
 
 namespace components {
 
-class PosComponent : public rtype::Component<PosComponent> {
+class PosComponent : public fa::Component<PosComponent> {
   public:
     sf::Vector2f _pos{0, 0};
 

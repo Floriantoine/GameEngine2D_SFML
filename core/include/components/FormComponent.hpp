@@ -6,7 +6,7 @@
 
 namespace components {
 
-class FormComponent : public rtype::Component<FormComponent> {
+class FormComponent : public fa::Component<FormComponent> {
   public:
     int *_dataLink;
 

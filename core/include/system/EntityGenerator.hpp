@@ -6,7 +6,7 @@
 
 namespace systems {
 
-class EntityGenerator : public rtype::ASystem {
+class EntityGenerator : public fa::ASystem {
   public:
     Observer _observer;
     std::vector<std::string> _pathList;

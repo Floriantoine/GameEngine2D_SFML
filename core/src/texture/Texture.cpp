@@ -1,7 +1,7 @@
 #include "texture/Texture.hpp"
 #include <iostream>
 
-namespace flowEngine {
+namespace fa {
 
 Texture::Texture(std::string const &path, std::string const &name)
 {
@@ -16,4 +16,4 @@ Texture::Texture(std::string const &path, std::string const &name)
     }
 }
 
-} // namespace flowEngine
+} // namespace fa

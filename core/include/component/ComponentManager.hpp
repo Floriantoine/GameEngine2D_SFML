@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace rtype {
+namespace fa {
 
 class ComponentManager {
   private:
@@ -181,4 +181,4 @@ class ComponentManager {
         function(static_cast<T *>(this->getComponent<T>(entityId)));
     }
 };
-} // namespace rtype
+} // namespace fa

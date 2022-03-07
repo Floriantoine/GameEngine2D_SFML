@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 
-namespace flowEngine {
+namespace fa {
 
 class Sprite {
   private:
@@ -19,4 +19,4 @@ class Sprite {
     };
 };
 
-} // namespace flowEngine
+} // namespace fa

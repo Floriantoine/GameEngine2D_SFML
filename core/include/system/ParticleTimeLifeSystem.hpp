@@ -6,7 +6,7 @@
 #include "tools/Chrono.hpp"
 #include "tools/random.hpp"
 
-namespace rtype {
+namespace fa {
 
 class ParticleTimeLifeSystem : public ASystem {
   public:
@@ -43,4 +43,4 @@ class ParticleTimeLifeSystem : public ASystem {
         // entity->getEntityManager()->destroyEntity(entity->getId());
     }
 };
-} // namespace rtype
+} // namespace fa

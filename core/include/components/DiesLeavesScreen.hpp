@@ -5,7 +5,7 @@
 
 namespace components {
 
-class DiesLeavesScreen : public rtype::Component<DiesLeavesScreen> {
+class DiesLeavesScreen : public fa::Component<DiesLeavesScreen> {
   public:
     DiesLeavesScreen() = default;
     static void factory(id_t entityId, nlohmann::json config);

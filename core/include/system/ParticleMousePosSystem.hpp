@@ -8,7 +8,7 @@
 
 #include "tools/random.hpp"
 
-namespace rtype {
+namespace fa {
 
 class ParticleMousePosSystem : public ASystem {
   public:
@@ -57,4 +57,4 @@ class ParticleMousePosSystem : public ASystem {
         }
     };
 };
-} // namespace rtype
+} // namespace fa

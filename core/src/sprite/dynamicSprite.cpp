@@ -2,7 +2,7 @@
 #include "Game.hpp"
 #include <SFML/Window/Keyboard.hpp>
 #include <cstdlib>
-namespace flowEngine {
+namespace fa {
 
 void dynamicSprite::setSprite(Sprite *sprite)
 {
@@ -50,4 +50,4 @@ dynamicSprite::~dynamicSprite()
 {
     Game::Game::getInstance().getObserverManager().deleteObserver(&_observer);
 }
-} // namespace flowEngine
+} // namespace fa

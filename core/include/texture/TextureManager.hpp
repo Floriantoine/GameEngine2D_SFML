@@ -2,7 +2,7 @@
 
 #include "texture/Texture.hpp"
 
-namespace flowEngine {
+namespace fa {
 
 class TextureManager {
   private:
@@ -16,4 +16,4 @@ class TextureManager {
     Texture &getTextureByName(std::string const &name);
 };
 
-} // namespace flowEngine
+} // namespace fa

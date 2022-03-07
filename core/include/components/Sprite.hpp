@@ -7,7 +7,7 @@
 
 namespace components {
 
-class Sprite : public rtype::Component<Sprite> {
+class Sprite : public fa::Component<Sprite> {
   public:
     sf::Sprite _sprite;
     std::string _textureName;

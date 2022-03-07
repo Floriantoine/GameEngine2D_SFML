@@ -5,7 +5,7 @@
 
 namespace components {
 
-class LifeTime : public rtype::Component<LifeTime> {
+class LifeTime : public fa::Component<LifeTime> {
   public:
     LifeTime() = default;
     ~LifeTime() = default;

@@ -5,7 +5,7 @@
 
 namespace systems {
 
-class MovementSystem : public rtype::ASystem {
+class MovementSystem : public fa::ASystem {
   public:
     MovementSystem() = default;
     ~MovementSystem() = default;

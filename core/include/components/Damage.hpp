@@ -5,7 +5,7 @@
 
 namespace components {
 
-class Damage : public rtype::Component<Damage> {
+class Damage : public fa::Component<Damage> {
   public:
     int _damage = 0;
     Damage() = default;

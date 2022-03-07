@@ -6,7 +6,7 @@
 
 namespace components {
 
-class SolidBlock : public rtype::Component<SolidBlock> {
+class SolidBlock : public fa::Component<SolidBlock> {
   public:
     bool _haveCollision = false;
     int _targetId;

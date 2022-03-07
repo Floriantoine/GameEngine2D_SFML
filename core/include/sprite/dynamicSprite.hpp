@@ -4,7 +4,7 @@
 #include "observer/ObserverManager.hpp"
 #include <SFML/System/Clock.hpp>
 
-namespace flowEngine {
+namespace fa {
 
 class dynamicSprite {
   protected:
@@ -20,4 +20,4 @@ class dynamicSprite {
     void setSprite(Sprite *sprite);
 };
 
-} // namespace flowEngine
+} // namespace fa

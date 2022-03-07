@@ -7,7 +7,7 @@
 #include "observer/ObserverManager.hpp"
 #include "tools/random.hpp"
 
-namespace rtype {
+namespace fa {
 
 class MouseForceSystem : public ASystem {
   public:
@@ -63,4 +63,4 @@ class MouseForceSystem : public ASystem {
         }
     };
 };
-} // namespace rtype
+} // namespace fa

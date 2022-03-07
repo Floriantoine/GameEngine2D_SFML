@@ -5,7 +5,7 @@
 
 namespace components {
 
-class TargetEntity : public rtype::Component<TargetEntity> {
+class TargetEntity : public fa::Component<TargetEntity> {
   public:
     int _target = 0;
     TargetEntity() = default;

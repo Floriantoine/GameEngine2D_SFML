@@ -5,7 +5,7 @@
 
 namespace components {
 
-class KeyMovement : public rtype::Component<KeyMovement> {
+class KeyMovement : public fa::Component<KeyMovement> {
   public:
     KeyMovement() = default;
     ~KeyMovement() = default;

@@ -9,7 +9,7 @@
 #include "observer/ObserverManager.hpp"
 #include <SFML/Graphics/VertexArray.hpp>
 
-namespace rtype {
+namespace fa {
 
 class ParticleMouseTargetSystem : public ASystem {
   public:
@@ -68,4 +68,4 @@ class ParticleMouseTargetSystem : public ASystem {
         }
     };
 };
-} // namespace rtype
+} // namespace fa

@@ -6,7 +6,7 @@
 
 namespace systems {
 
-class DisplayShape : public rtype::ASystem {
+class DisplayShape : public fa::ASystem {
   public:
     DisplayShape() : ASystem(){};
     ~DisplayShape() = default;
