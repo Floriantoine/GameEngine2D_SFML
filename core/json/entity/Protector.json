@@ -9,6 +9,6 @@
         "radius": 50, 
         "pivotPoint": [400, 400]
     } ,
-    "TargetEntity": 20000,
+    "TargetEntity": "Player##1",
     "Damage": 100
 }

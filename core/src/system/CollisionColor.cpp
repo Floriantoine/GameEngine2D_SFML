@@ -1,4 +1,6 @@
 #include "system/CollisionColor.hpp"
+#include "components/Color.hpp"
+#include "components/SolidBlock.hpp"
 
 namespace systems {
 

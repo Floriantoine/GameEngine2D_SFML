@@ -8,6 +8,6 @@
     "Health": 1,
     "DiesLeavesScreen": true,
     "LinearMovement": "right",
-    "TargetEntity": 20001,
+    "TargetEntity": 0,
     "Damage": 100
 }

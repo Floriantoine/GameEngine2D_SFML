@@ -53,6 +53,7 @@ set(SRCS
         tools/imgui/implot_items.cpp
         tools/Spooky.cpp
         tools/Chrono.cpp
+        tools/tools.cpp
         scene/SceneManager.cpp
         texture/Texture.cpp
         texture/TextureManager.cpp
@@ -75,7 +76,7 @@ set(SRCS
         system/OrbitSystem.cpp
         system/ParticlesSystem.cpp
         system/SpriteSystem.cpp
-        factory/PlayerFactory.cpp
+        factory/EntityFactory.cpp
         factory/ParticleFactory.cpp
         sound/SoundBuffer.cpp
         sound/SoundBufferManager.cpp

@@ -1,4 +1,10 @@
 #include "system/GravitySystem.hpp"
+#include "components/ForceComponent.hpp"
+#include "components/GravityComponent.hpp"
+#include "components/MasseComponent.hpp"
+#include "components/PosComponent.hpp"
+#include "tools/Chrono.hpp"
+
 namespace systems {
 
 void GravitySystem::ExplicitEuler(int N, std::vector<sf::Vector2f> *cur_S,

@@ -1,8 +1,6 @@
 #pragma once
 
 #include "ASystem.hpp"
-#include "Components.hpp"
-#include "tools/Chrono.hpp"
 
 namespace systems {
 

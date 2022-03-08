@@ -2,6 +2,7 @@
 
 #include "Imgui.hpp"
 #include "Spooky.hpp"
+#include "tools/tools.hpp"
 #include <algorithm>
 #include <chrono>
 #include <iostream>
@@ -73,8 +74,6 @@ class Chrono {
 
     Chrono(/* args */);
     ~Chrono();
-    static uint64 nameToId(std::string name);
-    static uint64 nameToId(const char *name, size_t length);
     static ImplotPerfInf *GetValuesList(std::string name);
     static bool isRegistered(uint64 id);
 };

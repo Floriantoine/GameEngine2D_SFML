@@ -1,4 +1,8 @@
 #include "system/CollisionSystem.hpp"
+#include "components/PosComponent.hpp"
+#include "components/Size.hpp"
+#include "components/SolidBlock.hpp"
+#include "tools/Chrono.hpp"
 
 namespace systems {
 

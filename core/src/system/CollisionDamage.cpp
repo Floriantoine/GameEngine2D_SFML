@@ -1,4 +1,8 @@
 #include "system/CollisionDamage.hpp"
+#include "components/Damage.hpp"
+#include "components/HealthComponent.hpp"
+#include "components/SolidBlock.hpp"
+#include "components/systemActivator/HaveCollisionDamage.hpp"
 
 namespace systems {
 

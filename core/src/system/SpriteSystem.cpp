@@ -3,17 +3,6 @@
 
 namespace systems {
 
-uint64 SpriteSystem::nameToId(const char *name, size_t length)
-{
-    uint64 seed;
-    return SpookyHash::Hash64(name, length, seed);
-}
-
-uint64 SpriteSystem::nameToId(std::string name)
-{
-    return nameToId(name.c_str(), name.size());
-}
-
 bool SpriteSystem::isRegistered(uint64 Id)
 {
     return (_texturesMap.find(Id) != _texturesMap.end());
@@ -32,10 +21,10 @@ sf::Texture *SpriteSystem::getTexture(uint64 id)
 
 sf::Texture *SpriteSystem::getTexture(const std::string name)
 {
-    uint64 id = nameToId(name);
+    uint64 id = tools::stringToId(name);
 
     if (isRegistered(id) == false) {
-        const auto &it = _texturesMap.find(nameToId("missingTexture"));
+        const auto &it = _texturesMap.find(tools::stringToId("missingTexture"));
         if (it != _texturesMap.end())
             return &it->second;
         return nullptr;
@@ -48,7 +37,7 @@ sf::Texture *SpriteSystem::getTexture(const std::string name)
 
 bool SpriteSystem::createTexture(const std::string name, const std::string path)
 {
-    uint64 id = nameToId(name);
+    uint64 id = tools::stringToId(name);
 
     if (isRegistered(id) == true) {
         return false;

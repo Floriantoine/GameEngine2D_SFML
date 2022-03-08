@@ -1,5 +1,9 @@
 #include "system/DisplayShape.hpp"
 #include "Game.hpp"
+#include "components/Color.hpp"
+#include "components/PosComponent.hpp"
+#include "components/RectangleShape.hpp"
+#include "components/Size.hpp"
 
 namespace systems {
 

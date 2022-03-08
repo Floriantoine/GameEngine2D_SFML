@@ -1,8 +1,8 @@
 #pragma once
 
 #include "component/ComponentManager.hpp"
+#include "factory/EntityFactory.hpp"
 #include "factory/ParticleFactory.hpp"
-#include "factory/PlayerFactory.hpp"
 #include "imgui/ecs/EcsController.hpp"
 #include "observer/Observer.hpp"
 #include "observer/ObserverManager.hpp"
@@ -28,7 +28,7 @@ class AGame {
     fa::TextureManager _textureManager;
     fa::SpriteManager _spriteManager;
     ParticleFactory _particleSystem;
-    factory::PlayerFactory _playerFactory;
+    factory::EntityFactory _entityFactory;
     fa::Sound::SoundBufferManager _soundBufferManager;
 
     AGame()
@@ -37,7 +37,7 @@ class AGame {
           _eventSys(_observerManager), _parallax(_observerManager),
           _sceneManager(_parallax, _textureManager),
           _particleSystem(_observerManager, _componentManager, _systemManager),
-          _playerFactory(_observerManager, _componentManager, _systemManager)
+          _entityFactory(_observerManager, _componentManager, _systemManager)
     {
     }
     virtual ~AGame() = default;
@@ -65,6 +65,10 @@ class AGame {
     fa::SystemManager &getSystemManager()
     {
         return this->_systemManager;
+    }
+    factory::EntityFactory &getEntityFactory()
+    {
+        return this->_entityFactory;
     }
 
     /**

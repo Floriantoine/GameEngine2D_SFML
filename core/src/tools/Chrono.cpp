@@ -1,16 +1,6 @@
 #include "tools/Chrono.hpp"
 
 namespace tools {
-uint64 Chrono::nameToId(const char *name, size_t length)
-{
-    uint64 seed;
-    return SpookyHash::Hash64(name, length, seed);
-}
-
-uint64 Chrono::nameToId(std::string name)
-{
-    return nameToId(name.c_str(), name.size());
-}
 
 bool Chrono::isRegistered(uint64 typeId)
 {
@@ -18,7 +8,7 @@ bool Chrono::isRegistered(uint64 typeId)
 }
 ImplotPerfInf *Chrono::GetValuesList(std::string name)
 {
-    uint64 id = nameToId(name);
+    uint64 id = tools::stringToId(name);
 
     if (isRegistered(id) == false) {
         _values[id] = ImplotPerfInf(name);

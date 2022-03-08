@@ -1,5 +1,6 @@
 #include "system/DiesLeavesScreen.hpp"
 #include "Game.hpp"
+#include "components/PosComponent.hpp"
 
 namespace systems {
 void DiesLeavesScreen::update(long elapsedTime)

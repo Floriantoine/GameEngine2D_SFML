@@ -7,9 +7,9 @@ namespace components {
 
 class TargetEntity : public fa::Component<TargetEntity> {
   public:
-    int _target = 0;
+    id_t _target = 0;
     TargetEntity() = default;
-    TargetEntity(int target) : _target(target){};
+    TargetEntity(id_t target) : _target(target){};
     ~TargetEntity() = default;
     void dislayImGuiPanel() override;
     static void factory(id_t entityId, nlohmann::json config);
