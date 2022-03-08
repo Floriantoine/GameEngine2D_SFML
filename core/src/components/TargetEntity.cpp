@@ -21,7 +21,18 @@ void TargetEntity::factory(fa::id_t entityId, nlohmann::json config)
 }
 void TargetEntity::dislayImGuiPanel()
 {
+    auto &entityF = Game::Game::getInstance().getEntityFactory();
+    auto nameList = tools::vStringToChar(entityF.getEntitiesFullName());
+
     if (ImGui::CollapsingHeader("TargetEntity##ImGuiModifier")) {
+        if (ImGui::ListBox("TargetEntity##ImGuiModifier: ", &_imGuiCurrentItem,
+                &nameList[0], nameList.size())) {
+            fa::Entity *entity = entityF.getEntity(
+                tools::stringToId(nameList[_imGuiCurrentItem]));
+            if (entity != nullptr) {
+                this->_target = entity->getId();
+            }
+        }
     }
 };
 } // namespace components

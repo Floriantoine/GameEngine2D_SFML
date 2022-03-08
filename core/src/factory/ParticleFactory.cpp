@@ -7,20 +7,27 @@ void ParticleFactory::display()
 
 void ParticleFactory::setParticleRange(int min, int max)
 {
-    for (auto it = _json.begin(); it != _json.end(); ++it) {
-        if (this->_componentManager.componentNameIsRegister(it.key())) {
-            for (int iter = min; iter < max; ++iter) {
-                this->_componentManager.addComponent(
-                    it.key(), iter, it.value());
-            }
-        } else {
-            std::cout << "Component: " << it.key() << " undefined" << std::endl;
-        }
+    for (int iter = min; iter < max; ++iter) {
+        Game::Game::getInstance().getEntityFactory().createEntityFromJson(
+            _json);
     }
-    if (_json["mouseForce"] != nullptr && _json["mouseForce"] == true) {
-        this->_componentManager.addComponentRange<components::MouseForce>(
-            min, max);
-    }
+
+    //   for (auto it = _json.begin(); it != _json.end(); ++it) {
+    //     if (this->_componentManager.componentNameIsRegister(it.key())) {
+    //         for (int iter = min; iter < max; ++iter) {
+    //             this->_componentManager.addComponent(
+    //                 it.key(), iter, it.value());
+    //         }
+    //     } else {
+    //         std::cout << "Component: " << it.key() << " undefined" <<
+    //         std::endl;
+    //     }
+    // }
+
+    // if (_json["mouseForce"] != nullptr && _json["mouseForce"] == true) {
+    // this->_componentManager.addComponentRange<components::MouseForce>(
+    // min, max);
+    // }
     // Test Form Components
     // auto array =
     //     this->_componentManager.getComponentList<components::PosComponent>();
@@ -35,13 +42,7 @@ void ParticleFactory::setParticleRange(int min, int max)
 void ParticleFactory::loadConfig(std::string string)
 {
     tools::Chrono::start();
-    int count = 0;
-    auto array = this->_componentManager
-                     .getComponentList<components::ParticleIdentity>();
-    for (auto it = array.begin(); it != array.end(); ++it) {
-        this->_componentManager.removeAllComponents(it->first);
-    }
-
+    int count = 1;
     this->_json = json::loadJson(string);
 
     if (_json == nlohmann::json::value_t::discarded || _json.is_discarded()) {
@@ -49,15 +50,17 @@ void ParticleFactory::loadConfig(std::string string)
         return;
     } else {
         tools::Chrono::event("loadJson");
-        if (_json["alphaGradient"] != nullptr &&
-            _json["alphaGradient"] == true) {
-            _systemManager.createSystem<PointParticleAlphaSystem>(
-                &_vertexArray);
-        }
-        if (_json["targetMouse"] != nullptr && _json["targetMouse"] == true) {
-            _systemManager.createSystem<fa::ParticleMouseTargetSystem>(
-                Game::Game::getInstance().getObserverManager(), &_vertexArray);
-        }
+        // if (_json["alphaGradient"] != nullptr &&
+        //     _json["alphaGradient"] == true) {
+        //     _systemManager.createSystem<PointParticleAlphaSystem>(
+        //         &_vertexArray);
+        // }
+        // if (_json["targetMouse"] != nullptr && _json["targetMouse"] == true)
+        // {
+        //     _systemManager.createSystem<fa::ParticleMouseTargetSystem>(
+        //         Game::Game::getInstance().getObserverManager(),
+        //         &_vertexArray);
+        // }
         if (_json["count"] != nullptr)
             count = _json["count"];
         this->setParticleRange(0, count);
@@ -118,7 +121,7 @@ void ParticleFactory::update(long elapsedTime)
     // this->_jsonEditor.update();
 
     if (particlesArray.size() > 0) {
-        int firstIndex = particlesArray.begin()->first;
+        fa::id_t firstIndex = particlesArray.begin()->first;
         components::SpawnPos *posComp =
             this->_componentManager.getComponent<components::SpawnPos>(
                 firstIndex);

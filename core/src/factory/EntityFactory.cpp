@@ -13,32 +13,36 @@ EntityFactory::~EntityFactory()
 {
 }
 
-void EntityFactory::createEntity(std::string configPath)
+void EntityFactory::createEntityFromJson(nlohmann::json json)
 {
-    nlohmann::json _json = json::loadJson(configPath);
-
-    if (_json == nlohmann::json::value_t::discarded || _json.is_discarded()) {
-        std::cout << "Json Config Error: " << configPath << std::endl;
+    fa::Entity *entity = nullptr;
+    if (json["name"] != nullptr &&
+        json["name"].type() == nlohmann::json::value_t::string) {
+        entity = this->newEntity(json["name"]);
     } else {
-        fa::Entity *entity = nullptr;
-        if (_json["name"] != nullptr &&
-            _json["name"].type() == nlohmann::json::value_t::string) {
-            entity = this->newEntity(_json["name"]);
-        } else {
-            entity = this->newEntity();
-        }
-        if (entity != nullptr) {
-            fa::id_t id = entity->getId();
-            for (auto it = _json.begin(); it != _json.end(); ++it) {
-                if (this->_componentManager.componentNameIsRegister(it.key())) {
-                    this->_componentManager.addComponent(
-                        it.key(), id, it.value());
-                } else {
-                    std::cout << "Component: " << it.key() << " undefined"
-                              << std::endl;
-                }
+        entity = this->newEntity();
+    }
+    if (entity != nullptr) {
+        fa::id_t id = entity->getId();
+        for (auto it = json.begin(); it != json.end(); ++it) {
+            if (this->_componentManager.componentNameIsRegister(it.key())) {
+                this->_componentManager.addComponent(it.key(), id, it.value());
+            } else {
+                std::cout << "Component: " << it.key() << " is undefined on "
+                          << entity->getName() << std::endl;
             }
         }
+    }
+}
+
+void EntityFactory::createEntity(std::string configPath)
+{
+    nlohmann::json json = json::loadJson(configPath);
+
+    if (json == nlohmann::json::value_t::discarded || json.is_discarded()) {
+        std::cout << "Json Config Error: " << configPath << std::endl;
+    } else {
+        this->createEntityFromJson(json);
     }
 }
 

@@ -3,7 +3,7 @@
 
 namespace systems {
 
-void ParticlesSystem::reset(int index)
+void ParticlesSystem::reset(fa::id_t index)
 {
     components::Gravity *gravityC =
         this->_componentManager->getComponent<components::Gravity>(index);
@@ -57,7 +57,10 @@ void ParticlesSystem::update(long elapsedTime)
     auto array = this->_componentManager
                      ->getComponentList<components::ParticleIdentity>();
 
-    if (array.size() != _vertexArray.getVertexCount()) {
+    if ((_vertexArray.getPrimitiveType() == sf::PrimitiveType::Points &&
+            array.size() != _vertexArray.getVertexCount()) ||
+        (_vertexArray.getPrimitiveType() == sf::PrimitiveType::Quads &&
+            array.size() != _vertexArray.getVertexCount() / 4)) {
         if (array.size() == 0) {
             _vertexArray.clear();
         } else {
@@ -65,12 +68,14 @@ void ParticlesSystem::update(long elapsedTime)
                 this->_componentManager
                     ->getComponent<components::ParticleIdentity>(
                         array.begin()->first);
-            if (!identity || identity->_type == sf::PrimitiveType::Points) {
-                _vertexArray.resize(array.size());
-                _vertexArray.setPrimitiveType(sf::PrimitiveType::Points);
-            } else if (identity->_type == sf::PrimitiveType::Quads) {
-                _vertexArray.setPrimitiveType(sf::PrimitiveType::Quads);
-                _vertexArray.resize(array.size() * 4);
+            if (identity != nullptr) {
+                if (identity->_type == sf::PrimitiveType::Points) {
+                    _vertexArray.resize(array.size());
+                    _vertexArray.setPrimitiveType(sf::PrimitiveType::Points);
+                } else if (identity->_type == sf::PrimitiveType::Quads) {
+                    _vertexArray.setPrimitiveType(sf::PrimitiveType::Quads);
+                    _vertexArray.resize(array.size() * 4);
+                }
             }
         }
     }

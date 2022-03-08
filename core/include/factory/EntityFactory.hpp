@@ -20,6 +20,9 @@ class EntityFactory {
     std::unordered_map<std::string, std::string> _entityRegister;
 
     void destroyEntity(fa::Entity *entity);
+    fa::Entity *saveEntity(fa::Entity *ptr);
+    fa::Entity *newEntity(std::string name);
+    fa::Entity *newEntity();
 
   public:
     EntityFactory(ObserverManager &observerManager,
@@ -31,12 +34,10 @@ class EntityFactory {
     EntityFactory &operator=(const EntityFactory &) = delete;
     void init();
     void createEntity(std::string configPath);
+    void createEntityFromJson(nlohmann::json config);
     std::vector<std::string> getEntitiesName() const;
     std::vector<std::string> getEntitiesFullName() const;
 
-    fa::Entity *saveEntity(fa::Entity *ptr);
-    fa::Entity *newEntity(std::string name);
-    fa::Entity *newEntity();
     fa::Entity *getEntity(fa::id_t id);
     void destroyEntity(fa::id_t id);
 };

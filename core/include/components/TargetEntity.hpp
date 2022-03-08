@@ -8,6 +8,9 @@ namespace components {
 class TargetEntity : public fa::Component<TargetEntity> {
   public:
     fa::id_t _target = 0;
+
+    int _imGuiCurrentItem = 0;
+
     TargetEntity() = default;
     TargetEntity(fa::id_t target) : _target(target){};
     ~TargetEntity() = default;

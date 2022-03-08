@@ -30,7 +30,7 @@ class ParticlesSystem : public fa::ASystem {
             initValue.y - rangeMin.y, initValue.y + rangeMax.y);
     }
 
-    void reset(int index);
+    void reset(fa::id_t index);
 
   public:
     ParticlesSystem() : _vertexArray(sf::Points, 0), ASystem(){};
