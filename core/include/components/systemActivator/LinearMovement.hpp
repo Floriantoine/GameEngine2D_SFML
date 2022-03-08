@@ -13,7 +13,7 @@ class LinearMovement : public fa::Component<LinearMovement> {
     LinearMovement() = default;
     LinearMovement(std::string direction) : _direction(direction){};
     ~LinearMovement() = default;
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
 } // namespace components

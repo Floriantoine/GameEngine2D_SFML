@@ -20,7 +20,7 @@ class Color : public fa::Component<Color> {
     {
         _color = sf::Color::Red;
     }
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
 } // namespace components

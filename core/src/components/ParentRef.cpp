@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 namespace components {
-void ParentRef::factory(id_t entityId, nlohmann::json config)
+void ParentRef::factory(fa::id_t entityId, nlohmann::json config)
 {
     int parentRef = -1;
 

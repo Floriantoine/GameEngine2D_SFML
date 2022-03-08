@@ -80,6 +80,7 @@ set(SRCS
         factory/ParticleFactory.cpp
         sound/SoundBuffer.cpp
         sound/SoundBufferManager.cpp
+        entity/Entity.cpp
 )
 
 list(TRANSFORM SRCS PREPEND ${SRC_DIR})

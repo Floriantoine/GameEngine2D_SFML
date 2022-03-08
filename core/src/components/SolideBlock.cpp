@@ -3,7 +3,7 @@
 #include "components/SolidBlock.hpp"
 
 namespace components {
-void SolidBlock::factory(id_t entityId, nlohmann::json config)
+void SolidBlock::factory(fa::id_t entityId, nlohmann::json config)
 {
     Game::Game::getInstance()
         .getComponentManager()

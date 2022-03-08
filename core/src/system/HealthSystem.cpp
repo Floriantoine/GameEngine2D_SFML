@@ -1,4 +1,5 @@
 #include "system/HealthSystem.hpp"
+#include "Game.hpp"
 #include "components/HealthComponent.hpp"
 #include "components/LoopLife.hpp"
 
@@ -14,12 +15,15 @@ void HealthSystem::update(long elapsedTime)
                 static_cast<components::HealthComponent *>(it.second);
             if (lifeC == nullptr)
                 continue;
+            << std::endl;
             if (lifeC->health <= 0) {
                 components::LoopLife *loopC =
                     this->_componentManager->getComponent<components::LoopLife>(
                         it.first);
-                if (!loopC)
-                    this->_componentManager->removeAllComponents(it.first);
+                if (!loopC) {
+                    Game::Game::getInstance().getEntityFactory().destroyEntity(
+                        it.first);
+                }
             }
         }
         this->_elapsedTime = 0;

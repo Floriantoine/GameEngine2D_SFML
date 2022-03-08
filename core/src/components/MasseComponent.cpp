@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 namespace components {
-void MasseComponent::factory(id_t entityId, nlohmann::json config)
+void MasseComponent::factory(fa::id_t entityId, nlohmann::json config)
 {
     int masse = 1;
     if (config != nullptr && config.type() != nlohmann::json::value_t::object &&

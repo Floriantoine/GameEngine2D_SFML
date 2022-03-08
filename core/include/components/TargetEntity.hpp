@@ -7,11 +7,11 @@ namespace components {
 
 class TargetEntity : public fa::Component<TargetEntity> {
   public:
-    id_t _target = 0;
+    fa::id_t _target = 0;
     TargetEntity() = default;
-    TargetEntity(id_t target) : _target(target){};
+    TargetEntity(fa::id_t target) : _target(target){};
     ~TargetEntity() = default;
     void dislayImGuiPanel() override;
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
 };
 } // namespace components

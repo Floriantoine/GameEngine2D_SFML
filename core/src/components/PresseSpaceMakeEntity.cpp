@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 namespace components {
-void PresseSpaceMakeEntity::factory(id_t entityId, nlohmann::json config)
+void PresseSpaceMakeEntity::factory(fa::id_t entityId, nlohmann::json config)
 {
     std::string path = "";
     if (config.type() == nlohmann::json::value_t::string) {

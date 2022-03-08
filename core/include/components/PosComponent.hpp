@@ -16,7 +16,7 @@ class PosComponent : public fa::Component<PosComponent> {
     PosComponent(sf::Vector2f pos) : _pos(pos)
     {
     }
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
 } // namespace components

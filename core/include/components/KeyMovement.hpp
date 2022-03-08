@@ -9,7 +9,7 @@ class KeyMovement : public fa::Component<KeyMovement> {
   public:
     KeyMovement() = default;
     ~KeyMovement() = default;
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
 } // namespace components

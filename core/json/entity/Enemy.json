@@ -1,4 +1,5 @@
 {
+    "name": "Enemy",
     "Pos": [700, 300],
     "isSolidBlock": true,
     "DiesLeavesScreen": true,

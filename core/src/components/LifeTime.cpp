@@ -1,9 +1,9 @@
 
-#include "Game.hpp"
 #include "components/systemActivator/LifeTime.hpp"
+#include "Game.hpp"
 
 namespace components {
-void LifeTime::factory(id_t entityId, nlohmann::json config)
+void LifeTime::factory(fa::id_t entityId, nlohmann::json config)
 {
     Game::Game::getInstance()
         .getComponentManager()
@@ -14,4 +14,4 @@ void LifeTime::dislayImGuiPanel()
     if (ImGui::CollapsingHeader("LifeTimeComponent")) {
     }
 };
-}
+} // namespace components

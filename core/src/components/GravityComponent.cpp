@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 namespace components {
-void Gravity::factory(id_t entityId, nlohmann::json config)
+void Gravity::factory(fa::id_t entityId, nlohmann::json config)
 {
     Game::Game::getInstance()
         .getComponentManager()

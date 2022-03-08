@@ -2,7 +2,7 @@
 #include "Game.hpp"
 
 namespace components {
-void Sprite::factory(id_t entityId, nlohmann::json config)
+void Sprite::factory(fa::id_t entityId, nlohmann::json config)
 {
     std::string textureName = "";
 

@@ -16,7 +16,7 @@ class ParentRef : public fa::Component<ParentRef> {
     ParentRef(int parentRef) : _parentRef(parentRef)
     {
     }
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
 } // namespace components

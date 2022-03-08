@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 namespace components {
-void ParticleIdentity::factory(id_t entityId, nlohmann::json config)
+void ParticleIdentity::factory(fa::id_t entityId, nlohmann::json config)
 {
     sf::PrimitiveType type = sf::PrimitiveType::Points;
 

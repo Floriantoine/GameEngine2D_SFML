@@ -13,7 +13,7 @@ class ParticleIdentity : public fa::Component<ParticleIdentity> {
     bool _isInit = false;
     ParticleIdentity() = default;
     ParticleIdentity(sf::PrimitiveType type) : _type(type){};
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
 } // namespace components

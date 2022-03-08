@@ -3,9 +3,9 @@
 #include "tools/tools.hpp"
 
 namespace components {
-void TargetEntity::factory(id_t entityId, nlohmann::json config)
+void TargetEntity::factory(fa::id_t entityId, nlohmann::json config)
 {
-    id_t targetId = -1;
+    fa::id_t targetId = -1;
 
     if (config != nullptr) {
         if (config.type() == nlohmann::json::value_t::number_unsigned) {

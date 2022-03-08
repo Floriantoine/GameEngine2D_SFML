@@ -24,14 +24,16 @@ void DiesLeavesScreen::update(long elapsedTime)
             }
             if (PosC->_pos.x < 0 || PosC->_pos.y < 0) {
                 // Kill Entity
-                this->_componentManager->removeAllComponents(it.first);
+                Game::Game::getInstance().getEntityFactory().destroyEntity(
+                    it.first);
             } else {
                 sf::Vector2u windowSize =
                     Game::Game::getInstance().getWindow()->getSize();
                 if (PosC->_pos.x > windowSize.x ||
                     PosC->_pos.y > windowSize.y) {
                     // kill entity
-                    this->_componentManager->removeAllComponents(it.first);
+                    Game::Game::getInstance().getEntityFactory().destroyEntity(
+                        it.first);
                 }
             }
         }

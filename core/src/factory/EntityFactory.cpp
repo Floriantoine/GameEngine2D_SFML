@@ -9,6 +9,10 @@ EntityFactory::EntityFactory(ObserverManager &observerManager,
 {
 }
 
+EntityFactory::~EntityFactory()
+{
+}
+
 void EntityFactory::createEntity(std::string configPath)
 {
     nlohmann::json _json = json::loadJson(configPath);
@@ -19,16 +23,16 @@ void EntityFactory::createEntity(std::string configPath)
         fa::Entity *entity = nullptr;
         if (_json["name"] != nullptr &&
             _json["name"].type() == nlohmann::json::value_t::string) {
-            std::string name = _json["name"];
-            entity = this->newEntity(name);
+            entity = this->newEntity(_json["name"]);
         } else {
             entity = this->newEntity();
         }
         if (entity != nullptr) {
+            fa::id_t id = entity->getId();
             for (auto it = _json.begin(); it != _json.end(); ++it) {
                 if (this->_componentManager.componentNameIsRegister(it.key())) {
                     this->_componentManager.addComponent(
-                        it.key(), entity->getId(), it.value());
+                        it.key(), id, it.value());
                 } else {
                     std::cout << "Component: " << it.key() << " undefined"
                               << std::endl;
@@ -45,8 +49,62 @@ void EntityFactory::init()
     this->createEntity("../core/json/entity/Protector.json");
 }
 
-EntityFactory::~EntityFactory()
+std::vector<std::string> EntityFactory::getEntitiesName() const
 {
+    std::vector<std::string> names;
+    for (auto entity: this->_entityList) {
+        names.push_back(entity.second->getName());
+    }
+    return names;
+}
+std::vector<std::string> EntityFactory::getEntitiesFullName() const
+{
+    std::vector<std::string> names;
+    for (auto entity: this->_entityList) {
+        names.push_back(entity.second->getFullName());
+    }
+    return names;
+}
+
+fa::Entity *EntityFactory::saveEntity(fa::Entity *ptr)
+{
+    this->_entityList[ptr->getId()] = ptr;
+    return this->_entityList[ptr->getId()];
+}
+fa::Entity *EntityFactory::newEntity(std::string name)
+{
+    // Add check if have entity with same id
+    fa::Entity *ptr = new fa::Entity(name);
+    return saveEntity(ptr);
+}
+fa::Entity *EntityFactory::newEntity()
+{
+    fa::Entity *ptr = new fa::Entity;
+    return saveEntity(ptr);
+}
+
+fa::Entity *EntityFactory::getEntity(fa::id_t id)
+{
+    const auto &it = this->_entityList.find(id);
+
+    if (it != this->_entityList.end()) {
+        return it->second;
+    }
+    return nullptr;
+}
+
+void EntityFactory::destroyEntity(fa::id_t id)
+{
+    fa::Entity *entity = this->getEntity(id);
+    if (entity != nullptr) {
+        this->destroyEntity(entity);
+    }
+}
+
+void EntityFactory::destroyEntity(fa::Entity *entity)
+{
+    this->_componentManager.removeAllComponents(entity->getId());
+    this->_entityList.erase(entity->getId());
 }
 
 }; // namespace factory

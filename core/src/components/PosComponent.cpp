@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 namespace components {
-void PosComponent::factory(id_t entityId, nlohmann::json config)
+void PosComponent::factory(fa::id_t entityId, nlohmann::json config)
 {
     sf::Vector2f pos = {0, 0};
     if (config.type() == nlohmann::json::value_t::object) {

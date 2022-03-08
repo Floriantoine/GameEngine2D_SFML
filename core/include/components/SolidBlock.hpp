@@ -9,11 +9,11 @@ namespace components {
 class SolidBlock : public fa::Component<SolidBlock> {
   public:
     bool _haveCollision = false;
-    int _targetId;
+    fa::id_t _targetId;
 
     SolidBlock() = default;
     ~SolidBlock() = default;
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
 } // namespace components

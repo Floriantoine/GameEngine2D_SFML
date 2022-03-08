@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 namespace components {
-void Damage::factory(id_t entityId, nlohmann::json config)
+void Damage::factory(fa::id_t entityId, nlohmann::json config)
 {
     int damage = 0;
 

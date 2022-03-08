@@ -8,6 +8,6 @@
     "Health": 1,
     "DiesLeavesScreen": true,
     "LinearMovement": "right",
-    "TargetEntity": 0,
+    "TargetEntity": "Enemy",
     "Damage": 100
 }

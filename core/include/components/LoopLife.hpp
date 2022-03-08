@@ -7,7 +7,7 @@ namespace components {
 
 class LoopLife : public fa::Component<LoopLife> {
   public:
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     LoopLife() = default;
     ~LoopLife() = default;
     void dislayImGuiPanel() override;

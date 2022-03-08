@@ -131,7 +131,8 @@ void ParticlesSystem::update(long elapsedTime)
                 if (loopLife) {
                     reset(it.first);
                 } else {
-                    this->_componentManager->removeAllComponents(it.first);
+                    Game::Game::getInstance().getEntityFactory().destroyEntity(
+                        it.first);
                 }
             }
             i++;

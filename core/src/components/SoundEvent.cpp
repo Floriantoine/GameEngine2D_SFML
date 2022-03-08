@@ -23,7 +23,7 @@ void SoundEvent::initSound()
     }
 }
 
-void SoundEvent::factory(id_t entityId, nlohmann::json config)
+void SoundEvent::factory(fa::id_t entityId, nlohmann::json config)
 {
     std::string name = "";
     int key = 0;

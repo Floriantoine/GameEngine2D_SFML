@@ -30,7 +30,7 @@ Size::Size(nlohmann::json config)
     _initSize = _size;
 }
 
-void Size::factory(id_t entityId, nlohmann::json config)
+void Size::factory(fa::id_t entityId, nlohmann::json config)
 {
     sf::Vector2f size = {0, 0};
     sf::Vector2f rangeMin = {0, 0};

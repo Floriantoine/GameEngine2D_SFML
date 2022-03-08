@@ -2,7 +2,7 @@
 #include "Game.hpp"
 
 namespace components {
-void HealthComponent::factory(id_t entityId, nlohmann::json config)
+void HealthComponent::factory(fa::id_t entityId, nlohmann::json config)
 {
     int initHealth = 0;
     int rangeMin = 0;

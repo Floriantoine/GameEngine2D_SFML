@@ -8,7 +8,7 @@ namespace components {
 class SpawnMousePos : public fa::Component<SpawnMousePos> {
   public:
     SpawnMousePos() = default;
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
 } // namespace components

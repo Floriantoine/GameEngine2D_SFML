@@ -20,7 +20,7 @@ class RectangleShape : public fa::Component<RectangleShape> {
 
     sf::RectangleShape _shape;
     float _thickness;
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
 } // namespace components

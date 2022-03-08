@@ -2,7 +2,7 @@
 #include "Game.hpp"
 
 namespace components {
-void SpawnPos::factory(id_t entityId, nlohmann::json config)
+void SpawnPos::factory(fa::id_t entityId, nlohmann::json config)
 {
     sf::Vector2f initPos = {0, 0};
     sf::Vector2f rangeMin = {0, 0};

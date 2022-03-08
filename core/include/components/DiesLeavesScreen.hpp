@@ -8,7 +8,7 @@ namespace components {
 class DiesLeavesScreen : public fa::Component<DiesLeavesScreen> {
   public:
     DiesLeavesScreen() = default;
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
 } // namespace components

@@ -14,7 +14,7 @@ class Sprite : public fa::Component<Sprite> {
     bool _isInit = false;
 
   public:
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     Sprite(std::string textureName) : _textureName(textureName){};
     ~Sprite() = default;
     void dislayImGuiPanel() override;

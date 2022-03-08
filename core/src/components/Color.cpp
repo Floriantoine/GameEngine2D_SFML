@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 namespace components {
-void Color::factory(id_t entityId, nlohmann::json config)
+void Color::factory(fa::id_t entityId, nlohmann::json config)
 {
     sf::Color color = sf::Color::White;
 

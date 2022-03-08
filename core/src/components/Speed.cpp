@@ -23,7 +23,7 @@ Speed::Speed(nlohmann::json config)
     _initSpeed = _speed;
 }
 
-void Speed::factory(id_t entityId, nlohmann::json config)
+void Speed::factory(fa::id_t entityId, nlohmann::json config)
 {
     float speed = 0;
     float rangeMin = 0;

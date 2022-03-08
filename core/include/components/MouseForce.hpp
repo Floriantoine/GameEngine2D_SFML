@@ -10,6 +10,6 @@ class MouseForce : public fa::Component<MouseForce> {
   public:
     MouseForce() = default;
     ~MouseForce() = default;
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
 };
 } // namespace components

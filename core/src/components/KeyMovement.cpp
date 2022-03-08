@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 namespace components {
-void KeyMovement::factory(id_t entityId, nlohmann::json config)
+void KeyMovement::factory(fa::id_t entityId, nlohmann::json config)
 {
     Game::Game::getInstance()
         .getComponentManager()

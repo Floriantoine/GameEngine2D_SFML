@@ -7,8 +7,8 @@ namespace systems {
 struct collisStruct
 {
     sf::FloatRect _floatRect;
-    int id;
-    int *targetId;
+    fa::id_t id;
+    fa::id_t *targetId;
     bool *_haveCollision;
 };
 

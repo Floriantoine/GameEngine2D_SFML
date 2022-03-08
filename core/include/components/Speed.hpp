@@ -22,7 +22,7 @@ class Speed : public fa::Component<Speed> {
     {
     }
     Speed(nlohmann::json config);
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
 } // namespace components

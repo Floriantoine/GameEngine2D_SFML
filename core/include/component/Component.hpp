@@ -3,6 +3,7 @@
 
 #include "../Imgui.hpp"
 #include "./ComponentBase.hpp"
+#include "types.hpp"
 
 namespace fa {
 

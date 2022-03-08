@@ -16,7 +16,7 @@ class Orbit : public fa::Component<Orbit> {
     Orbit(int radius, sf::Vector2f pivotPoint)
         : _radius(radius), _pivotPoint(pivotPoint){};
     ~Orbit() = default;
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
 } // namespace components

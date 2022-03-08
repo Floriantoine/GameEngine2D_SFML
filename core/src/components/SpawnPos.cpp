@@ -3,7 +3,7 @@
 #include "components/SpawnPosComponent.hpp"
 
 namespace components {
-void SpawnPos::factory(id_t entityId, nlohmann::json config)
+void SpawnPos::factory(fa::id_t entityId, nlohmann::json config)
 {
     Game::Game::getInstance()
         .getComponentManager()

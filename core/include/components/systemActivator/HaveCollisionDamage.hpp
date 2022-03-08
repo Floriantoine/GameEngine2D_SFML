@@ -10,6 +10,6 @@ class HaveCollisionDamage : public fa::Component<HaveCollisionDamage> {
     HaveCollisionDamage() = default;
     ~HaveCollisionDamage() = default;
     void dislayImGuiPanel() override;
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
 };
 } // namespace components

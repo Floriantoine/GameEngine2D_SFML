@@ -6,20 +6,16 @@ namespace imguiTools {
 void EcsController::newEntity()
 {
     static int currentItem = 0;
-    static int currentId = 0;
+    fa::id_t currentId = _entityRef->getId();
     auto &compManager = Game::Game::getInstance().getComponentManager();
 
-    auto nameList = compManager.getRegisterComponentNameList();
-    std::vector<char *> array;
-    array.reserve(nameList.size());
+    auto nameList =
+        tools::vStringToChar(compManager.getRegisterComponentNameList());
 
-    for (auto &item: nameList) {
-        array.push_back(const_cast<char *>(item.c_str()));
-    }
-
-    ImGui::InputInt("Current EntityId: ", &currentId);
-    ImGui::InputInt("Current Item: ", &currentItem);
-    ImGui::ListBox("Components: ", &currentItem, &array[0], array.size());
+    // ImGui::InputInt("Current EntityId: ", &currentId);
+    ImGui::InputInt("Current Item: ##EcsSelector", &currentItem);
+    ImGui::ListBox("Components: ##EcsSelector", &currentItem, &nameList[0],
+        nameList.size());
     if (ImGui::Button("+##addComponentToEntity")) {
         nlohmann::json _json;
         Game::Game::getInstance().getComponentManager().addComponent(
@@ -36,12 +32,22 @@ void EcsController::newEntity()
 
 void EcsController::update(long elapsedtime)
 {
-    ImGui::Begin("EcsController");
+    static int currentSelectorItem = -1;
+    auto &entityF = Game::Game::getInstance().getEntityFactory();
+    auto nameList = tools::vStringToChar(entityF.getEntitiesFullName());
 
-    if (!_createEntity) {
-        if (ImGui::Button("CreateEntity"))
-            _createEntity = true;
-    } else {
+    ImGui::Begin("EcsController");
+    // ImGui::TextInput();
+    // ImGui::SameLine();
+    ImGui::Button("CreateEntity");
+
+    if (ImGui::ListBox("Entity##EcsSelector: ", &currentSelectorItem,
+            &nameList[0], nameList.size())) {
+        _entityRef =
+            entityF.getEntity(tools::stringToId(nameList[currentSelectorItem]));
+    }
+
+    if (_entityRef != nullptr) {
         newEntity();
     }
 

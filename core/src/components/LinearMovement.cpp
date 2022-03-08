@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 namespace components {
-void LinearMovement::factory(id_t entityId, nlohmann::json config)
+void LinearMovement::factory(fa::id_t entityId, nlohmann::json config)
 {
     std::string direction = "";
     if (config != nullptr) {

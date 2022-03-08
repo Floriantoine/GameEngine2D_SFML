@@ -10,7 +10,7 @@ void ForceComponent::dislayImGuiPanel()
         ImGui::SliderFloat2("ForceRangeMax", &_rangeMax.x, 0, 100);
     }
 };
-void ForceComponent::factory(id_t entityId, nlohmann::json config)
+void ForceComponent::factory(fa::id_t entityId, nlohmann::json config)
 {
     sf::Vector2f initForce = {0, 0};
     sf::Vector2f rangeMin = {0, 0};

@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 namespace components {
-void Orbit::factory(id_t entityId, nlohmann::json config)
+void Orbit::factory(fa::id_t entityId, nlohmann::json config)
 {
     int radius = 1;
     sf::Vector2f pivotPoint{0, 0};

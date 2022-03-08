@@ -21,7 +21,7 @@ class SoundEvent : public fa::Component<SoundEvent> {
         _sound.stop();
     };
     void initSound();
-    static void factory(id_t entityId, nlohmann::json config);
+    static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
 } // namespace components

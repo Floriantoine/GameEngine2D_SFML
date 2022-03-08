@@ -2,6 +2,7 @@
 
 #include "tools/tools.hpp"
 #include "types.hpp"
+#include <iostream>
 
 namespace fa {
 
@@ -14,37 +15,17 @@ class Entity {
     }
 
     id_t _id;
-    std::string _name;
+    std::string _name = "";
 
   public:
-    Entity() : _id{this->getNextId()}, _name(std::to_string(_id))
-    {
-    }
-    Entity(const std::string name) : _id{tools::stringToId(name)}, _name(name)
-    {
-    }
+    Entity();
+    Entity(const std::string name);
     ~Entity() = default;
 
-    Entity &operator=(const Entity &copy)
-    {
-        this->_id = copy.getId();
-        return *this;
-    }
-
-    const id_t &getId() const
-    {
-        return this->_id;
-    }
-
-    const std::string &getFullName() const
-    {
-        return _name;
-    }
-
-    std::string getName() const
-    {
-        return _name.substr(0, _name.find("##"));
-    }
+    Entity &operator=(const Entity &copy);
+    const id_t &getId() const;
+    const std::string &getFullName() const;
+    std::string getName() const;
 };
 
 } // namespace fa

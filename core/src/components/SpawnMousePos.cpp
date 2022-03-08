@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 namespace components {
-void SpawnMousePos::factory(id_t entityId, nlohmann::json config)
+void SpawnMousePos::factory(fa::id_t entityId, nlohmann::json config)
 {
     Game::Game::getInstance()
         .getComponentManager()
