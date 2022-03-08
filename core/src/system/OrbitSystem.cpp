@@ -1,4 +1,7 @@
 #include "system/OrbitSystem.hpp"
+#include "components/PosComponent.hpp"
+#include "components/TargetEntity.hpp"
+#include "components/systemActivator/Orbit.hpp"
 
 namespace systems {
 void OrbitSystem::update(long elapsedTime)

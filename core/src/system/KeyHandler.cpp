@@ -1,5 +1,7 @@
 #include "system/KeyHandler.hpp"
 #include "Game.hpp"
+#include "components/systemActivator/PresseSpaceMakeEntity.hpp"
+#include "components/systemActivator/SoundEvent.hpp"
 
 namespace systems {
 KeyHandler::KeyHandler()

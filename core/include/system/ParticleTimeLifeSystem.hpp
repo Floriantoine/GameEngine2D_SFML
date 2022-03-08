@@ -1,8 +1,9 @@
 
 #pragma once
 
-#include "../components/HealthComponent.hpp"
 #include "ASystem.hpp"
+#include "components/HealthComponent.hpp"
+#include "components/systemActivator/LifeTime.hpp"
 #include "tools/Chrono.hpp"
 #include "tools/random.hpp"
 

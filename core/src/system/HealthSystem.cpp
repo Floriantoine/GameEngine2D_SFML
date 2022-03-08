@@ -1,4 +1,6 @@
 #include "system/HealthSystem.hpp"
+#include "components/HealthComponent.hpp"
+#include "components/LoopLife.hpp"
 
 namespace systems {
 void HealthSystem::update(long elapsedTime)

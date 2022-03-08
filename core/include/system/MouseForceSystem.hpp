@@ -3,6 +3,7 @@
 
 #include "ASystem.hpp"
 #include "components/ForceComponent.hpp"
+#include "components/MouseForce.hpp"
 #include "observer/Observer.hpp"
 #include "observer/ObserverManager.hpp"
 #include "tools/random.hpp"

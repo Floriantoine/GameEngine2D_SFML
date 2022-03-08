@@ -1,8 +1,10 @@
 
 #pragma once
 
-#include "../components/PosComponent.hpp"
 #include "ASystem.hpp"
+#include "components/PosComponent.hpp"
+#include "components/SpawnPosComponent.hpp"
+#include "components/systemActivator/SpawnMousePos.hpp"
 #include "observer/Observer.hpp"
 #include "observer/ObserverManager.hpp"
 

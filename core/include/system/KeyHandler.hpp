@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ASystem.hpp"
-#include "Components.hpp"
 #include "observer/Observer.hpp"
 #include <SFML/Window/Keyboard.hpp>
 

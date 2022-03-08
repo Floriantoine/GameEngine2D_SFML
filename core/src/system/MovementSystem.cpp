@@ -1,4 +1,7 @@
 #include "system/MovementSystem.hpp"
+#include "components/PosComponent.hpp"
+#include "components/TargetEntity.hpp"
+#include "components/systemActivator/LinearMovement.hpp"
 #include <algorithm>
 #include <math.h>
 

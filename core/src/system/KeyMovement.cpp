@@ -1,5 +1,9 @@
 #include "system/KeyMovement.hpp"
 #include "Game.hpp"
+#include "components/KeyMovement.hpp"
+#include "components/PosComponent.hpp"
+#include "components/Speed.hpp"
+#include "observer/ObserverManager.hpp"
 
 namespace systems {
 
