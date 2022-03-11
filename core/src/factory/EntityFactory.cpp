@@ -51,6 +51,7 @@ void EntityFactory::init()
     this->createEntity("../core/json/entity/Player.json");
     this->createEntity("../core/json/entity/Enemy.json");
     this->createEntity("../core/json/entity/Protector.json");
+    this->createEntity("../core/json/hud/Button.json");
 }
 
 std::vector<std::string> EntityFactory::getEntitiesName() const

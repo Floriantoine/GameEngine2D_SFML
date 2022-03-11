@@ -4,6 +4,7 @@
 #include "components/PosComponent.hpp"
 #include "components/RectangleShape.hpp"
 #include "components/Size.hpp"
+#include "components/hud/Text.hpp"
 
 namespace systems {
 
@@ -30,6 +31,21 @@ void DisplayShape::update(long elapsedTime)
         rectShapeC->_shape.setPosition(posC->_pos);
 
         Game::Game::getInstance().getWindow()->draw(rectShapeC->_shape);
+    }
+
+    // ------------------------------------------
+    // ------------------------------------------
+    // ------------------------------------------
+    array = this->_componentManager->getComponentList<components::Text>();
+    for (auto &it: array) {
+        components::Text *textC = static_cast<components::Text *>(it.second);
+        components::PosComponent *posC =
+            this->_componentManager->getComponent<components::PosComponent>(
+                it.first);
+        if (!textC || !posC)
+            continue;
+        textC->_text.setPosition(posC->_pos);
+        Game::Game::getInstance().getWindow()->draw(textC->_text);
     }
 }
 } // namespace systems

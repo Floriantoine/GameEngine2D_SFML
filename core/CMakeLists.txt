@@ -14,9 +14,11 @@ set(WARNING_FLAG
 set(SRCS
         Game.cpp
         EventSystem.cpp
+        components/hud/Text.cpp
         components/Color.cpp
         components/Damage.cpp
         components/DiesLeavesScreen.cpp
+        components/Direction.cpp
         components/ForceComponent.cpp
         components/GravityComponent.cpp
         components/HaveCollisionDamage.cpp

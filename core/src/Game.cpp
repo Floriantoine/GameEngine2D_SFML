@@ -117,6 +117,9 @@ void Game::onInit()
         "Orbit", components::Orbit::factory);
     _componentManager.registerComponentName(
         "SoundEvent", components::SoundEvent::factory);
+    _componentManager.registerComponentName(
+        "Direction", components::Direction::factory);
+    _componentManager.registerComponentName("Text", components::Text::factory);
     // ----------------------------------------------------------------------
     // ------------- _systemManager.createSystem<SystemType>(); -------------
     // ----------------------------------------------------------------------
