@@ -16,10 +16,10 @@
     },
     "Pos": [100 , 100],
     "SpawnPos": [100 , 100],
-    "Masse": 1,
     "Color": "green",
     "SpawnMousePos": true,
     "mouseForce": false,
+    "Masse": 1,
     "isSolidBlock": true,
     "Gravity": true,
     "Damage": 1

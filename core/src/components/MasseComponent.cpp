@@ -17,7 +17,7 @@ void MasseComponent::factory(fa::id_t entityId, nlohmann::json config)
 }
 void MasseComponent::dislayImGuiPanel()
 {
-    if (ImGui::CollapsingHeader("MasseComponentComponent")) {
+    if (ImGui::CollapsingHeader("Masse##ImGuiModifierECS")) {
     }
 };
 } // namespace components

@@ -13,6 +13,7 @@ void ForceComponent::dislayImGuiPanel()
 void ForceComponent::factory(fa::id_t entityId, nlohmann::json config)
 {
     sf::Vector2f initForce = {0, 0};
+    sf::Vector2f force = {0, 0};
     sf::Vector2f rangeMin = {0, 0};
     sf::Vector2f rangeMax = {0, 0};
 
@@ -32,10 +33,16 @@ void ForceComponent::factory(fa::id_t entityId, nlohmann::json config)
                config[0] != nullptr && config[1] != nullptr) {
         initForce = sf::Vector2f(config[0], config[1]);
     }
+
+    force.x = tools::generate_random_number(
+        initForce.x - rangeMin.x, initForce.x + rangeMax.x);
+    force.y = tools::generate_random_number(
+        initForce.y - rangeMin.y, initForce.y + rangeMax.y);
+
     Game::Game::getInstance()
         .getComponentManager()
         .addComponent<components::ForceComponent>(
-            entityId, initForce, rangeMin, rangeMax);
+            entityId, initForce, force, rangeMin, rangeMax);
 }
 
 ForceComponent::ForceComponent(nlohmann::json config)
@@ -60,9 +67,10 @@ ForceComponent::ForceComponent(nlohmann::json config)
     }
 }
 
-ForceComponent::ForceComponent(
-    sf::Vector2f initForce, sf::Vector2f rangeMin, sf::Vector2f rangeMax)
-    : _initForce(initForce), _rangeMin(rangeMin), _rangeMax(rangeMax)
+ForceComponent::ForceComponent(sf::Vector2f initForce, sf::Vector2f force,
+    sf::Vector2f rangeMin, sf::Vector2f rangeMax)
+    : _initForce(initForce), _rangeMin(rangeMin), _rangeMax(rangeMax),
+      force(force)
 {
 }
 } // namespace components

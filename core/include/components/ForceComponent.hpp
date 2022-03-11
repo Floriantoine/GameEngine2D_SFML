@@ -16,8 +16,8 @@ class ForceComponent : public fa::Component<ForceComponent> {
   public:
     ForceComponent() = default;
     ForceComponent(nlohmann::json config);
-    ForceComponent(
-        sf::Vector2f initForce, sf::Vector2f rangeMin, sf::Vector2f rangeMax);
+    ForceComponent(sf::Vector2f initForce, sf::Vector2f force,
+        sf::Vector2f rangeMin, sf::Vector2f rangeMax);
     static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
