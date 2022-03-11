@@ -1,8 +1,7 @@
 #include "system/KeyMovement.hpp"
 #include "Game.hpp"
+#include "components/Direction.hpp"
 #include "components/KeyMovement.hpp"
-#include "components/PosComponent.hpp"
-#include "components/Speed.hpp"
 #include "observer/ObserverManager.hpp"
 
 namespace systems {
@@ -11,21 +10,19 @@ KeyMovement::KeyMovement() : ASystem()
 {
     _observers = Observer{
         [&](KeyPressed const &event) {
-            if (event.key == sf::Keyboard::Left) {
-                this->_direction = std::string("Left");
-                tools::Chrono::event("KeyMovement-Input");
+            this->_direction = directions::STATIC;
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+                this->_direction += directions::LEFT;
             }
-            if (event.key == sf::Keyboard::Right) {
-                this->_direction = std::string("Right");
-                tools::Chrono::event("KeyMovement-Input");
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+                this->_direction += directions::RIGHT;
             }
-            if (event.key == sf::Keyboard::Up) {
-                this->_direction = std::string("Up");
-                tools::Chrono::event("KeyMovement-Input");
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+                this->_direction += directions::UP;
             }
-            if (event.key == sf::Keyboard::Down) {
-                this->_direction = std::string("Down");
-                tools::Chrono::event("KeyMovement-Input");
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+                this->_direction += directions::DOWN;
             }
         },
     };
@@ -36,31 +33,32 @@ void KeyMovement::update(long elapsedTime)
 {
     this->_elapsedTime += elapsedTime;
     if (this->_elapsedTime >= 16) {
-        if (this->_direction != "") {
+        this->_direction = directions::STATIC;
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            this->_direction += directions::LEFT;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            this->_direction += directions::RIGHT;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+            this->_direction += directions::UP;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+            this->_direction += directions::DOWN;
+        }
+        if (this->_direction != directions::STATIC) {
             auto array = this->_componentManager
                              ->getComponentList<components::KeyMovement>();
             for (auto &it: array) {
-                components::PosComponent *PosC =
+                components::Direction *directionC =
                     this->_componentManager
-                        ->getComponent<components::PosComponent>(it.first);
-                if (!PosC)
+                        ->getComponent<components::Direction>(it.first);
+                if (!directionC)
                     return;
-                components::Speed *speedC =
-                    this->_componentManager->getComponent<components::Speed>(
-                        it.first);
-                float speed = speedC ? speedC->_speed : 4;
-                int step = speed * _elapsedTime / 16;
-                if (this->_direction == "Left") {
-                    PosC->_pos.x -= step;
-                } else if (this->_direction == "Right") {
-                    PosC->_pos.x += step;
-                } else if (this->_direction == "Up") {
-                    PosC->_pos.y -= step;
-                } else if (this->_direction == "Down") {
-                    PosC->_pos.y += step;
-                }
+                directionC->_direction = this->_direction;
             }
-            this->_direction = "";
+            this->_direction = directions::STATIC;
         }
         this->_elapsedTime = 0;
     }

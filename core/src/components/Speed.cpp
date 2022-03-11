@@ -33,10 +33,10 @@ void Speed::factory(fa::id_t entityId, nlohmann::json config)
         config.type() == nlohmann::json::value_t::number_unsigned) {
         speed = config;
     } else if (config.type() == nlohmann::json::value_t::object) {
-        if (config["init"] != nullptr) {
-            if (config["init"].type() ==
+        if (config["speed"] != nullptr) {
+            if (config["speed"].type() ==
                 nlohmann::json::value_t::number_unsigned) {
-                speed = config["init"];
+                speed = config["speed"];
             }
         }
         if (config["rangeMin"] != nullptr) {
@@ -45,6 +45,10 @@ void Speed::factory(fa::id_t entityId, nlohmann::json config)
         if (config["rangeMax"] != nullptr) {
             rangeMax = config["rangeMax"];
         }
+    }
+    if (rangeMin != 0 || rangeMax != 0) {
+        speed =
+            ::tools::generate_random_number(speed - rangeMin, speed + rangeMax);
     }
     Game::Game::getInstance()
         .getComponentManager()

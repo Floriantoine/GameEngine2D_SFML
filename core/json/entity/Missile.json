@@ -6,8 +6,12 @@
     "Color": "blue",
     "HaveCollisionDamage": true,
     "Health": 1,
+    "Speed": 10,
     "DiesLeavesScreen": true,
-    "LinearMovement": "right",
+    "Direction": {
+        "direction": "RIGHT",
+        "continuous": true
+    },
     "TargetEntity": "Enemy",
     "Damage": 100
 }

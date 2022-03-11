@@ -16,6 +16,6 @@ class KeyMovement : public fa::ASystem {
   private:
     Observer _observers;
     long _elapsedTime = 0;
-    std::string _direction = "";
+    sf::Vector2i _direction{0, 0};
 };
 } // namespace systems
