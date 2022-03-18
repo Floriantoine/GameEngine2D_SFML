@@ -1,6 +1,7 @@
 {
     "count": 1000,
     "LifeTime": true,
+    "LoopLife": "loop",
     "Health": {
         "init": 6000,
         "rangeMin": 3000,
@@ -26,7 +27,7 @@
     "Masse": 1,
     "Color": "green",
     "SpawnMousePos": true,
-    "mouseForce": false,
+    "isSolidBlock": true,
     "Gravity": true
 
 }

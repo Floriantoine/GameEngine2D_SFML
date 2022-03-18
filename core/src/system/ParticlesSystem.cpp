@@ -22,26 +22,32 @@ void ParticlesSystem::reset(fa::id_t index)
         this->_componentManager->getComponent<components::Size>(index);
     components::SpawnPos *SpawnPosC =
         this->_componentManager->getComponent<components::SpawnPos>(index);
-    if (MasseComp)
+    components::SolidBlock *solidBlockC =
+        this->_componentManager->getComponent<components::SolidBlock>(index);
+    if (MasseComp != nullptr)
         generateProprietyRange(&MasseComp->masse, MasseComp->_initMasse, 1, 1);
-    if (compLife)
+    if (compLife != nullptr)
         generateProprietyRange(&compLife->health, compLife->_initHealth,
             compLife->_rangeMin, compLife->_rangeMax);
-    if (ForceComp)
+    if (ForceComp != nullptr)
         generateVectorProprietyRange(&ForceComp->force, ForceComp->_initForce,
             ForceComp->_rangeMin, ForceComp->_rangeMax);
-    if (PosComp && SpawnPosC) {
+    if (PosComp != nullptr && SpawnPosC != nullptr) {
         generateVectorProprietyRange(&PosComp->_pos, SpawnPosC->_initPos,
             SpawnPosC->_rangeMin, SpawnPosC->_rangeMax);
     }
-    if (SizeComp) {
+    if (SizeComp != nullptr) {
         generateVectorProprietyRange(&SizeComp->_size, SizeComp->_initSize,
             SizeComp->_rangeMin, SizeComp->_rangeMax);
     }
+    if (solidBlockC != nullptr) {
+        solidBlockC->_haveCollision = false;
+    }
 
-    float masse = (MasseComp ? MasseComp->masse : 0);
-    sf::Vector2f force = (ForceComp ? ForceComp->force : sf::Vector2f(0, 0));
-    if (gravityC) {
+    float masse = (MasseComp != nullptr ? MasseComp->masse : 0);
+    sf::Vector2f force =
+        (ForceComp != nullptr ? ForceComp->force : sf::Vector2f(0, 0));
+    if (gravityC != nullptr) {
         gravityC->_cur_S = masse * force;
     }
 }

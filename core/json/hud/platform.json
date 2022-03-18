@@ -1,0 +1,8 @@
+{
+    "Pos": [0, 1000],
+    "Size": [1920, 30],
+    "Color": "blue",
+    "isSolidBlock": true,
+    "RectangleShape": true
+  
+}

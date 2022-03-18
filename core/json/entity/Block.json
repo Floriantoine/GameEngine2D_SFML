@@ -1,0 +1,11 @@
+{
+    "Pos": [320, 410],
+    "RectangleShape": true,
+    "Size": [10, 10],
+    "Color": "blue",
+    "DiesLeavesScreen": true,
+    "Force": [ 0, 9.81],
+    "Masse": 1,
+    "isSolidBlock": true,
+    "Gravity": true
+}

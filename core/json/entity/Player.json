@@ -11,7 +11,7 @@
     "Speed": 10,
     "HaveCollisionDamage": true,
     "Direction": "STATIC",
-    "PresseSpaceMakeEntity": "../core/json/entity/Missile.json",
+    "PresseSpaceMakeEntity": "../core/json/entity/Block.json",
     "SoundEvent":  {
         "key": 57,
         "soundName": "laserBlast",
