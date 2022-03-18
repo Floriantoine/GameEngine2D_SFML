@@ -71,8 +71,25 @@ void GravitySystem::update(long elapsedTime)
                             gravitySecond->_cur_S = gravityC->_cur_S;
                             gravityC->_cur_S = gravityTempo;
                         } else {
-                            forceComponent->force = sf::Vector2f(0, 0);
-                            gravityC->_cur_S = sf::Vector2f(0, 0);
+                            // forceComponent->force = forceComponent->force;
+                            std::cout
+                                << "======================================="
+                                << std::endl;
+                            std::cout << "gravity: " << gravityC->_cur_S.y
+                                      << std::endl;
+                            if (gravityC->_cur_S.y > 0) {
+                                gravityC->_cur_S = -gravityC->_cur_S;
+                                std::cout
+                                    << "Before gravity: " << gravityC->_cur_S.y
+                                    << std::endl;
+                            }
+                            gravityC->_cur_S.y =
+                                std::min(0.0f, gravityC->_cur_S.y + 10);
+                            std::cout << "After gravity: " << gravityC->_cur_S.y
+                                      << std::endl;
+                            std::cout
+                                << "======================================="
+                                << std::endl;
                         }
                         arrayCollision.erase(collitionFirst->_targetId);
                     }
