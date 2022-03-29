@@ -75,7 +75,7 @@ void Game::onInit()
     _componentManager.registerComponentName(
         "Force", components::ForceComponent::factory);
     _componentManager.registerComponentName(
-        "Gravity", components::Gravity::factory);
+        "RigideBody", components::RigideBody::factory);
     _componentManager.registerComponentName(
         "Health", components::HealthComponent::factory);
     _componentManager.registerComponentName(

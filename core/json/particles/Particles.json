@@ -28,6 +28,6 @@
     "Color": "green",
     "SpawnMousePos": true,
     "isSolidBlock": true,
-    "Gravity": true
+    "RigideBody": true
 
 }

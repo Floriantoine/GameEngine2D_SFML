@@ -20,7 +20,7 @@ set(SRCS
         components/DiesLeavesScreen.cpp
         components/Direction.cpp
         components/ForceComponent.cpp
-        components/GravityComponent.cpp
+        components/RigideBody.cpp
         components/HaveCollisionDamage.cpp
         components/HealthComponent.cpp
         components/KeyMovement.cpp

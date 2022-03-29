@@ -10,7 +10,7 @@
     "ParticleIdentity": "quads",
     "Size": 4,
     "Force": {
-        "init": [ 0, 9.81],
+        "init": [ 0, 0],
         "rangeMin": [1, 1],
         "rangeMax": [1, 1]
     },
@@ -21,7 +21,9 @@
     "mouseForce": false,
     "Masse": 1,
     "isSolidBlock": true,
-    "Gravity": true,
+    "RigideBody": {
+        "gravity": false
+    },
     "Damage": 1
 
 }

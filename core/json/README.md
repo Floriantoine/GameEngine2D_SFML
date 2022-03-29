@@ -28,7 +28,7 @@
 >   | :--------------- | :---: | :-------------------------: | :------------------: |
 >   | -                |   -   |      System Activator       |          -           |
 >   | DiesLeavesScreen | bool  |   Dies if leaving Screen    | `DiesLeavesScreen: true` |
->   | Gravity          | bool  |   Apply Gravity             | `Gravity: true` |
+>   | RigideBody          | bool  |   Apply Force             | `RigideBody: true` |
 >   | KeyMovement          | bool  |   Move with Key           | `KeyMovement: true` |
 >   | LifeTime |    bool    | Loose Life with Time | |          |
 >   | MouseForce |    bool    | Give Mouse Force | |          |

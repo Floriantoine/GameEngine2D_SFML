@@ -162,9 +162,10 @@ class AGame {
      */
     void update(long elapsed)
     {
+        this->_eventSys.update(elapsed);
+
         this->_particleSystem.update(elapsed);
         this->_parallax.update(elapsed);
-        this->_eventSys.update(elapsed);
 
         imguiTools::EcsController::update(elapsed);
         tools::Chrono::display();

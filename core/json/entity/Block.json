@@ -4,8 +4,10 @@
     "Size": [10, 10],
     "Color": "blue",
     "DiesLeavesScreen": true,
-    "Force": [ 0, 9.81],
+    "Force": [ 0, 0],
     "Masse": 1,
     "isSolidBlock": true,
-    "Gravity": true
+    "RigideBody": {
+        "gravity": false
+    }
 }

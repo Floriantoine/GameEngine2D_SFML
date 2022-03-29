@@ -1,8 +1,8 @@
 #include "system/GravitySystem.hpp"
 #include "components/ForceComponent.hpp"
-#include "components/GravityComponent.hpp"
 #include "components/MasseComponent.hpp"
 #include "components/PosComponent.hpp"
+#include "components/RigideBody.hpp"
 #include "components/SolidBlock.hpp"
 #include "tools/Chrono.hpp"
 
@@ -28,10 +28,10 @@ void GravitySystem::update(long elapsedTime)
             this->_componentManager->getComponentList<components::SolidBlock>();
 
         auto array =
-            this->_componentManager->getComponentList<components::Gravity>();
+            this->_componentManager->getComponentList<components::RigideBody>();
         for (auto &it: array) {
-            components::Gravity *gravityC =
-                static_cast<components::Gravity *>(it.second);
+            components::RigideBody *gravityC =
+                static_cast<components::RigideBody *>(it.second);
             if (gravityC == nullptr)
                 continue;
             components::PosComponent *PosC =
@@ -40,6 +40,10 @@ void GravitySystem::update(long elapsedTime)
             if (PosC == nullptr) {
                 continue;
             }
+
+            components::MasseComponent *MasseComponent =
+                this->_componentManager
+                    ->getComponent<components::MasseComponent>(it.first);
 
             components::ForceComponent *forceComponent =
                 this->_componentManager
@@ -58,9 +62,9 @@ void GravitySystem::update(long elapsedTime)
                             this->_componentManager
                                 ->getComponent<components::ForceComponent>(
                                     collitionFirst->_targetId);
-                        components::Gravity *gravitySecond =
+                        components::RigideBody *gravitySecond =
                             this->_componentManager
-                                ->getComponent<components::Gravity>(
+                                ->getComponent<components::RigideBody>(
                                     collitionFirst->_targetId);
                         if (forceSecond != nullptr &&
                             gravitySecond != nullptr) {
@@ -72,24 +76,14 @@ void GravitySystem::update(long elapsedTime)
                             gravityC->_cur_S = gravityTempo;
                         } else {
                             // forceComponent->force = forceComponent->force;
-                            std::cout
-                                << "======================================="
-                                << std::endl;
-                            std::cout << "gravity: " << gravityC->_cur_S.y
-                                      << std::endl;
                             if (gravityC->_cur_S.y > 0) {
                                 gravityC->_cur_S = -gravityC->_cur_S;
-                                std::cout
-                                    << "Before gravity: " << gravityC->_cur_S.y
-                                    << std::endl;
                             }
-                            gravityC->_cur_S.y =
-                                std::min(0.0f, gravityC->_cur_S.y + 10);
-                            std::cout << "After gravity: " << gravityC->_cur_S.y
-                                      << std::endl;
-                            std::cout
-                                << "======================================="
-                                << std::endl;
+                            gravityC->_cur_S.y = std::min(
+                                0.0f, gravityC->_cur_S.y +
+                                          10 * (MasseComponent != nullptr
+                                                       ? MasseComponent->masse
+                                                       : 1));
                         }
                         arrayCollision.erase(collitionFirst->_targetId);
                     }
@@ -97,13 +91,12 @@ void GravitySystem::update(long elapsedTime)
                 }
             }
 
-            components::MasseComponent *MasseComponent =
-                this->_componentManager
-                    ->getComponent<components::MasseComponent>(it.first);
-
             sf::Vector2f _prior_S0 = gravityC->_cur_S;
-            sf::Vector2f _S_derivs0 =
+            sf::Vector2f force =
                 (forceComponent ? forceComponent->force : sf::Vector2f(0, 0));
+            sf::Vector2f _S_derivs0 =
+                (gravityC->_haveGravity ? (force + sf::Vector2f(0, 9.81))
+                                        : force);
             sf::Vector2f _S_derivs1(0, 0);
             if (MasseComponent && MasseComponent->masse != 0) {
                 _S_derivs1 = _prior_S0 / (float)MasseComponent->masse;

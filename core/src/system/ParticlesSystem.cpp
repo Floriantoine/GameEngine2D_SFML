@@ -5,8 +5,8 @@ namespace systems {
 
 void ParticlesSystem::reset(fa::id_t index)
 {
-    components::Gravity *gravityC =
-        this->_componentManager->getComponent<components::Gravity>(index);
+    components::RigideBody *gravityC =
+        this->_componentManager->getComponent<components::RigideBody>(index);
     components::HealthComponent *compLife =
         this->_componentManager->getComponent<components::HealthComponent>(
             index);
