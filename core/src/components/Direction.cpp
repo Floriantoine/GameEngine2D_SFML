@@ -76,7 +76,12 @@ void Direction::factory(fa::id_t entityId, nlohmann::json config)
 void Direction::dislayImGuiPanel()
 {
     if (ImGui::CollapsingHeader("directionComponent##ImGuiModifierECS")) {
-        ImGui::Checkbox("IsContinuous##ImGuiModifierECS", &_continuous);
+        if (ImGui::BeginChild(
+                "DiesLeavesScreenComponentChild##ImGuiModifier")) {
+            ImGui::Checkbox(
+                "DiesLeavesScreenComponent##ImGuiModifierECS", &_continuous);
+            ImGui::EndChild();
+        }
     }
 };
 } // namespace components

@@ -8,6 +8,6 @@
     "Masse": 1,
     "isSolidBlock": true,
     "RigideBody": {
-        "gravity": false
+        "gravity": true
     }
 }

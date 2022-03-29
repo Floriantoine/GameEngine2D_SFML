@@ -20,5 +20,7 @@
         "rangeMax": [ 0, 9.81]
     },
     "Masse": 0.4,
-    "Gravity": true
+    "RigideBody": {
+        "gravity": true
+    }
 }

@@ -24,6 +24,9 @@ void Sprite::dislayImGuiPanel()
         ImGui::Checkbox("isInit", &_isInit);
         ImGui::InputText(
             "textureName", (char *)_textureName.c_str(), _textureName.size());
+        if (this->_isInit) {
+            ImGui::Image(_sprite);
+        }
     }
 };
 } // namespace components

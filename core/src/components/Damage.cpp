@@ -16,7 +16,10 @@ void Damage::factory(fa::id_t entityId, nlohmann::json config)
 void Damage::dislayImGuiPanel()
 {
     if (ImGui::CollapsingHeader("DamageComponent##ImguiModifier")) {
-        ImGui::InputInt("Damage##DamageComponentModifier", &_damage);
+        if (ImGui::BeginChild("DamageComponentChild##ImGuiModifier")) {
+            ImGui::InputInt("Damage##DamageComponentModifier", &_damage);
+            ImGui::EndChild();
+        }
     }
 };
 } // namespace components

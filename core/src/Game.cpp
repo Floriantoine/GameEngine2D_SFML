@@ -10,7 +10,6 @@ int main(int argc, char const *argv[])
     Game::Game::getInstance().start();
     return 0;
 }
-
 namespace Game {
 
 void Game::resetClock()
