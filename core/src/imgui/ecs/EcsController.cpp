@@ -76,6 +76,8 @@ void EcsController::update(long elapsedtime)
                 if (ImGui::Button("Remove Component##EcsController")) {
                     ImGui::OpenPopup("removeComponentPopup##EcsController");
                 }
+                popupAddComponent();
+                popupRemoveComponent();
             }
             // ----------------------------------------------------------------
 
