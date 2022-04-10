@@ -5,8 +5,16 @@
             "name": "texture1"
         },
         {
-            "path": "../core/resources/spaceShip.png",
-            "name": "texture2"
+            "path": "../core/resources/objects/Fence1.png",
+            "name": "fence1"
+        },
+        {
+            "path": "../core/resources/objects/Fence2.png",
+            "name": "fence2"
+        }
+        , {
+            "path": "../core/resources/objects/Fence3.png",
+            "name": "fence3"
         }
     ]
 }

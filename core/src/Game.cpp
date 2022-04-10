@@ -124,7 +124,7 @@ void Game::onInit()
     // ----------------------------------------------------------------------
     // ------------- _systemManager.createSystem<SystemType>(); -------------
     // ----------------------------------------------------------------------
-    _systemManager.createSystem<systems::SpriteSystem>(
+    _spiteSystem = _systemManager.createSystem<systems::SpriteSystem>(
         "../core/json/SpriteSystem.json");
     _systemManager.createSystem<fa::ParticleMousePosSystem>(_observerManager);
     _systemManager.createSystem<fa::ParticleTimeLifeSystem>();
