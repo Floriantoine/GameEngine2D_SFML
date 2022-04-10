@@ -3,9 +3,21 @@
 
 namespace systems {
 
+TextureInf::TextureInf(sf::Texture texture, std::string name)
+    : _texture(texture), _name(name){};
+
 bool SpriteSystem::isRegistered(uint64 Id)
 {
     return (_texturesMap.find(Id) != _texturesMap.end());
+}
+
+std::vector<std::string> SpriteSystem::getTexturesName() const
+{
+    std::vector<std::string> names;
+    for (auto &texture: this->_texturesMap) {
+        names.push_back(texture.second._name);
+    }
+    return names;
 }
 
 sf::Texture *SpriteSystem::getTexture(uint64 id)
@@ -16,7 +28,7 @@ sf::Texture *SpriteSystem::getTexture(uint64 id)
     const auto &it = _texturesMap.find(id);
     if (it == _texturesMap.end())
         return nullptr;
-    return &it->second;
+    return &it->second._texture;
 }
 
 sf::Texture *SpriteSystem::getTexture(const std::string name)
@@ -26,13 +38,13 @@ sf::Texture *SpriteSystem::getTexture(const std::string name)
     if (isRegistered(id) == false) {
         const auto &it = _texturesMap.find(tools::stringToId("missingTexture"));
         if (it != _texturesMap.end())
-            return &it->second;
+            return &it->second._texture;
         return nullptr;
     }
     const auto &it = _texturesMap.find(id);
     if (it == _texturesMap.end())
         return nullptr;
-    return &it->second;
+    return &it->second._texture;
 }
 
 bool SpriteSystem::createTexture(const std::string name, const std::string path)
@@ -44,7 +56,7 @@ bool SpriteSystem::createTexture(const std::string name, const std::string path)
     }
     sf::Texture texture;
     if (texture.loadFromFile(path))
-        _texturesMap[id] = texture;
+        _texturesMap[id] = TextureInf(texture, name);
     return true;
 }
 

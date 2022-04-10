@@ -22,6 +22,8 @@ class Game : public AGame, public Singleton<Game> {
     sf::Clock _imguiClock;
 
   public:
+    std::shared_ptr<systems::SpriteSystem> _spiteSystem;
+
     void setWindowTitle(const std::string &title);
     void setVideoMode(sf::VideoMode mode);
     void setWindowStyle(sf::Uint32 style);

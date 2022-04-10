@@ -20,10 +20,24 @@ void Sprite::factory(fa::id_t entityId, nlohmann::json config)
 }
 void Sprite::dislayImGuiPanel()
 {
-    if (ImGui::CollapsingHeader("SpriteComponent")) {
-        ImGui::Checkbox("isInit", &_isInit);
-        ImGui::InputText(
-            "textureName", (char *)_textureName.c_str(), _textureName.size());
+    if (ImGui::CollapsingHeader("SpriteComponent##ImGuiPanel")) {
+        auto *systemRef = Game::Game::getInstance()._spiteSystem.get();
+        if (systemRef != nullptr) {
+            std::vector<std::string> stringNames = systemRef->getTexturesName();
+            auto charNames = tools::vStringToChar(stringNames);
+            auto iter =
+                std::find(stringNames.begin(), stringNames.end(), _textureName);
+            int current = 0;
+            if (iter != stringNames.end()) {
+                current = iter - stringNames.begin();
+            }
+            if (ImGui::ListBox("textureName##ImGuiPanelListBox", &current,
+                    &charNames[0], stringNames.size())) {
+                _isInit = false;
+                _textureName = stringNames[current];
+            }
+        }
+
         if (this->_isInit) {
             ImGui::Image(_sprite);
         }
