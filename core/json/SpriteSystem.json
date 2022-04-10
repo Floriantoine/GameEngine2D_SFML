@@ -21,6 +21,24 @@
             "name": "dog1Idle",
             "type": "ANIMATED",
             "step": 4
+        },
+        {
+            "path": "../core/resources/animatedObjects/Hammer.png",
+            "name": "Hammer",
+            "type": "ANIMATED",
+            "step": 8
+        },
+        {
+            "path": "../core/resources/animatedObjects/Screen1.png",
+            "name": "Screen1",
+            "type": "ANIMATED",
+            "step": 4
+        },
+        {
+            "path": "../core/resources/animatedObjects/Screen2.png",
+            "name": "Screen2",
+            "type": "ANIMATED",
+            "step": 4
         }
     ]
 }

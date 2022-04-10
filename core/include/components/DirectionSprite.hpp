@@ -5,11 +5,10 @@
 
 namespace components {
 
-class LoopLife : public fa::Component<LoopLife> {
+class DirectionSprite : public fa::Component<DirectionSprite> {
   public:
+    DirectionSprite();
     static void factory(fa::id_t entityId, nlohmann::json config);
-    LoopLife() = default;
-    ~LoopLife() = default;
     void dislayImGuiPanel() override;
 };
 } // namespace components
