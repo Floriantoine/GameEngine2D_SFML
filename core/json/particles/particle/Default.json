@@ -1,0 +1,27 @@
+{
+    "Health": {
+        "init": 6000,
+        "rangeMin": 3000,
+        "rangeMax": 3000
+    },
+    "LifeTime": true,
+    "ParticleIdentity": "quads",
+    "Size": 4,
+    "Force": {
+        "init": [ 0, 0],
+        "rangeMin": [1, 1],
+        "rangeMax": [1, 1]
+    },
+    "Pos": [100 , 100],
+    "SpawnPos": [100 , 100],
+    "Color": "green",
+    "SpawnMousePos": true,
+    "mouseForce": false,
+    "Masse": 1,
+    "isSolidBlock": true,
+    "RigideBody": {
+        "gravity": false
+    },
+    "Damage": 1
+
+}

@@ -9,6 +9,8 @@ class EcsController {
     static inline fa::Entity *_entityRef = nullptr;
     static inline bool _createEntity = false;
     static void newEntity();
+    static void popupAddComponent();
+    static void popupRemoveComponent();
 
   public:
     static void update(long elapsedtime);

@@ -9,7 +9,7 @@ namespace components {
 class SolidBlock : public fa::Component<SolidBlock> {
   public:
     bool _haveCollision = false;
-    fa::id_t _targetId;
+    std::vector<fa::id_t> _targetsId;
 
     SolidBlock() = default;
     ~SolidBlock() = default;

@@ -17,7 +17,7 @@ class Game : public AGame, public Singleton<Game> {
     std::unique_ptr<sf::RenderWindow> _window;
     sf::VideoMode _videoMode{1920, 1080};
     sf::Uint32 _windowStyle{sf::Style::Default};
-    std::string _windowTitle{"Game"};
+    std::string _windowTitle{"Game Engine"};
     std::chrono::steady_clock::time_point _lastUpdate;
     sf::Clock _imguiClock;
 

@@ -4,10 +4,15 @@
 namespace components {
 void ForceComponent::dislayImGuiPanel()
 {
-    if (ImGui::CollapsingHeader("ForceComponent")) {
-        ImGui::InputFloat2("CurrentForce", &_initForce.x);
-        ImGui::SliderFloat2("ForceRangeMin", &_rangeMin.x, 0, 100);
-        ImGui::SliderFloat2("ForceRangeMax", &_rangeMax.x, 0, 100);
+    if (ImGui::CollapsingHeader("ForceComponent##ImGuiModifier")) {
+        if (ImGui::BeginChild("ForceComponentChild##ImGuiModifier")) {
+            ImGui::InputFloat2("CurrentForce##ImGuiModifier", &_initForce.x);
+            ImGui::SliderFloat2(
+                "ForceRangeMin##ImGuiModifier", &_rangeMin.x, 0, 100);
+            ImGui::SliderFloat2(
+                "ForceRangeMax##ImGuiModifier", &_rangeMax.x, 0, 100);
+            ImGui::EndChild();
+        }
     }
 };
 void ForceComponent::factory(fa::id_t entityId, nlohmann::json config)

@@ -34,7 +34,8 @@ void CollisionSystem::update(long elapsedTime)
                     this->_componentManager->getComponent<components::Size>(
                         it.first);
                 inf.id = it.first;
-                inf.targetId = &solidC->_targetId;
+                solidC->_targetsId.clear();
+                inf.targetsId = &solidC->_targetsId;
                 inf._floatRect = sf::FloatRect(
                     posC->_pos, sizeC ? sizeC->_size : sf::Vector2f(1, 1));
                 inf._haveCollision = &solidC->_haveCollision;
@@ -44,8 +45,8 @@ void CollisionSystem::update(long elapsedTime)
         for (auto it = _infs.begin(); it != _infs.end(); ++it) {
             for (auto it2 = std::next(it); it2 != _infs.end(); ++it2) {
                 if (it->_floatRect.intersects(it2->_floatRect)) {
-                    *(it->targetId) = it2->id;
-                    *(it2->targetId) = it->id;
+                    it->targetsId->push_back(it2->id);
+                    it2->targetsId->push_back(it->id);
                     *(it->_haveCollision) = true;
                     *(it2->_haveCollision) = true;
                 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../src/types.hpp"
+#include "Imgui.hpp"
 
 namespace fa {
 
@@ -25,6 +26,7 @@ class ComponentBase {
     }
     virtual void dislayImGuiPanel()
     {
+        ImGui::Text("Empty");
     }
 };
 

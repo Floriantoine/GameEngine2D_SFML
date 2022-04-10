@@ -6,14 +6,18 @@
 
 namespace components {
 
-class Gravity : public fa::Component<Gravity> {
+class RigideBody : public fa::Component<RigideBody> {
   public:
     sf::Vector2f _cur_S;
+    bool _haveGravity = true;
+    bool _isKinematic = false;
 
   public:
-    Gravity() = default;
-    ~Gravity() = default;
+    RigideBody(bool gravity, bool kinematic)
+        : _haveGravity(gravity), _isKinematic(kinematic){};
+    ~RigideBody() = default;
     static void factory(fa::id_t entityId, nlohmann::json config);
     void dislayImGuiPanel() override;
 };
+
 } // namespace components

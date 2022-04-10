@@ -10,7 +10,6 @@ int main(int argc, char const *argv[])
     Game::Game::getInstance().start();
     return 0;
 }
-
 namespace Game {
 
 void Game::resetClock()
@@ -75,7 +74,7 @@ void Game::onInit()
     _componentManager.registerComponentName(
         "Force", components::ForceComponent::factory);
     _componentManager.registerComponentName(
-        "Gravity", components::Gravity::factory);
+        "RigideBody", components::RigideBody::factory);
     _componentManager.registerComponentName(
         "Health", components::HealthComponent::factory);
     _componentManager.registerComponentName(
@@ -120,6 +119,8 @@ void Game::onInit()
     _componentManager.registerComponentName(
         "Direction", components::Direction::factory);
     _componentManager.registerComponentName("Text", components::Text::factory);
+    _componentManager.registerComponentName(
+        "EntitySpawner", components::EntitySpawner::factory);
     // ----------------------------------------------------------------------
     // ------------- _systemManager.createSystem<SystemType>(); -------------
     // ----------------------------------------------------------------------
@@ -141,6 +142,7 @@ void Game::onInit()
     _systemManager.createSystem<systems::KeyHandler>();
     _systemManager.createSystem<fa::MouseForceSystem>(_observerManager);
     _systemManager.createSystem<systems::OrbitSystem>();
+    _systemManager.createSystem<systems::EntitySpawner>();
     // ------------------------------------------------------------------------
     // ----------------------------------------Simulate sound Factory----------
     // ------------------------------------------------------------------------

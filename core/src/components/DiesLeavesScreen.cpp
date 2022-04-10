@@ -11,7 +11,12 @@ void DiesLeavesScreen::factory(fa::id_t entityId, nlohmann::json config)
 }
 void DiesLeavesScreen::dislayImGuiPanel()
 {
-    if (ImGui::CollapsingHeader("DiesLeavesScreenComponent")) {
+    if (ImGui::CollapsingHeader("DiesLeavesScreenComponent##ImGuiModifier")) {
+        if (ImGui::BeginChild(
+                "DiesLeavesScreenComponentChild##ImGuiModifier")) {
+            ImGui::Text("no Modifier");
+            ImGui::EndChild();
+        }
     }
 };
 } // namespace components
