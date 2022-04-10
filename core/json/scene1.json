@@ -57,7 +57,7 @@
         },
         {
             "path": "../core/resources/",
-            "name": "texture2"
+            "name": "texture1"
         }
     ]
 }
