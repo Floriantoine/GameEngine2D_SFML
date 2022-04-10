@@ -41,5 +41,6 @@ class SpriteSystem : public fa::ASystem {
     bool createTexture(nlohmann::json config);
     bool isRegistered(uint64 Id);
     void update(long elapsedTime) override;
+    void updateDirectionsSprite(long elapsedTime);
 };
 } // namespace systems

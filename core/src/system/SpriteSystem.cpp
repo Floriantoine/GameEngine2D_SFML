@@ -119,19 +119,55 @@ SpriteSystem::SpriteSystem(std::string const &filePath)
     }
 }
 
+void SpriteSystem::updateDirectionsSprite(long elapsedTime)
+{
+    auto array = this->_componentManager
+                     ->getComponentList<components::DirectionSprite>();
+    for (auto &it: array) {
+        components::DirectionSprite *directionSprite =
+            static_cast<components::DirectionSprite *>(it.second);
+        components::Direction *directionComp =
+            this->_componentManager->getComponent<components::Direction>(
+                it.first);
+        if (directionSprite != nullptr && directionComp != nullptr) {
+            components::Sprite *SpriteC =
+                this->_componentManager->getComponent<components::Sprite>(
+                    it.first);
+            std::string textureDir = "";
+            if (directionComp->_direction == directions::LEFT) {
+                textureDir = directionSprite->_textureDirections["LEFT"];
+            } else if (directionComp->_direction == directions::STATIC) {
+                textureDir = directionSprite->_textureDirections["STATIC"];
+            } else if (directionComp->_direction == directions::RIGHT) {
+                textureDir = directionSprite->_textureDirections["RIGHT"];
+            } else if (directionComp->_direction == directions::UP) {
+                textureDir = directionSprite->_textureDirections["UP"];
+            } else if (directionComp->_direction == directions::DOWN) {
+                textureDir = directionSprite->_textureDirections["DOWN"];
+            }
+            if (textureDir != "" && SpriteC->_textureName != textureDir) {
+                SpriteC->_textureName = textureDir;
+                SpriteC->_isInit = false;
+            }
+        }
+    }
+}
+
 void SpriteSystem::update(long elapsedTime)
 {
     tools::Chrono::start();
 
     this->_elapsedTime += elapsedTime;
     if (this->_elapsedTime >= 16) {
+        this->updateDirectionsSprite(elapsedTime);
+
         sf::RenderWindow *window = Game::Game::getInstance().getWindow();
         auto array =
             this->_componentManager->getComponentList<components::Sprite>();
         for (auto &it: array) {
             components::Sprite *SpriteC =
                 static_cast<components::Sprite *>(it.second);
-            if (!SpriteC->_isInit) {
+            if (SpriteC != nullptr && !SpriteC->_isInit) {
                 components::Size *sizeC =
                     this->_componentManager->getComponent<components::Size>(
                         it.first);
@@ -163,7 +199,7 @@ void SpriteSystem::update(long elapsedTime)
                                 textureSize.y)));
                     }
                 }
-            } else {
+            } else if (SpriteC != nullptr) {
                 components::PosComponent *PosC =
                     this->_componentManager
                         ->getComponent<components::PosComponent>(it.first);

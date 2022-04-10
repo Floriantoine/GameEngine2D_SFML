@@ -121,6 +121,8 @@ void Game::onInit()
     _componentManager.registerComponentName("Text", components::Text::factory);
     _componentManager.registerComponentName(
         "EntitySpawner", components::EntitySpawner::factory);
+    _componentManager.registerComponentName(
+        "DirectionSprite", components::DirectionSprite::factory);
     // ----------------------------------------------------------------------
     // ------------- _systemManager.createSystem<SystemType>(); -------------
     // ----------------------------------------------------------------------

@@ -23,5 +23,10 @@
     "Masse": 1,
     "RigideBody": {
         "gravity": true
+    },
+    "DirectionSprite": {
+        "LEFT": "dog1Walk",
+        "RIGHT": "dog1Walk",
+        "STATIC": "dog1Idle"
     }
 }

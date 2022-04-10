@@ -7,6 +7,7 @@
 #include "components/Damage.hpp"
 #include "components/DiesLeavesScreen.hpp"
 #include "components/Direction.hpp"
+#include "components/DirectionSprite.hpp"
 #include "components/EntitySpawner.hpp"
 #include "components/ForceComponent.hpp"
 #include "components/FormComponent.hpp"

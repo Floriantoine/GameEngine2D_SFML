@@ -16,6 +16,19 @@ sf::Vector2i const DOWN_LEFT = sf::Vector2i(-1, 1);
 sf::Vector2i const DOWN = sf::Vector2i(0, 1);
 sf::Vector2i const DOWN_RIGHT = sf::Vector2i(1, 1);
 
+enum class DirectionsInt : int
+{
+    UP_LEFT = 0,
+    UP,
+    UP_RIGHT,
+    LEFT,
+    STATIC,
+    RIGHT,
+    DOWN_LEFT,
+    DOWN,
+    DOWN_RIGHT
+
+};
 }; // namespace directions
 
 namespace components {
