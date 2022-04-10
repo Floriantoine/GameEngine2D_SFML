@@ -1,0 +1,8 @@
+{
+    "name": "ParticlesS",
+    "EntitySpawner": {
+        "config": "../core/json/particles/particle/Particles.json",
+        "type": "NUMBER",
+        "iteration": 10
+    }
+}

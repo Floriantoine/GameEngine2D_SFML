@@ -1,0 +1,8 @@
+{
+    "Pos": [20, 20],
+    "Size": [10, 4],
+    "Color": "blue",
+    "Text": {
+        "string": "Test Game Engine"
+    }
+}

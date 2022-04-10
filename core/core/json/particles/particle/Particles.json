@@ -1,0 +1,32 @@
+{
+    "LifeTime": true,
+    "LoopLife": "loop",
+    "Health": {
+        "init": 6000,
+        "rangeMin": 3000,
+        "rangeMax": 3000
+    },
+    "ParticleIdentity": "quads",
+    "Size": {
+        "init": [ 10, 10],
+        "rangeMin": [10, 10],
+        "rangeMax": [10, 10]
+    },
+    "Force": {
+        "init": [ 0, 0],
+        "rangeMin": [1, 1],
+        "rangeMax": [1, 1]
+    },
+    "Pos": [100 , 100],
+    "SpawnPos": {
+        "init": [100 , 100],
+        "rangeMin": [0, 0],
+        "rangeMax": [0, 0]
+    },
+    "Masse": 1,
+    "Color": "green",
+    "SpawnMousePos": true,
+    "isSolidBlock": true,
+    "RigideBody": true
+
+}

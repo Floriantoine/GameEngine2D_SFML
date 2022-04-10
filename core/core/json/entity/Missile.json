@@ -1,0 +1,17 @@
+{
+    "Pos": [320, 410],
+    "isSolidBlock": true,
+    "RectangleShape": true,
+    "Size": [10, 4],
+    "Color": "blue",
+    "HaveCollisionDamage": true,
+    "Health": 1,
+    "Speed": 10,
+    "DiesLeavesScreen": true,
+    "Direction": {
+        "direction": "RIGHT",
+        "continuous": true
+    },
+    "TargetEntity": "Enemy",
+    "Damage": 100
+}

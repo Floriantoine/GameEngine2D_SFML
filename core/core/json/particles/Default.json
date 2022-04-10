@@ -1,0 +1,8 @@
+{
+    "name": "DefaultS",
+    "EntitySpawner": {
+        "config": "../core/json/particles/particle/Default.json",
+        "type": "NUMBER",
+        "iteration": 10
+    }
+}

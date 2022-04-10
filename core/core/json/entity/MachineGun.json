@@ -1,0 +1,26 @@
+{
+    "Pos": [320, 410],
+    "isSolidBlock": true,
+    "RectangleShape": true,
+    "Size": [6, 3],
+    "Color": "red",
+    "HaveCollisionDamage": true,
+    "Health": 200,
+    "Speed": 15,
+    "DiesLeavesScreen": true,
+    "Direction": {
+        "direction": "RIGHT",
+        "continuous": true
+    },
+    "Damage": 100,
+    "LifeTime": true,
+    "Force": {
+        "init": [ 0, 0],
+        "rangeMin": [ 0, 9.81],
+        "rangeMax": [ 0, 9.81]
+    },
+    "Masse": 0.4,
+    "RigideBody": {
+        "gravity": true
+    }
+}

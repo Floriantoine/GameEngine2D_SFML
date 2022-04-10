@@ -1,0 +1,20 @@
+{
+    "name": "Player##1",
+    "Pos": [200, 400],
+    "isSolidBlock": true,
+    "KeyMovement": true,
+    "DiesLeavesScreen": true,
+    "Sprite": "texture1",
+    "Size": [10, 10],
+    "Health": 20,
+    "Damage": 1,
+    "Speed": 10,
+    "HaveCollisionDamage": true,
+    "Direction": "STATIC",
+    "PresseSpaceMakeEntity": "../core/json/entity/Block.json",
+    "SoundEvent":  {
+        "key": 57,
+        "soundName": "laserBlast",
+        "loop": false
+    }
+}
