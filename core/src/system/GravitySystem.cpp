@@ -26,6 +26,14 @@ void GravitySystem::update(long elapsedTime)
     if (this->_elapsedTime >= 16) {
         auto arrayCollision =
             this->_componentManager->getComponentList<components::SolidBlock>();
+        std::unordered_map<fa::id_t, components::SolidBlock> collisionVector;
+        for (auto &collisionComp: arrayCollision) {
+            components::SolidBlock *solidBlockComp =
+                static_cast<components::SolidBlock *>(collisionComp.second);
+            if (solidBlockComp != nullptr) {
+                collisionVector[collisionComp.first] = *solidBlockComp;
+            }
+        }
 
         auto array =
             this->_componentManager->getComponentList<components::RigideBody>();
@@ -48,46 +56,62 @@ void GravitySystem::update(long elapsedTime)
             components::ForceComponent *forceComponent =
                 this->_componentManager
                     ->getComponent<components::ForceComponent>(it.first);
-            if (arrayCollision.size() > 0) {
-                auto collision = arrayCollision.find(it.first);
+
+            if (collisionVector.size() > 0) {
+                auto collision = collisionVector.find(it.first);
                 if (forceComponent != nullptr &&
-                    collision != arrayCollision.end()) {
-                    components::SolidBlock *collitionFirst =
-                        static_cast<components::SolidBlock *>(
-                            collision->second);
-                    if (collitionFirst != nullptr &&
-                        collitionFirst->_haveCollision == true &&
-                        collitionFirst->_targetId != it.first) {
-                        components::ForceComponent *forceSecond =
-                            this->_componentManager
-                                ->getComponent<components::ForceComponent>(
-                                    collitionFirst->_targetId);
-                        components::RigideBody *gravitySecond =
-                            this->_componentManager
-                                ->getComponent<components::RigideBody>(
-                                    collitionFirst->_targetId);
-                        if (forceSecond != nullptr &&
-                            gravitySecond != nullptr) {
-                            sf::Vector2f forceTempo = forceSecond->force;
-                            forceSecond->force = forceComponent->force;
-                            forceComponent->force = forceTempo;
-                            sf::Vector2f gravityTempo = gravitySecond->_cur_S;
-                            gravitySecond->_cur_S = gravityC->_cur_S;
-                            gravityC->_cur_S = gravityTempo;
-                        } else {
-                            // forceComponent->force = forceComponent->force;
-                            if (gravityC->_cur_S.y > 0) {
-                                gravityC->_cur_S = -gravityC->_cur_S;
+                    collision != collisionVector.end()) {
+                    components::SolidBlock collitionFirst =
+                        static_cast<components::SolidBlock>(collision->second);
+                    if (collitionFirst._haveCollision == true &&
+                        collitionFirst._targetsId.size() > 0) {
+                        for (auto &idTarget: collitionFirst._targetsId) {
+                            components::ForceComponent *forceSecond =
+                                this->_componentManager
+                                    ->getComponent<components::ForceComponent>(
+                                        idTarget);
+                            components::RigideBody *gravitySecond =
+                                this->_componentManager
+                                    ->getComponent<components::RigideBody>(
+                                        idTarget);
+                            if (forceSecond != nullptr &&
+                                gravitySecond != nullptr) {
+                                sf::Vector2f forceTempo = forceSecond->force;
+                                forceSecond->force = forceComponent->force;
+                                forceComponent->force = forceTempo;
+                                sf::Vector2f gravityTempo =
+                                    gravitySecond->_cur_S;
+                                gravitySecond->_cur_S = gravityC->_cur_S;
+                                gravityC->_cur_S = gravityTempo;
+                            } else {
+                                forceComponent->force = -forceComponent->force;
+                                if (gravityC->_cur_S.y > 0) {
+                                    gravityC->_cur_S = -gravityC->_cur_S;
+                                }
+                                gravityC->_cur_S.y = 0;
+                                // gravityC->_cur_S.y = std::min(-1.0f,
+                                //     gravityC->_cur_S.y +
+                                //         10 * (MasseComponent != nullptr
+                                //                      ? MasseComponent->masse
+                                //                      : 1));
                             }
-                            gravityC->_cur_S.y = std::min(
-                                0.0f, gravityC->_cur_S.y +
-                                          10 * (MasseComponent != nullptr
-                                                       ? MasseComponent->masse
-                                                       : 1));
+
+                            auto collisionTarget =
+                                collisionVector.find(idTarget);
+                            if (collisionTarget != collisionVector.end()) {
+                                auto targetCollisionIter = std::find(
+                                    collisionTarget->second._targetsId.begin(),
+                                    collisionTarget->second._targetsId.end(),
+                                    it.first);
+                                if (targetCollisionIter !=
+                                    collisionTarget->second._targetsId.end()) {
+                                    collisionTarget->second._targetsId.erase(
+                                        targetCollisionIter);
+                                }
+                            }
                         }
-                        arrayCollision.erase(collitionFirst->_targetId);
                     }
-                    arrayCollision.erase(it.first);
+                    collisionVector.erase(it.first);
                 }
             }
 
@@ -98,19 +122,20 @@ void GravitySystem::update(long elapsedTime)
                 (gravityC->_haveGravity ? (force + sf::Vector2f(0, 9.81))
                                         : force);
             sf::Vector2f _S_derivs1(0, 0);
-            if (MasseComponent && MasseComponent->masse != 0) {
-                _S_derivs1 = _prior_S0 / (float)MasseComponent->masse;
-            } else {
-                _S_derivs1 = _prior_S0 / 1.0f;
+            if (MasseComponent) {
+                _S_derivs1 = _prior_S0 / (float)(MasseComponent->masse != 0
+                                                     ? MasseComponent->masse
+                                                     : 1.0f);
             }
 
-            // ExplicitEuler
             float delta = delta_t * (_elapsedTime / 16.0f);
             gravityC->_cur_S = _prior_S0 + delta * _S_derivs0;
             PosC->_pos = PosC->_pos + delta * _S_derivs1;
+
             // ExplicitEuler(gravityC->_cur_S.size(), &gravityC->_cur_S,
             //     gravityC->_prior_S, gravityC->_S_derivs, delta_t);
         }
+
         this->_elapsedTime = 0;
     }
     tools::Chrono::end("gravity");

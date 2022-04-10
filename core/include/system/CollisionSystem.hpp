@@ -8,7 +8,7 @@ struct collisStruct
 {
     sf::FloatRect _floatRect;
     fa::id_t id;
-    fa::id_t *targetId;
+    std::vector<fa::id_t> *targetsId;
     bool *_haveCollision;
 };
 

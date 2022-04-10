@@ -15,10 +15,10 @@ void CollisionDamage::update(long elapsedTime)
             this->_componentManager->getComponent<components::SolidBlock>(
                 it.first);
         if (solidC) {
-            if (solidC->_haveCollision) {
+            if (solidC->_haveCollision && solidC->_targetsId.size()) {
                 components::Damage *damageC =
                     this->_componentManager->getComponent<components::Damage>(
-                        solidC->_targetId);
+                        solidC->_targetsId[0]);
                 if (damageC) {
                     components::HealthComponent *healthC =
                         this->_componentManager

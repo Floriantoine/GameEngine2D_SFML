@@ -2,12 +2,10 @@
     "name": "Player##1",
     "Pos": [200, 400],
     "isSolidBlock": true,
-    "RectangleShape": true,
-
     "KeyMovement": true,
     "DiesLeavesScreen": true,
     "Sprite": "texture1",
-    "Size": [20, 10],
+    "Size": [10, 10],
     "Health": 20,
     "Damage": 1,
     "Speed": 10,
@@ -18,10 +16,5 @@
         "key": 57,
         "soundName": "laserBlast",
         "loop": false
-    },
-    "Force": [0,0],
-    "Masse": 1,
-    "RigideBody": {
-        "gravity": true
     }
 }

@@ -19,6 +19,7 @@ set(SRCS
         components/Damage.cpp
         components/DiesLeavesScreen.cpp
         components/Direction.cpp
+        components/EntitySpawner.cpp
         components/ForceComponent.cpp
         components/RigideBody.cpp
         components/HaveCollisionDamage.cpp
@@ -69,6 +70,7 @@ set(SRCS
         system/DiesLeavesScreen.cpp
         system/DisplayShape.cpp
         system/EntityGenerator.cpp
+        system/EntitySpawner.cpp
         system/FormSystem.cpp
         system/GravitySystem.cpp
         system/HealthSystem.cpp
