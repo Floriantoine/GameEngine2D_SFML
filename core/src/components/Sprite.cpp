@@ -38,6 +38,8 @@ void Sprite::dislayImGuiPanel()
                 _textureName = stringNames[current];
             }
         }
+        ImGui::InputInt(
+            "updateTime##ImGuiECSModifierspriteComp", &_elapseUpdate);
 
         if (this->_isInit) {
             ImGui::Image(_sprite);

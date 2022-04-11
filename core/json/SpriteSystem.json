@@ -17,6 +17,10 @@
             "name": "fence3"
         },
         {
+            "path": "../core/resources/1 Tiles/IndustrialTile_14.png",
+            "name": "industrialTile_14"
+        },
+        {
             "path": "../core/resources/animals/1 Dog/Idle.png",
             "name": "dog1Idle",
             "type": "ANIMATED",
