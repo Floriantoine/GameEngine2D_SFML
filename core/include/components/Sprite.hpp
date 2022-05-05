@@ -15,7 +15,7 @@ class Sprite : public fa::Component<Sprite> {
     std::string _textureName;
     bool _isInit = false;
     sf::Clock _clock;
-    int _elapseUpdate = 350;
+    int _elapseUpdate = 100;
 
   public:
     static void factory(fa::id_t entityId, nlohmann::json config);
