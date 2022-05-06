@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "components/BehaviorComponent.hpp"
 #include "components/Color.hpp"
 #include "components/Damage.hpp"
 #include "components/DiesLeavesScreen.hpp"

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "system/BehaviorSystem.hpp"
 #include "system/CollisionColor.hpp"
 #include "system/CollisionDamage.hpp"
 #include "system/CollisionSystem.hpp"

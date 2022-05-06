@@ -101,11 +101,11 @@ enum ImAxis_
     ImAxis_X1 = 0, // enabled by default
     ImAxis_X2,     // disabled by default
     ImAxis_X3,     // disabled by default
-    // vertical axes
+               // vertical axes
     ImAxis_Y1, // enabled by default
     ImAxis_Y2, // disabled by default
     ImAxis_Y3, // disabled by default
-    // bookeeping
+               // bookeeping
     ImAxis_COUNT
 };
 
@@ -304,7 +304,7 @@ enum ImPlotCol_
     ImPlotCol_MarkerFill,    // marker fill color (defaults to the current line
                              // color)
     ImPlotCol_ErrorBar,      // error bar color (defaults to ImGuiCol_Text)
-    // plot styling colors
+                        // plot styling colors
     ImPlotCol_FrameBg,      // plot frame background color (defaults to
                             // ImGuiCol_FrameBg)
     ImPlotCol_PlotBg,       // plot area background color (defaults to
@@ -352,7 +352,7 @@ enum ImPlotStyleVar_
                                      // 1) in pixels
     ImPlotStyleVar_DigitalBitGap, // float,  digital channels bit padding gap in
                                   // pixels
-    // plot styling variables
+                                  // plot styling variables
     ImPlotStyleVar_PlotBorderSize, // float,  thickness of border around plot
                                    // area
     ImPlotStyleVar_MinorAlpha, // float,  alpha multiplier applied to minor axis
@@ -1234,7 +1234,7 @@ IMPLOT_API void HideNextItem(
 
 // Use the following around calls to Begin/EndPlot to align l/r/t/b padding.
 // Consider using Begin/EndSubplots first. They are more feature rich and
-// accomplish the same behaviour by default. The functions below offer lower
+// accomplish the same behavior by default. The functions below offer lower
 // level control of plot alignment.
 
 // Align axis padding over multiple plots in a single row or column. #group_id

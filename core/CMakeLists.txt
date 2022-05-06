@@ -15,6 +15,7 @@ set(SRCS
         Game.cpp
         EventSystem.cpp
         components/hud/Text.cpp
+        components/BehaviorComponent.cpp
         components/Color.cpp
         components/Damage.cpp
         components/DiesLeavesScreen.cpp
@@ -65,6 +66,7 @@ set(SRCS
         sprite/SpriteManager.cpp
         sprite/dynamicSprite.cpp
         component/ComponentManager.cpp
+        system/BehaviorSystem.cpp
         system/CollisionColor.cpp
         system/CollisionDamage.cpp
         system/CollisionSystem.cpp
@@ -86,6 +88,7 @@ set(SRCS
         sound/SoundBuffer.cpp
         sound/SoundBufferManager.cpp
         entity/Entity.cpp
+        behavior/Behavior.cpp
 )
 
 list(TRANSFORM SRCS PREPEND ${SRC_DIR})

@@ -123,6 +123,8 @@ void Game::onInit()
         "EntitySpawner", components::EntitySpawner::factory);
     _componentManager.registerComponentName(
         "DirectionSprite", components::DirectionSprite::factory);
+    _componentManager.registerComponentName(
+        "Behavior", components::BehaviorComponent::factory);
     // ----------------------------------------------------------------------
     // ------------- _systemManager.createSystem<SystemType>(); -------------
     // ----------------------------------------------------------------------
@@ -145,6 +147,7 @@ void Game::onInit()
     _systemManager.createSystem<fa::MouseForceSystem>(_observerManager);
     _systemManager.createSystem<systems::OrbitSystem>();
     _systemManager.createSystem<systems::EntitySpawner>();
+    _systemManager.createSystem<systems::BehaviorSystem>();
     // ------------------------------------------------------------------------
     // ----------------------------------------Simulate sound Factory----------
     // ------------------------------------------------------------------------
