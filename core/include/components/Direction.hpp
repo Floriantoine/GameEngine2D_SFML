@@ -27,7 +27,6 @@ enum class DirectionsInt : int
     DOWN_LEFT,
     DOWN,
     DOWN_RIGHT
-
 };
 }; // namespace directions
 
