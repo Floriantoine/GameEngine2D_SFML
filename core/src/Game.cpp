@@ -1,4 +1,4 @@
-#include "./Game.hpp"
+#include "Game.hpp"
 #include "imgui.h"
 #include <imgui-SFML.h>
 #include <stdio.h>

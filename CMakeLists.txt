@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
-project("R-type" VERSION 1.0)
+project("SFML_Engine2D" VERSION 1.0)
 
 option(BUILD_TESTS "Build tests" OFF)
 
