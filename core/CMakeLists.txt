@@ -19,6 +19,7 @@ set(SRCS
         components/Damage.cpp
         components/DiesLeavesScreen.cpp
         components/Direction.cpp
+        components/DirectionSprite.cpp
         components/EntitySpawner.cpp
         components/ForceComponent.cpp
         components/RigideBody.cpp

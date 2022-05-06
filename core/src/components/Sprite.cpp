@@ -10,6 +10,7 @@ void Sprite::factory(fa::id_t entityId, nlohmann::json config)
         if (config.type() == nlohmann::json::value_t::object &&
             config["textureName"] != nullptr) {
             textureName = config["textureName"];
+
         } else {
             textureName = config;
         }
@@ -37,6 +38,8 @@ void Sprite::dislayImGuiPanel()
                 _textureName = stringNames[current];
             }
         }
+        ImGui::InputInt(
+            "updateTime##ImGuiECSModifierspriteComp", &_elapseUpdate);
 
         if (this->_isInit) {
             ImGui::Image(_sprite);

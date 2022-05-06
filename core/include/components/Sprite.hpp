@@ -4,14 +4,18 @@
 #include "nlohmann/json.hpp"
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/System/Clock.hpp>
 
 namespace components {
 
 class Sprite : public fa::Component<Sprite> {
   public:
+    int _currentStep = 0;
     sf::Sprite _sprite;
     std::string _textureName;
     bool _isInit = false;
+    sf::Clock _clock;
+    int _elapseUpdate = 100;
 
   public:
     static void factory(fa::id_t entityId, nlohmann::json config);

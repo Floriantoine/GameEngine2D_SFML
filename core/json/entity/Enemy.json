@@ -4,7 +4,7 @@
     "isSolidBlock": true,
     "DiesLeavesScreen": true,
     "Sprite": "texture1",
-    "Size": [10, 10],
+    "Size": [30, 30],
     "Health": 20,
     "HaveCollisionDamage": true,
     "Damage": 1

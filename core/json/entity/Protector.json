@@ -6,9 +6,9 @@
     "Color": "blue",
     "HaveCollisionDamage": true,
     "Orbit": {
-        "radius": 50, 
+        "radius": 100, 
         "pivotPoint": [400, 400]
     } ,
-    "TargetEntity": "Player##1",
+    "TargetEntity": "Enemy",
     "Damage": 100
 }

@@ -2,12 +2,10 @@
     "name": "Player##1",
     "Pos": [200, 400],
     "isSolidBlock": true,
-    "RectangleShape": true,
-
     "KeyMovement": true,
     "DiesLeavesScreen": true,
     "Sprite": "texture1",
-    "Size": [20, 10],
+    "Size": [50, 50],
     "Health": 20,
     "Damage": 1,
     "Speed": 10,
@@ -23,5 +21,14 @@
     "Masse": 1,
     "RigideBody": {
         "gravity": true
+    },
+    "DirectionSprite": {
+        "LEFT": "dog1Walk",
+        "UP_LEFT": "dog1Walk",
+        "DOWN_LEFT": "dog1Walk",
+        "UP_RIGHT": "dog1Walk",
+        "DOWN_RIGHT": "dog1Walk",
+        "RIGHT": "dog1Walk",
+        "STATIC": "dog1Idle"
     }
 }

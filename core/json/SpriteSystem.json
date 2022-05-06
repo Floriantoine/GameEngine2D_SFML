@@ -11,10 +11,44 @@
         {
             "path": "../core/resources/objects/Fence2.png",
             "name": "fence2"
-        }
-        , {
+        },
+        {
             "path": "../core/resources/objects/Fence3.png",
             "name": "fence3"
+        },
+        {
+            "path": "../core/resources/1 Tiles/IndustrialTile_14.png",
+            "name": "industrialTile_14"
+        },
+        {
+            "path": "../core/resources/animals/1 Dog/Idle.png",
+            "name": "dog1Idle",
+            "type": "ANIMATED",
+            "step": 4
+        },
+        {
+            "path": "../core/resources/animals/1 Dog/Walk.png",
+            "name": "dog1Walk",
+            "type": "ANIMATED",
+            "step": 6
+        },
+        {
+            "path": "../core/resources/animatedObjects/Hammer.png",
+            "name": "Hammer",
+            "type": "ANIMATED",
+            "step": 8
+        },
+        {
+            "path": "../core/resources/animatedObjects/Screen1.png",
+            "name": "Screen1",
+            "type": "ANIMATED",
+            "step": 4
+        },
+        {
+            "path": "../core/resources/animatedObjects/Screen2.png",
+            "name": "Screen2",
+            "type": "ANIMATED",
+            "step": 4
         }
     ]
 }
