@@ -15,6 +15,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 enable_testing()
 
 add_subdirectory(core)
+# add_subdirectory(examples)
 
 if (BUILD_TESTS)
     add_subdirectory(test)

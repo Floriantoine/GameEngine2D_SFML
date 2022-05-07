@@ -8,7 +8,7 @@ namespace fa {
 
 class Entity {
   private:
-    static const id_t getNextId()
+    static id_t getNextId()
     {
         static id_t id = 0;
         return id++;

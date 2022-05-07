@@ -111,10 +111,10 @@ void ParticleFactory::update(long elapsedTime)
 
     int tempo = particlesArray.size();
     ImGui::SliderInt("Count", &tempo, 0, 10000);
-    if (tempo != particlesArray.size()) {
-        if (tempo > particlesArray.size())
+    if (static_cast<std::size_t>(tempo) != particlesArray.size()) {
+        if (static_cast<std::size_t>(tempo) > particlesArray.size())
             this->setParticleRange(particlesArray.size(), tempo);
-        if (tempo < particlesArray.size())
+        if (static_cast<std::size_t>(tempo) < particlesArray.size())
             this->_componentManager.removeAllComponentsRange(
                 tempo, particlesArray.size());
     }

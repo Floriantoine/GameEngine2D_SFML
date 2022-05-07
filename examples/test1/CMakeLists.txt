@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project("SFML_Engine2D" LANGUAGES CXX)
 
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin/examples)
-
 set(WARNING_FLAGS
         -Wall
         -Wextra
@@ -27,3 +25,4 @@ target_link_libraries(my_game_test
 )
 
 target_compile_options(my_game_test PRIVATE ${WARNING_FLAGS})
+target_link_options(my_game_test PRIVATE -rdynamic)

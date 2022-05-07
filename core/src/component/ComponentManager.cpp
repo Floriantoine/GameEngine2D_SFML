@@ -89,10 +89,10 @@ void ComponentManager::removeAllComponentsRange(id_t startId, id_t endId)
 {
     if (endId < startId)
         assert("Bad Range");
-    for (startId; startId < endId; startId++) {
+    for (fa::id_t index = startId; index < endId; index++) {
         for (const auto &list: this->_componentLists) {
-            if (list.second.find(startId) != list.second.end()) {
-                this->removeComponent(list.first, startId);
+            if (list.second.find(index) != list.second.end()) {
+                this->removeComponent(list.first, index);
             }
         }
     }

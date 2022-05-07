@@ -7,18 +7,25 @@ namespace components {
 
 class HealthComponent : public fa::Component<HealthComponent> {
   public:
-    int health{0};
-    int _initHealth{0};
-    int _rangeMin{0};
-    int _rangeMax{0};
+    int health;
+    int _initHealth;
+    int _rangeMin;
+    int _rangeMax;
 
   public:
     HealthComponent() = default;
     HealthComponent(int inputHealth) : health(inputHealth)
     {
+        _initHealth = 0;
+        _rangeMin = 0;
+        _rangeMax = 0;
     }
     HealthComponent(nlohmann::json config)
     {
+        this->health = 0;
+        this->_initHealth = 0;
+        this->_rangeMin = 0;
+        this->_rangeMax = 0;
         if (config["init"] != nullptr) {
             _initHealth = config["init"];
             health = _initHealth;

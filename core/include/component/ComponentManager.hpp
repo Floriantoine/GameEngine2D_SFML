@@ -116,8 +116,8 @@ class ComponentManager {
     {
         if (endId < startId)
             assert("Bad Range");
-        for (startId; startId < endId; startId++) {
-            addComponent<T>(startId, std::forward<Args>(args)...);
+        for (fa::id_t index = startId; index < endId; index++) {
+            addComponent<T>(index, std::forward<Args>(args)...);
         }
     }
 
@@ -136,8 +136,8 @@ class ComponentManager {
     {
         if (endId < startId)
             assert("Bad Range");
-        for (startId; startId < endId; startId++) {
-            this->removeComponent(T::getTypeId(), startId);
+        for (fa::id_t index = startId; index < endId; index++) {
+            this->removeComponent(T::getTypeId(), index);
         }
     }
 

@@ -21,11 +21,11 @@ class AGame {
 
     fa::ComponentManager _componentManager;
     fa::SystemManager _systemManager;
-    SceneManager _sceneManager;
-    Game::EventSystem _eventSys;
     ObserverManager _observerManager;
     parallax::ParallaxSystem _parallax;
     fa::TextureManager _textureManager;
+    SceneManager _sceneManager;
+    Game::EventSystem _eventSys;
     fa::SpriteManager _spriteManager;
     ParticleFactory _particleSystem;
     factory::EntityFactory _entityFactory;
@@ -33,9 +33,9 @@ class AGame {
 
     AGame()
         : _componentManager(), _systemManager(_componentManager),
-          _observerManager(), _textureManager(), _spriteManager(),
-          _eventSys(_observerManager), _parallax(_observerManager),
+          _observerManager(), _parallax(_observerManager), _textureManager(),
           _sceneManager(_parallax, _textureManager),
+          _eventSys(_observerManager), _spriteManager(),
           _particleSystem(_observerManager, _componentManager, _systemManager),
           _entityFactory(_observerManager, _componentManager, _systemManager)
     {
